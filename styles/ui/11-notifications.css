@@ -1,7 +1,7 @@
-atom-notifications {
+lumine-notifications {
   font-size: calc(var(--ui-size) * 1.2);
 
-  atom-notification {
+  lumine-notification {
     width: 32em;
     &.has-detail {
       width: 32em;

@@ -4,12 +4,12 @@ const root = document.documentElement;
 
 describe("one-theme", () => {
   afterEach(async () => {
-    await atom.packages.deactivatePackage("one-day-ui");
-    await atom.packages.deactivatePackage("one-theme");
+    await lumine.packages.deactivatePackage("one-day-ui");
+    await lumine.packages.deactivatePackage("one-theme");
   });
 
   it("applies its appearance settings as root attributes", async () => {
-    await atom.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-theme");
 
     // Defaults.
     expect(root.getAttribute("ui-tabsizing")).toBe("even");
@@ -17,49 +17,49 @@ describe("one-theme", () => {
     expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
 
     // Changing a setting updates the matching attribute.
-    atom.config.set("one-theme.tabSizing", "Maximum");
+    lumine.config.set("one-theme.tabSizing", "Maximum");
     expect(root.getAttribute("ui-tabsizing")).toBe("maximum");
 
-    atom.config.set("one-theme.tabCloseButton", "Left");
+    lumine.config.set("one-theme.tabCloseButton", "Left");
     expect(root.getAttribute("ui-tab-close-button")).toBe("left");
 
-    atom.config.set("one-theme.hideDockButtons", true);
+    lumine.config.set("one-theme.hideDockButtons", true);
     expect(root.getAttribute("ui-dock-buttons")).toBe("hidden");
   });
 
   it("removes the attributes when deactivated", async () => {
-    await atom.packages.activatePackage("one-theme");
-    atom.config.set("one-theme.hideDockButtons", true);
+    await lumine.packages.activatePackage("one-theme");
+    lumine.config.set("one-theme.hideDockButtons", true);
     expect(root.getAttribute("ui-dock-buttons")).toBe("hidden");
 
-    await atom.packages.deactivatePackage("one-theme");
+    await lumine.packages.deactivatePackage("one-theme");
     expect(root.hasAttribute("ui-tabsizing")).toBe(false);
     expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
   });
 
   it("registers its light and dark themes as a pack", async () => {
-    await atom.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-theme");
 
-    const themePack = atom.themes.getThemePacks().find(({ name }) => name === "One");
+    const themePack = lumine.themes.getThemePacks().find(({ name }) => name === "One");
 
     expect(themePack.light).toEqual(["one-day-ui", "one-day-syntax"]);
     expect(themePack.dark).toEqual(["one-night-ui", "one-night-syntax"]);
   });
 
   it("keeps its package-specific config stylesheet out of the shared UI directory", async () => {
-    await atom.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-theme");
 
-    const uiPaths = atom.packages.getLoadedPackage("one-day-ui").getStylesheetPaths();
+    const uiPaths = lumine.packages.getLoadedPackage("one-day-ui").getStylesheetPaths();
     const configPath = uiPaths.find((stylePath) => path.basename(stylePath) === "26-config.css");
 
     expect(configPath).toContain(path.join("one-theme", "styles", "one-ui"));
   });
 
   it("runs the modal-list scrollbar track the full height of the list", async () => {
-    await atom.packages.activatePackage("one-theme");
-    await atom.packages.activatePackage("one-day-ui");
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
 
-    const modal = document.createElement("atom-panel");
+    const modal = document.createElement("lumine-panel");
     modal.className = "modal";
     const selectList = document.createElement("div");
     selectList.className = "select-list";

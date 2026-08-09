@@ -1,5 +1,5 @@
 /*
- * one-night syntax styles — converted from the one-dark-syntax Less sources.
+ * one-day syntax styles — converted from one-light-syntax Less sources.
  * Palette lives in variables.css.
  */
 
@@ -7,13 +7,14 @@
 
 /* Editor styles (background, gutter, guides) */
 
-atom-text-editor {
+lumine-text-editor {
   background-color: var(--syntax-background-color);
   color: var(--syntax-text-color);
 
   .line.cursor-line {
-    /* needs to be semi-transparent to show search results */
-    background-color: hsla(220, 100%, 80%, 0.04);
+    background-color: rgb(
+      from var(--syntax-fg) r g b / 5%
+    ); /* needs to be semi-transparent to show search results */
     /* Ligatures joining across the caret are distracting while typing. */
     font-variant-ligatures: none;
   }
@@ -107,7 +108,7 @@ atom-text-editor {
   }
 
   &.syntax--operator {
-    color: var(--hue-3);
+    color: var(--mono-1);
   }
 
   &.syntax--other.syntax--special-method {
@@ -161,9 +162,11 @@ atom-text-editor {
   }
 }
 
-/* Style `property` (anywhere in a scope name) like `variable` to keep
-   continuity of appearance after some scope name changes in
-   JavaScript/TypeScript. */
+/*
+ * Style `property` (anywhere in a scope name) like `variable` to keep
+ * continuity of appearance after some scope name changes in
+ * JavaScript/TypeScript.
+ */
 .syntax--property {
   color: var(--hue-5);
 }
@@ -401,8 +404,10 @@ atom-text-editor {
     color: var(--hue-4);
   }
 
-  /* Horizontal rules in GFM used to be scoped as `comment.hr`. For continuity,
-     we assign the color of a comment to this new scope. */
+  /*
+   * Horizontal rules in GFM used to be scoped as `comment.hr`. For continuity,
+   * we assign the color of a comment to this new scope.
+   */
   &.syntax--horizontal-rule {
     color: var(--mono-3);
   }
@@ -554,7 +559,6 @@ atom-text-editor {
   .syntax--meta.syntax--structure.syntax--dictionary.syntax--json {
     & > .syntax--string.syntax--quoted.syntax--json {
       color: var(--hue-5);
-
       & > .syntax--punctuation.syntax--string {
         color: var(--hue-5);
       }
@@ -651,18 +655,26 @@ atom-text-editor {
 /*
    This defines styling rules for syntax classes.
 
+   See the naming conventions for a list of syntax classes:
+   https://flight-manual.atom.io/hacking-atom/sections/syntax-naming-conventions
+
    When styling rules conflict:
    - The last rule overrides previous rules.
    - The rule with most classes and pseudo-classes overrides the last rule.
 */
 
-/* if for and del let = && */
+/* if for return global let */
 .syntax--keyword {
   color: var(--hue-3);
 
   /* int char float */
   &.syntax--type {
     color: var(--hue-1);
+  }
+
+  /* and or new del */
+  &.syntax--operator {
+    color: var(--hue-3);
   }
 
   /* super */
@@ -673,6 +685,11 @@ atom-text-editor {
   /* this self */
   &.syntax--variable {
     color: var(--hue-5);
+  }
+
+  /* = + && | << ? */
+  &.syntax--symbolic {
+    color: var(--mono-1);
   }
 }
 
@@ -735,19 +752,9 @@ atom-text-editor {
 .syntax--punctuation {
   color: var(--mono-1);
 
+  /* . -> :: [] */
   &.syntax--accessor {
     color: var(--mono-1);
-
-    /* . -> :: */
-    &.syntax--member,
-    &.syntax--scope {
-      color: var(--hue-3);
-    }
-  }
-
-  /* { } ~~~ */
-  &.syntax--embedded {
-    color: var(--hue-3);
   }
 }
 
@@ -767,7 +774,7 @@ atom-text-editor {
 
   /* ${ } */
   &.syntax--interpolation {
-    color: var(--hue-3);
+    color: var(--mono-1);
   }
 
   /* /^reg[ex]?p/ */

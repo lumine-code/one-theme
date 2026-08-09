@@ -13,7 +13,7 @@
     max-width: 22em;
     min-width: 7em; /* ~ icon + 6 characters */
   }
-  atom-dock & {
+  lumine-dock & {
     .tab,
     .tab.active {
       max-width: none;
@@ -46,7 +46,7 @@
     min-width: 2.75em;
     max-width: 23.1em; /* 7em tab-min-width * 3.3 */
   }
-  atom-dock {
+  lumine-dock {
     .tab,
     .tab.active {
       max-width: 14em; /* 7em tab-min-width * 2 */
@@ -69,12 +69,12 @@
 
 [ui-dock-buttons="hidden"] {
   /* Hide docks when not open */
-  .atom-dock-inner:not(.atom-dock-open) {
+  .lumine-dock-inner:not(.lumine-dock-open) {
     display: none;
   }
 
   /* Hide toggle buttons */
-  .atom-dock-toggle-button {
+  .lumine-dock-toggle-button {
     display: none;
   }
 }

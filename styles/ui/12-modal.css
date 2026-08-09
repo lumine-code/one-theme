@@ -1,11 +1,11 @@
-atom-panel-container.modal {
+lumine-panel-container.modal {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 }
 
-atom-panel.modal {
+lumine-panel.modal {
   position: relative;
   width: 100%;
   max-width: min(92vw, calc(var(--ui-size) * 70));
@@ -20,7 +20,7 @@ atom-panel.modal {
     top: calc(var(--component-padding) * 8);
   }
 
-  atom-text-editor[mini] {
+  lumine-text-editor[mini] {
     margin-bottom: calc(var(--ui-padding) * 0.75);
     font-size: calc(var(--input-font-size) * 1.05);
   }

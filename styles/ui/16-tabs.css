@@ -102,7 +102,7 @@
 
   /* Tabs in the docks ---------------------- */
 
-  atom-dock & {
+  lumine-dock & {
     .tab.active {
       background-color: var(--tool-panel-background-color);
     }
@@ -169,8 +169,8 @@
 
 /* Active/focused pane marker -------------- */
 
-atom-pane-axis > atom-pane.active,
-atom-pane-container > atom-pane.pane {
+lumine-pane-axis > lumine-pane.active,
+lumine-pane-container > lumine-pane.pane {
   .tab.active:before {
     content: "";
     position: absolute;
@@ -190,7 +190,7 @@ atom-pane-container > atom-pane.pane {
 }
 
 /* hide marker in docks */
-atom-dock .tab-bar .tab::before {
+lumine-dock .tab-bar .tab::before {
   display: none;
 }
 

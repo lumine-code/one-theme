@@ -6,7 +6,7 @@ html {
   font-size: var(--font-size);
 }
 
-atom-workspace {
+lumine-workspace {
   background-color: var(--app-background-color);
 }
 
@@ -33,7 +33,7 @@ atom-workspace {
     background: var(--scrollbar-background-color);
   }
 
-  atom-text-editor {
+  lumine-text-editor {
     ::-webkit-scrollbar-track {
       background: var(--scrollbar-background-color-editor);
     }

@@ -1,7 +1,7 @@
 /* Docks ------------------------------ */
 
 /* Make handles not take up any space when dock is open */
-.atom-dock-resize-handle {
+.lumine-dock-resize-handle {
   position: absolute;
   z-index: 11; /* same as toggle buttons */
 
@@ -23,20 +23,20 @@
 }
 
 /* Add borders */
-.atom-dock-inner.atom-dock-open.left {
+.lumine-dock-inner.lumine-dock-open.left {
   border-right: 1px solid var(--base-border-color);
 }
-.atom-dock-inner.atom-dock-open.right {
+.lumine-dock-inner.lumine-dock-open.right {
   border-left: 1px solid var(--base-border-color);
 }
 
 /* Make toggle buttons cover ^ border */
-.atom-dock-toggle-button.left {
+.lumine-dock-toggle-button.left {
   margin-left: -2px;
 }
-.atom-dock-toggle-button.right {
+.lumine-dock-toggle-button.right {
   margin-right: -2px;
 }
-.atom-dock-inner:not(.atom-dock-open) .atom-dock-toggle-button.bottom {
+.lumine-dock-inner:not(.lumine-dock-open) .lumine-dock-toggle-button.bottom {
   margin-bottom: -1px;
 }
