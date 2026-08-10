@@ -28,10 +28,22 @@
       background-color: var(--level-3-color-active);
     }
 
-    /* reset on child inline-block */
+    /* Reset on a child inline-block. `.inline-block` is a layout utility, so a
+       tile may nest one for its own row of labels — git-center, editor-status
+       and tasklist-tools all do. The tile is the hoverable unit, not the blocks
+       inside it, and a nested one always hovers together with its host: with an
+       opaque colour that repaints the same shade unnoticed, but a theme
+       overriding this with a translucent one composites a second, darker
+       rectangle inset by the tile's padding. Clear it here so no theme has to
+       know. */
     .inline-block {
       margin: 0;
       padding: 0;
+
+      &:hover,
+      &:active {
+        background-color: transparent;
+      }
     }
   }
 
