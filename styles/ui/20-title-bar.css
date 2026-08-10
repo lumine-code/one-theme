@@ -1,17 +1,29 @@
-/* A control tile is what the title bar stamped `.title-bar-item` on. The
-   package supplies the box — flex centring, full strip height, no button
-   chrome, no drag region — and the theme supplies the look, the same division
-   the status bar uses. Never key this on `.inline-block`: that is a layout
-   utility packages also use inside a tile. */
-.title-bar .control-tiles .title-bar-item {
-  color: var(--text-color-subtle);
+/* A control tile is what the title bar stamped `.title-bar-item` on, and an
+   application-menu label is the other thing you can point at in the same strip.
+   The package supplies both boxes — flex centring, strip height, the layer a
+   label's highlight paints on — and the theme supplies the look, the same
+   division the status bar uses. Never key this on `.inline-block`: that is a
+   layout utility packages also use inside a tile.
 
-  &:hover {
+   A label paints through `::before` because its own box holds the submenu. That
+   is the only difference; the two take the same colour in the same state, so
+   pointing at a menu and pointing at a tile look alike. */
+.title-bar {
+  .control-tiles .title-bar-item {
+    color: var(--text-color-subtle);
+  }
+
+  .control-tiles .title-bar-item:hover {
     color: var(--text-color);
+  }
+
+  .control-tiles .title-bar-item:hover,
+  .app-menu .menu-label:is(:hover, .open, .focused)::before {
     background-color: var(--level-3-color-hover);
   }
 
-  &:active {
+  .control-tiles .title-bar-item:active,
+  .app-menu .menu-label:active::before {
     background-color: var(--level-3-color-active);
   }
 }
