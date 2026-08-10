@@ -206,4 +206,56 @@ describe("one-theme", () => {
 
     modal.remove();
   });
+
+  // A tile is the element a bar stamps its own class on. `.inline-block` is a
+  // layout utility packages also use *inside* a tile for a row of labels, so
+  // styling that instead gives the nesting the tile's padding and a second
+  // hover rectangle inset within the tile's own.
+  it("styles a bar's tile and never a block nested inside one", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+
+    const statusBar = document.createElement("div");
+    statusBar.className = "status-bar";
+    const panel = document.createElement("div");
+    panel.className = "status-bar-left";
+    const tile = document.createElement("div");
+    tile.className = "status-bar-item";
+    const nested = document.createElement("a");
+    nested.className = "inline-block";
+    tile.appendChild(nested);
+    panel.appendChild(tile);
+    statusBar.appendChild(panel);
+    document.body.appendChild(statusBar);
+
+    expect(getComputedStyle(tile).paddingLeft).toBe("9px");
+    expect(getComputedStyle(tile).paddingRight).toBe("9px");
+    expect(getComputedStyle(nested).paddingLeft).toBe("0px");
+    expect(getComputedStyle(nested).paddingRight).toBe("0px");
+
+    // The panel owns the space between tiles, so a tile carries no margin and
+    // the utility's own is not wanted anywhere in a one-line strip.
+    expect(getComputedStyle(panel).gap).toBe("0px");
+    expect(getComputedStyle(nested).marginRight).toBe("0px");
+    statusBar.remove();
+
+    const titleBar = document.createElement("div");
+    titleBar.className = "title-bar";
+    const controlTiles = document.createElement("div");
+    controlTiles.className = "control-tiles";
+    const controlTile = document.createElement("button");
+    controlTile.className = "title-bar-item";
+    const controlNested = document.createElement("span");
+    controlNested.className = "inline-block";
+    controlTile.appendChild(controlNested);
+    controlTiles.appendChild(controlTile);
+    titleBar.appendChild(controlTiles);
+    document.body.appendChild(titleBar);
+
+    // The package supplies the control tile's box; the theme supplies its
+    // colour. Pin the variable it reads rather than a palette value.
+    titleBar.style.setProperty("--text-color-subtle", "rgb(1, 2, 3)");
+    expect(getComputedStyle(controlTile).color).toBe("rgb(1, 2, 3)");
+    titleBar.remove();
+  });
 });
