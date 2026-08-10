@@ -1,0 +1,340 @@
+/*
+ * Base scope-to-colour mapping for the TextMate scope vocabulary.
+ *
+ * Shared by one-day-syntax and one-night-syntax; every colour is a palette
+ * variable, and the two variants differ only in the variables.css each loads
+ * after these rules.
+ */
+
+/* Language syntax highlighting */
+
+.syntax--comment {
+  color: var(--mono-3);
+
+  .syntax--markup.syntax--link {
+    color: var(--mono-3);
+  }
+}
+
+.syntax--entity {
+  &.syntax--name.syntax--type {
+    color: var(--hue-6-2);
+  }
+
+  &.syntax--other.syntax--inherited-class {
+    color: var(--hue-6-2);
+  }
+}
+
+.syntax--keyword {
+  color: var(--hue-3);
+
+  &.syntax--control {
+    color: var(--hue-3);
+  }
+
+  &.syntax--operator {
+    color: var(--hue-3);
+  }
+
+  &.syntax--other.syntax--special-method {
+    color: var(--hue-2);
+  }
+
+  &.syntax--other.syntax--unit {
+    color: var(--hue-6);
+  }
+}
+
+.syntax--storage {
+  color: var(--hue-3);
+
+  &.syntax--type {
+    &.syntax--annotation,
+    &.syntax--primitive {
+      color: var(--hue-3);
+    }
+  }
+
+  &.syntax--modifier {
+    &.syntax--package,
+    &.syntax--import {
+      color: var(--mono-1);
+    }
+  }
+}
+
+.syntax--constant {
+  color: var(--hue-6);
+
+  &.syntax--variable {
+    color: var(--hue-6);
+  }
+
+  &.syntax--character.syntax--escape {
+    color: var(--hue-1);
+  }
+
+  &.syntax--numeric {
+    color: var(--hue-6);
+  }
+
+  &.syntax--other.syntax--color {
+    color: var(--hue-1);
+  }
+
+  &.syntax--other.syntax--symbol {
+    color: var(--hue-1);
+  }
+}
+
+/*
+ * Style `property` (anywhere in a scope name) like `variable` to keep
+ * continuity of appearance after some scope name changes in
+ * JavaScript/TypeScript.
+ */
+.syntax--property {
+  color: var(--hue-5);
+}
+
+.syntax--variable {
+  color: var(--hue-5);
+
+  &.syntax--interpolation {
+    color: var(--hue-5-2);
+  }
+
+  &.syntax--parameter {
+    color: var(--mono-1);
+  }
+}
+
+.syntax--string {
+  color: var(--hue-4);
+
+  > .syntax--source,
+  .syntax--embedded {
+    color: var(--mono-1);
+  }
+
+  &.syntax--regexp {
+    color: var(--hue-1);
+
+    .syntax--source.syntax--ruby.syntax--embedded {
+      color: var(--hue-6-2);
+    }
+  }
+
+  &.syntax--other.syntax--link {
+    color: var(--hue-5);
+  }
+}
+
+.syntax--punctuation {
+  &.syntax--definition {
+    &.syntax--comment {
+      color: var(--mono-3);
+    }
+
+    &.syntax--method-parameters,
+    &.syntax--function-parameters,
+    &.syntax--parameters,
+    &.syntax--separator,
+    &.syntax--seperator,
+    &.syntax--array {
+      color: var(--mono-1);
+    }
+
+    &.syntax--bold {
+      color: var(--hue-6-2);
+      font-weight: bold;
+    }
+
+    &.syntax--italic {
+      color: var(--hue-3);
+      font-style: italic;
+    }
+  }
+
+  &.syntax--section {
+    &.syntax--embedded {
+      color: var(--hue-5-2);
+    }
+
+    &.syntax--method,
+    &.syntax--class,
+    &.syntax--inner-class {
+      color: var(--mono-1);
+    }
+  }
+}
+
+.syntax--support {
+  &.syntax--class,
+  &.syntax--module {
+    color: var(--hue-6-2);
+  }
+
+  &.syntax--namespace {
+    color: var(--hue-6-2);
+  }
+
+  &.syntax--type {
+    color: var(--hue-1);
+  }
+
+  &.syntax--other {
+    &.syntax--function {
+      color: var(--hue-2);
+    }
+  }
+
+  &.syntax--function {
+    color: var(--hue-1);
+
+    &.syntax--any-method {
+      color: var(--hue-2);
+    }
+  }
+}
+
+.syntax--entity {
+  &.syntax--name.syntax--function {
+    color: var(--hue-2);
+  }
+
+  &.syntax--name.syntax--class,
+  &.syntax--name.syntax--type.syntax--class {
+    color: var(--hue-6-2);
+  }
+
+  &.syntax--name.syntax--section {
+    color: var(--hue-2);
+  }
+
+  &.syntax--name.syntax--tag {
+    color: var(--hue-5);
+  }
+
+  &.syntax--other.syntax--attribute-name {
+    color: var(--hue-6);
+
+    &.syntax--id {
+      color: var(--hue-2);
+    }
+  }
+}
+
+.syntax--meta {
+  &.syntax--class:not(.syntax--block) {
+    color: var(--hue-6-2);
+
+    &.syntax--body {
+      color: var(--mono-1);
+    }
+  }
+
+  &.syntax--method-call,
+  &.syntax--method {
+    color: var(--mono-1);
+  }
+
+  &.syntax--definition {
+    &.syntax--variable {
+      color: var(--hue-5);
+    }
+  }
+
+  &.syntax--link {
+    color: var(--hue-6);
+  }
+
+  &.syntax--require {
+    color: var(--hue-2);
+  }
+
+  &.syntax--selector {
+    color: var(--hue-3);
+  }
+
+  &.syntax--separator {
+    color: var(--mono-1);
+  }
+
+  &.syntax--tag {
+    color: var(--mono-1);
+  }
+}
+
+.syntax--underline {
+  text-decoration: underline;
+}
+
+.syntax--none {
+  color: var(--mono-1);
+}
+
+.syntax--invalid {
+  &.syntax--deprecated {
+    color: hsl(from var(--syntax-color-modified) h s calc(l - 50)) !important;
+    background-color: var(--syntax-color-modified) !important;
+  }
+  &.syntax--illegal {
+    color: white !important;
+    background-color: var(--syntax-color-removed) !important;
+  }
+}
+
+/* Languages ------------------------------------------------- */
+
+.syntax--markup {
+  &.syntax--bold {
+    color: var(--hue-6);
+    font-weight: bold;
+  }
+
+  &.syntax--changed {
+    color: var(--hue-3);
+  }
+
+  &.syntax--deleted {
+    color: var(--hue-5);
+  }
+
+  &.syntax--italic {
+    color: var(--hue-3);
+    font-style: italic;
+  }
+
+  &.syntax--heading {
+    color: var(--hue-5);
+
+    .syntax--punctuation.syntax--definition.syntax--heading {
+      color: var(--hue-5);
+    }
+  }
+
+  &.syntax--link {
+    color: var(--hue-1);
+  }
+
+  &.syntax--inserted {
+    color: var(--hue-4);
+  }
+
+  &.syntax--quote {
+    color: var(--hue-6);
+  }
+
+  &.syntax--raw {
+    color: var(--hue-4);
+  }
+
+  /*
+   * Horizontal rules in GFM used to be scoped as `comment.hr`. For continuity,
+   * we assign the color of a comment to this new scope.
+   */
+  &.syntax--horizontal-rule {
+    color: var(--mono-3);
+  }
+}

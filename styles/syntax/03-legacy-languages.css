@@ -1,0 +1,244 @@
+/*
+ * Per-language corrections to the TextMate scope vocabulary.
+ *
+ * Shared by one-day-syntax and one-night-syntax; every colour is a palette
+ * variable, and the two variants differ only in the variables.css each loads
+ * after these rules.
+ */
+
+/* --- syntax-legacy/cs --- */
+
+.syntax--source.syntax--cs {
+  .syntax--keyword.syntax--operator {
+    color: var(--hue-3);
+  }
+}
+
+/* --- syntax-legacy/css --- */
+
+.syntax--source.syntax--css {
+  /* highlight properties/values if they are supported */
+  .syntax--property-name,
+  .syntax--property-value {
+    color: var(--mono-2);
+    &.syntax--support {
+      color: var(--mono-1);
+    }
+  }
+}
+
+/* --- syntax-legacy/elixir --- */
+
+.syntax--source.syntax--elixir {
+  .syntax--source.syntax--embedded.syntax--source {
+    color: var(--mono-1);
+  }
+  .syntax--constant.syntax--language,
+  .syntax--constant.syntax--numeric,
+  .syntax--constant.syntax--definition {
+    color: var(--hue-2);
+  }
+  .syntax--variable.syntax--definition,
+  .syntax--variable.syntax--anonymous {
+    color: var(--hue-3);
+  }
+  .syntax--parameter.syntax--variable.syntax--function {
+    color: var(--hue-6);
+    font-style: italic;
+  }
+  .syntax--quoted {
+    color: var(--hue-4);
+  }
+  .syntax--keyword.syntax--special-method,
+  .syntax--embedded.syntax--section,
+  .syntax--embedded.syntax--source.syntax--empty {
+    color: var(--hue-5);
+  }
+  .syntax--readwrite.syntax--module {
+    .syntax--punctuation {
+      color: var(--hue-5);
+    }
+  }
+  .syntax--regexp.syntax--section,
+  .syntax--regexp.syntax--string {
+    color: var(--hue-5-2);
+  }
+  .syntax--separator,
+  .syntax--keyword.syntax--operator {
+    color: var(--hue-6);
+  }
+  .syntax--variable.syntax--constant {
+    color: var(--hue-6-2);
+  }
+  .syntax--array,
+  .syntax--scope,
+  .syntax--section {
+    color: var(--mono-2);
+  }
+}
+
+/* --- syntax-legacy/gfm --- */
+
+.syntax--source.syntax--gfm {
+  .syntax--markup {
+    -webkit-font-smoothing: auto;
+  }
+
+  .syntax--link .syntax--entity {
+    color: var(--hue-2);
+  }
+
+  .syntax--punctuation.syntax--definition.syntax--list-item {
+    color: var(--hue-5);
+  }
+
+  .syntax--meta.syntax--link.syntax--text {
+    color: var(--hue-2);
+  }
+}
+
+/* --- syntax-legacy/ini --- */
+
+.syntax--source.syntax--ini {
+  .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+    color: var(--hue-5);
+  }
+}
+
+/* --- syntax-legacy/java --- */
+
+.syntax--source.syntax--java {
+  .syntax--storage {
+    &.syntax--modifier.syntax--import {
+      color: var(--hue-6-2);
+    }
+
+    &.syntax--type {
+      color: var(--hue-6-2);
+    }
+  }
+  .syntax--keyword.syntax--operator.syntax--instanceof {
+    color: var(--hue-3);
+  }
+}
+
+.syntax--source.syntax--java-properties {
+  .syntax--meta.syntax--key-pair {
+    color: var(--hue-5);
+
+    & > .syntax--punctuation {
+      color: var(--mono-1);
+    }
+  }
+}
+
+/* --- syntax-legacy/typescript --- */
+
+.syntax--source.syntax--ts {
+  .syntax--keyword.syntax--operator {
+    color: var(--hue-1);
+  }
+}
+
+.syntax--source.syntax--flow {
+  .syntax--keyword.syntax--operator {
+    color: var(--hue-1);
+  }
+}
+
+/* --- syntax-legacy/json --- */
+
+.syntax--source.syntax--json {
+  .syntax--meta.syntax--structure.syntax--dictionary.syntax--json {
+    & > .syntax--string.syntax--quoted.syntax--json {
+      color: var(--hue-5);
+      & > .syntax--punctuation.syntax--string {
+        color: var(--hue-5);
+      }
+    }
+  }
+
+  /* Color JSON keys differently from other strings. */
+  .syntax--meta.syntax--structure.syntax--key {
+    .syntax--string.syntax--quoted.syntax--double {
+      color: var(--hue-5);
+    }
+  }
+
+  .syntax--meta.syntax--structure.syntax--dictionary.syntax--json,
+  .syntax--meta.syntax--structure.syntax--array.syntax--json {
+    & > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+    &
+      > .syntax--value.syntax--json
+      > .syntax--string.syntax--quoted.syntax--json
+      > .syntax--punctuation {
+      color: var(--hue-4);
+    }
+
+    & > .syntax--constant.syntax--language.syntax--json {
+      color: var(--hue-1);
+    }
+  }
+}
+
+/* --- syntax-legacy/ng --- */
+
+.syntax--ng {
+  &.syntax--interpolation {
+    color: var(--hue-5);
+
+    &.syntax--begin,
+    &.syntax--end {
+      color: var(--hue-2);
+    }
+
+    .syntax--function {
+      color: var(--hue-5);
+
+      &.syntax--begin,
+      &.syntax--end {
+        color: var(--hue-2);
+      }
+    }
+
+    .syntax--bool {
+      color: var(--hue-6);
+    }
+
+    .syntax--bracket {
+      color: var(--mono-1);
+    }
+  }
+
+  &.syntax--pipe,
+  &.syntax--operator {
+    color: var(--mono-1);
+  }
+
+  &.syntax--tag {
+    color: var(--hue-1);
+  }
+
+  &.syntax--attribute-with-value {
+    .syntax--attribute-name {
+      color: var(--hue-6-2);
+    }
+
+    .syntax--string {
+      color: var(--hue-3);
+
+      &.syntax--begin,
+      &.syntax--end {
+        color: var(--mono-1);
+      }
+    }
+  }
+}
+
+/* --- syntax-legacy/php --- */
+
+.syntax--source.syntax--php {
+  .syntax--class.syntax--bracket {
+    color: var(--mono-1);
+  }
+}

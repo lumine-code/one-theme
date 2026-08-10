@@ -1,0 +1,108 @@
+/*
+ * Per-language corrections to the current scope vocabulary.
+ *
+ * Shared by one-day-syntax and one-night-syntax; every colour is a palette
+ * variable, and the two variants differ only in the variables.css each loads
+ * after these rules.
+ */
+
+.syntax--source.syntax--css {
+  .syntax--entity {
+    /* function() */
+    &.syntax--function {
+      color: var(--mono-2);
+
+      /* url rgb */
+      &.syntax--support {
+        color: var(--hue-1);
+      }
+    }
+
+    /* .class :pseudo-class attribute */
+    &.syntax--selector {
+      color: var(--hue-6);
+
+      /* div span */
+      &.syntax--tag {
+        color: var(--hue-5);
+      }
+
+      /* #id */
+      &.syntax--id {
+        color: var(--hue-2);
+      }
+    }
+
+    /* property: constant */
+    &.syntax--property {
+      color: var(--mono-2);
+
+      /* height position border */
+      &.syntax--support {
+        color: var(--mono-1);
+      }
+    }
+
+    /* --variable */
+    &.syntax--variable {
+      color: var(--hue-5);
+    }
+  }
+
+  /* property: constant */
+  .syntax--constant {
+    color: var(--mono-2);
+
+    /* flex solid bold */
+    &.syntax--support {
+      color: var(--mono-1);
+    }
+
+    /* 3px 4em */
+    &.syntax--numeric {
+      color: var(--hue-6);
+    }
+
+    /* screen print */
+    &.syntax--media {
+      color: var(--hue-6);
+    }
+
+    /* #b294bb blue red */
+    &.syntax--color {
+      color: var(--hue-6);
+    }
+
+    /* from to */
+    &.syntax--offset {
+      color: var(--mono-1);
+    }
+
+    /* [attribute=attribute-value] */
+    &.syntax--attribute-value {
+      color: var(--hue-4);
+    }
+  }
+
+  .syntax--punctuation {
+    /* . : :: */
+    &.syntax--selector {
+      color: var(--hue-6);
+
+      /* * */
+      &.syntax--wildcard {
+        color: var(--hue-5);
+      }
+
+      /* # */
+      &.syntax--id {
+        color: var(--hue-2);
+      }
+
+      /* [] */
+      &.syntax--attribute {
+        color: var(--mono-1);
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+/*
+ * Editor chrome — background, gutter, cursor line, invisibles and folds.
+ *
+ * Shared by one-day-syntax and one-night-syntax; every colour is a palette
+ * variable, and the two variants differ only in the variables.css each loads
+ * after these rules.
+ */
+
+/* Editor styles (background, gutter, guides) */
+
+lumine-text-editor {
+  background-color: var(--syntax-background-color);
+  color: var(--syntax-text-color);
+
+  .line.cursor-line {
+    /* Semi-transparent, so search results still show through. */
+    background-color: var(--syntax-cursor-line-background-color);
+    /* Ligatures joining across the caret are distracting while typing. */
+    font-variant-ligatures: none;
+  }
+
+  &[mini] {
+    font-variant-ligatures: none;
+  }
+
+  .invisible {
+    color: var(--syntax-text-color);
+  }
+
+  .cursor {
+    border-left: 2px solid var(--syntax-cursor-color);
+    transition: opacity 0.5s;
+  }
+
+  .selection .region {
+    background-color: var(--syntax-selection-color);
+  }
+
+  .invisible-character {
+    color: var(--syntax-invisible-character-color);
+  }
+
+  .gutter {
+    .line-number {
+      color: var(--syntax-gutter-text-color);
+      -webkit-font-smoothing: antialiased;
+
+      &.cursor-line {
+        color: var(--syntax-gutter-text-color-selected);
+      }
+
+      .icon-right {
+        color: var(--syntax-text-color);
+      }
+    }
+
+    &:not(.git-diff-icon) .line-number.git-line-removed {
+      &.git-line-removed::before {
+        bottom: -3px;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 25px;
+        border-bottom: 1px dotted rgb(from var(--syntax-color-removed) r g b / 50%);
+        pointer-events: none;
+      }
+    }
+  }
+
+  .gutter .line-number.folded,
+  .gutter .line-number:after,
+  .fold-marker:after {
+    color: var(--syntax-gutter-text-color-selected);
+  }
+}

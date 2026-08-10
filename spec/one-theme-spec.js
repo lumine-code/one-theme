@@ -88,21 +88,52 @@ describe("one-theme", () => {
     expect(configPath).toContain(path.join("one-theme", "styles", "one-ui"));
   });
 
-  it("gives both syntax themes the same rule sheet", async () => {
+  it("gives both syntax themes the same rule sheets", async () => {
     await lumine.packages.activatePackage("one-theme");
 
-    const sheetFor = (themeName) =>
+    const sharedDir = path.join("one-theme", "styles", "syntax") + path.sep;
+    const rulesFor = (themeName) =>
       lumine.packages
         .getLoadedPackage(themeName)
         .getStylesheetPaths()
-        .filter((stylePath) => path.basename(stylePath) === "syntax.lumine-text-editor.css");
+        .filter((stylePath) => stylePath.includes(sharedDir));
 
-    const dayRules = sheetFor("one-day-syntax");
-    const nightRules = sheetFor("one-night-syntax");
+    const dayRules = rulesFor("one-day-syntax");
 
-    expect(dayRules.length).toBe(1);
-    expect(dayRules).toEqual(nightRules);
-    expect(dayRules[0]).toContain(path.join("one-theme", "styles", "syntax"));
+    expect(dayRules.length).toBeGreaterThan(1);
+    expect(dayRules).toEqual(rulesFor("one-night-syntax"));
+    // Numbered, because the cascade depends on the order they load in: the
+    // current scope vocabulary corrects the legacy one, not the other way round.
+    expect(dayRules.map((stylePath) => path.basename(stylePath))).toEqual(
+      [...dayRules.map((stylePath) => path.basename(stylePath))].sort(),
+    );
+  });
+
+  it("scopes the syntax rules to the editor without saying so in a file name", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-syntax");
+
+    // A syntax theme's stylesheets get the lumine-text-editor context from the
+    // theme's own type, so markdown-preview and anything else harvesting that
+    // context still finds them. Nothing depends on the *.lumine-text-editor.css
+    // spelling here, and no file uses it.
+    const harvester = document.createElement("lumine-styles");
+    harvester.initialize(lumine.styles);
+    harvester.setAttribute("context", "lumine-text-editor");
+    document.body.appendChild(harvester);
+    const harvested = Array.from(harvester.childNodes)
+      .map((styleElement) => styleElement.textContent)
+      .join("\n");
+    harvester.remove();
+
+    expect(harvested).toContain(".syntax--keyword");
+    expect(harvested).toContain("--syntax-symbolic-color");
+
+    const names = lumine.packages
+      .getLoadedPackage("one-day-syntax")
+      .getStylesheetPaths()
+      .map((stylePath) => path.basename(stylePath));
+    expect(names.filter((name) => name.includes(".lumine-text-editor."))).toEqual([]);
   });
 
   it("keeps symbolic tokens monochrome by day and tinted by night", async () => {
