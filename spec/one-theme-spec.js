@@ -2,9 +2,42 @@ const path = require("path");
 
 const root = document.documentElement;
 
+// The handful of tokens the day palette keeps monochrome and the night palette
+// tints. They are the only reason the two syntax themes ever needed separate
+// rule sheets, and they now resolve through --syntax-symbolic-color.
+const SYMBOLIC_TOKENS = [
+  ["syntax--keyword", "syntax--symbolic"],
+  ["syntax--punctuation", "syntax--accessor", "syntax--member"],
+  ["syntax--punctuation", "syntax--accessor", "syntax--scope"],
+  ["syntax--punctuation", "syntax--embedded"],
+  ["syntax--string", "syntax--interpolation"],
+];
+
+// Resolve a custom property to the same rgb() string getComputedStyle reports
+// for a color, so an expectation never hard-codes a palette value.
+function colorOf(variable) {
+  const probe = document.createElement("span");
+  probe.style.color = `var(${variable})`;
+  document.body.appendChild(probe);
+  const color = getComputedStyle(probe).color;
+  probe.remove();
+  return color;
+}
+
+function colorOfToken(classNames) {
+  const token = document.createElement("span");
+  token.className = classNames.join(" ");
+  document.body.appendChild(token);
+  const color = getComputedStyle(token).color;
+  token.remove();
+  return color;
+}
+
 describe("one-theme", () => {
   afterEach(async () => {
     await lumine.packages.deactivatePackage("one-day-ui");
+    await lumine.packages.deactivatePackage("one-day-syntax");
+    await lumine.packages.deactivatePackage("one-night-syntax");
     await lumine.packages.deactivatePackage("one-theme");
   });
 
@@ -50,9 +83,69 @@ describe("one-theme", () => {
     await lumine.packages.activatePackage("one-theme");
 
     const uiPaths = lumine.packages.getLoadedPackage("one-day-ui").getStylesheetPaths();
-    const configPath = uiPaths.find((stylePath) => path.basename(stylePath) === "26-config.css");
+    const configPath = uiPaths.find((stylePath) => path.basename(stylePath) === "config.css");
 
     expect(configPath).toContain(path.join("one-theme", "styles", "one-ui"));
+  });
+
+  it("gives both syntax themes the same rule sheet", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    const sheetFor = (themeName) =>
+      lumine.packages
+        .getLoadedPackage(themeName)
+        .getStylesheetPaths()
+        .filter((stylePath) => path.basename(stylePath) === "syntax.lumine-text-editor.css");
+
+    const dayRules = sheetFor("one-day-syntax");
+    const nightRules = sheetFor("one-night-syntax");
+
+    expect(dayRules.length).toBe(1);
+    expect(dayRules).toEqual(nightRules);
+    expect(dayRules[0]).toContain(path.join("one-theme", "styles", "syntax"));
+  });
+
+  it("keeps symbolic tokens monochrome by day and tinted by night", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    await lumine.packages.activatePackage("one-day-syntax");
+    const dayMono = colorOf("--mono-1");
+    for (const classNames of SYMBOLIC_TOKENS) {
+      expect(colorOfToken(classNames)).toBe(dayMono);
+    }
+    await lumine.packages.deactivatePackage("one-day-syntax");
+
+    await lumine.packages.activatePackage("one-night-syntax");
+    const nightAccent = colorOf("--hue-3");
+    for (const classNames of SYMBOLIC_TOKENS) {
+      expect(colorOfToken(classNames)).toBe(nightAccent);
+    }
+  });
+
+  it("tints the cursor line from the palette in both variants", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    const cursorLineColor = async (themeName) => {
+      await lumine.packages.activatePackage(themeName);
+      const editor = document.createElement("lumine-text-editor");
+      const line = document.createElement("div");
+      line.className = "line cursor-line";
+      editor.appendChild(line);
+      document.body.appendChild(editor);
+      const color = getComputedStyle(line).backgroundColor;
+      editor.remove();
+      await lumine.packages.deactivatePackage(themeName);
+      return color;
+    };
+
+    // Semi-transparent in both, so search-result markers still show through.
+    // A relative color computes to color(srgb r g b / a) rather than rgba().
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      const color = await cursorLineColor(themeName);
+      const alpha = /[,/]\s*([\d.]+)\s*\)$/.exec(color);
+      expect(alpha).not.toBeNull();
+      expect(Number(alpha[1])).toBeLessThan(0.2);
+    }
   });
 
   it("runs the modal-list scrollbar track the full height of the list", async () => {

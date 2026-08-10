@@ -1,6 +1,10 @@
 /*
- * one-day syntax styles — converted from one-light-syntax Less sources.
- * Palette lives in variables.css.
+ * One syntax styles — the scope-to-color mapping shared by one-day-syntax and
+ * one-night-syntax. Converted from the one-light-syntax and one-dark-syntax
+ * sources.
+ *
+ * Every color here is a palette variable; the two variants differ only in the
+ * variables.css each of them loads after this file.
  */
 
 /* --- editor --- */
@@ -12,9 +16,8 @@ lumine-text-editor {
   color: var(--syntax-text-color);
 
   .line.cursor-line {
-    background-color: rgb(
-      from var(--syntax-fg) r g b / 5%
-    ); /* needs to be semi-transparent to show search results */
+    /* Semi-transparent, so search results still show through. */
+    background-color: var(--syntax-cursor-line-background-color);
     /* Ligatures joining across the caret are distracting while typing. */
     font-variant-ligatures: none;
   }
@@ -108,7 +111,7 @@ lumine-text-editor {
   }
 
   &.syntax--operator {
-    color: var(--mono-1);
+    color: var(--hue-3);
   }
 
   &.syntax--other.syntax--special-method {
@@ -689,7 +692,7 @@ lumine-text-editor {
 
   /* = + && | << ? */
   &.syntax--symbolic {
-    color: var(--mono-1);
+    color: var(--syntax-symbolic-color);
   }
 }
 
@@ -755,6 +758,17 @@ lumine-text-editor {
   /* . -> :: [] */
   &.syntax--accessor {
     color: var(--mono-1);
+
+    /* . -> :: */
+    &.syntax--member,
+    &.syntax--scope {
+      color: var(--syntax-symbolic-color);
+    }
+  }
+
+  /* { } ~~~ */
+  &.syntax--embedded {
+    color: var(--syntax-symbolic-color);
   }
 }
 
@@ -774,7 +788,7 @@ lumine-text-editor {
 
   /* ${ } */
   &.syntax--interpolation {
-    color: var(--mono-1);
+    color: var(--syntax-symbolic-color);
   }
 
   /* /^reg[ex]?p/ */
