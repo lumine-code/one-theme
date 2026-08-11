@@ -61,8 +61,8 @@ lumine-workspace {
   border-bottom-width: 0;
 }
 
-/* TODO: Move to a better place, not sure where it gets used */
+/* Dropdown caret */
 .caret {
-  border-top: 5px solid #fff;
+  border-top: 5px solid currentColor;
   margin-top: -1px;
 }

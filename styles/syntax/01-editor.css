@@ -1,9 +1,9 @@
 /*
  * Editor chrome — background, gutter, cursor line, invisibles and folds.
  *
- * Shared by one-day-syntax and one-night-syntax; every colour is a palette
- * variable, and the two variants differ only in the variables.css each loads
- * after these rules.
+ * Shared by one-day-syntax and one-night-syntax; every colour comes from
+ * palette variables. The two variants differ only in the variables.css each
+ * loads after these rules.
  */
 
 /* Editor styles (background, gutter, guides) */

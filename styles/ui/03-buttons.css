@@ -33,11 +33,13 @@
     box-shadow: none;
   }
   &.selected {
+    color: var(--button-text-color-selected);
     background: var(--button-background-color-selected);
   }
   &.selected:focus,
   &.selected:hover {
-    background: hsl(from var(--button-background-color-selected) h s calc(l + 2));
+    color: var(--button-text-color-selected);
+    background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -69,11 +71,13 @@
     box-shadow: none;
   }
   &.selected {
+    color: var(--button-text-color-selected);
     background: var(--button-background-color-selected);
   }
   &.selected:focus,
   &.selected:hover {
-    background: hsl(from var(--button-background-color-selected) h s calc(l + 2));
+    color: var(--button-text-color-selected);
+    background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -86,7 +90,6 @@
 /* .btn-variant() mixin, expanded per variant */
 
 .btn.btn-primary {
-  color: var(--text-color-highlight);
   text-shadow: none;
   border: 1px solid var(--button-border-color);
   background-color: var(--accent-bg-color);
@@ -97,10 +100,9 @@
   color: var(--accent-bg-text-color);
 
   &:hover {
-    color: var(--text-color-highlight);
     background-image: linear-gradient(
-      hsl(from var(--accent-bg-color) h s calc(l + 5)),
-      hsl(from var(--accent-bg-color) h s calc(l + 3))
+      hsl(from var(--accent-bg-color) h s calc(l - 3)),
+      hsl(from var(--accent-bg-color) h s calc(l - 5))
     );
   }
   &:active {
@@ -143,7 +145,7 @@
 }
 
 .btn.btn-info {
-  color: var(--text-color-highlight);
+  --btn-variant-background: var(--background-color-info);
   text-shadow: none;
   border: 1px solid var(--button-border-color);
   background-color: var(--background-color-info);
@@ -154,7 +156,6 @@
   color: var(--text-color-on-info);
 
   &:hover {
-    color: var(--text-color-highlight);
     background-image: linear-gradient(
       hsl(from var(--background-color-info) h s calc(l + 5)),
       hsl(from var(--background-color-info) h s calc(l + 3))
@@ -163,13 +164,6 @@
   &:active {
     background: hsl(from var(--background-color-info) h s calc(l - 4));
     box-shadow: none;
-  }
-  &.selected {
-    background: hsl(from var(--background-color-info) h calc(s + 20) calc(l - 12));
-  }
-  &.selected:focus,
-  &.selected:hover {
-    background: hsl(from var(--background-color-info) h calc(s + 20) calc(l - 10));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -200,7 +194,7 @@
 }
 
 .btn.btn-success {
-  color: var(--text-color-highlight);
+  --btn-variant-background: var(--background-color-success);
   text-shadow: none;
   border: 1px solid var(--button-border-color);
   background-color: var(--background-color-success);
@@ -211,7 +205,6 @@
   color: var(--text-color-on-success);
 
   &:hover {
-    color: var(--text-color-highlight);
     background-image: linear-gradient(
       hsl(from var(--background-color-success) h s calc(l + 5)),
       hsl(from var(--background-color-success) h s calc(l + 3))
@@ -220,13 +213,6 @@
   &:active {
     background: hsl(from var(--background-color-success) h s calc(l - 4));
     box-shadow: none;
-  }
-  &.selected {
-    background: hsl(from var(--background-color-success) h calc(s + 20) calc(l - 12));
-  }
-  &.selected:focus,
-  &.selected:hover {
-    background: hsl(from var(--background-color-success) h calc(s + 20) calc(l - 10));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -257,7 +243,7 @@
 }
 
 .btn.btn-warning {
-  color: var(--text-color-highlight);
+  --btn-variant-background: var(--background-color-warning);
   text-shadow: none;
   border: 1px solid var(--button-border-color);
   background-color: var(--background-color-warning);
@@ -268,7 +254,6 @@
   color: var(--text-color-on-warning);
 
   &:hover {
-    color: var(--text-color-highlight);
     background-image: linear-gradient(
       hsl(from var(--background-color-warning) h s calc(l + 5)),
       hsl(from var(--background-color-warning) h s calc(l + 3))
@@ -277,13 +262,6 @@
   &:active {
     background: hsl(from var(--background-color-warning) h s calc(l - 4));
     box-shadow: none;
-  }
-  &.selected {
-    background: hsl(from var(--background-color-warning) h calc(s + 20) calc(l - 12));
-  }
-  &.selected:focus,
-  &.selected:hover {
-    background: hsl(from var(--background-color-warning) h calc(s + 20) calc(l - 10));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -314,7 +292,7 @@
 }
 
 .btn.btn-error {
-  color: var(--text-color-highlight);
+  --btn-variant-background: var(--background-color-error);
   text-shadow: none;
   border: 1px solid var(--button-border-color);
   background-color: var(--background-color-error);
@@ -325,22 +303,21 @@
   color: var(--text-color-on-error);
 
   &:hover {
-    color: var(--text-color-highlight);
     background-image: linear-gradient(
       hsl(from var(--background-color-error) h s calc(l + 5)),
       hsl(from var(--background-color-error) h s calc(l + 3))
     );
   }
+
+  :where(.theme-one-night-ui) &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-error) h s calc(l - 3)),
+      hsl(from var(--background-color-error) h s calc(l - 5))
+    );
+  }
   &:active {
     background: hsl(from var(--background-color-error) h s calc(l - 4));
     box-shadow: none;
-  }
-  &.selected {
-    background: hsl(from var(--background-color-error) h calc(s + 20) calc(l - 12));
-  }
-  &.selected:focus,
-  &.selected:hover {
-    background: hsl(from var(--background-color-error) h calc(s + 20) calc(l - 10));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
@@ -367,6 +344,25 @@
 
   &.icon:before {
     color: var(--text-color-on-error);
+  }
+}
+
+/* Selected semantic buttons use a substantially shifted background. Resolve
+   their foreground from that exact state color so standalone and grouped
+   buttons remain readable in both day and night variants. */
+.btn:is(.btn-info, .btn-success, .btn-warning, .btn-error).selected {
+  --btn-selected-background: hsl(from var(--btn-variant-background) h calc(s + 20) calc(l - 12));
+  color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
+  background: var(--btn-selected-background);
+
+  &:is(:focus, :hover) {
+    --btn-selected-background: hsl(from var(--btn-variant-background) h calc(s + 20) calc(l - 10));
+    color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
+    background: var(--btn-selected-background);
+  }
+
+  &.icon::before {
+    color: inherit;
   }
 }
 
@@ -435,7 +431,6 @@
   &.selected,
   &.selected:first-child,
   &.selected:last-child {
-    color: var(--button-text-color-selected);
     border-color: var(--button-border-color-selected);
   }
 

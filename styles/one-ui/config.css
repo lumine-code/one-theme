@@ -46,7 +46,7 @@
     min-width: 2.75em;
     max-width: 23.1em; /* 7em tab-min-width * 3.3 */
   }
-  lumine-dock {
+  lumine-dock & {
     .tab,
     .tab.active {
       max-width: 14em; /* 7em tab-min-width * 2 */

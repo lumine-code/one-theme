@@ -1,9 +1,9 @@
 /*
  * Base scope-to-colour mapping for the TextMate scope vocabulary.
  *
- * Shared by one-day-syntax and one-night-syntax; every colour is a palette
- * variable, and the two variants differ only in the variables.css each loads
- * after these rules.
+ * Shared by one-day-syntax and one-night-syntax; every colour comes from
+ * palette variables. The two variants differ only in the variables.css each
+ * loads after these rules.
  */
 
 /* Language syntax highlighting */
@@ -280,7 +280,7 @@
     background-color: var(--syntax-color-modified) !important;
   }
   &.syntax--illegal {
-    color: white !important;
+    color: lch(from var(--syntax-color-removed) calc((49.44 - l) * infinity) 0 0) !important;
     background-color: var(--syntax-color-removed) !important;
   }
 }

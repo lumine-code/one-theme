@@ -79,11 +79,6 @@ code {
   }
 }
 
-.highlight-mixin {
-  padding: 1px 4px;
-  border-radius: 2px;
-}
-
 .highlight {
   padding: 1px 4px;
   border-radius: 2px;
@@ -96,7 +91,7 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: white;
+  color: var(--text-color-on-info);
   text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
   background-color: var(--background-color-info);
 }
@@ -104,7 +99,7 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: white;
+  color: var(--text-color-on-warning);
   text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
   background-color: var(--background-color-warning);
 }
@@ -112,7 +107,7 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: white;
+  color: var(--text-color-on-error);
   text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
   background-color: var(--background-color-error);
 }
@@ -120,7 +115,7 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: white;
+  color: var(--text-color-on-success);
   text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
   background-color: var(--background-color-success);
 }

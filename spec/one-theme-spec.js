@@ -16,8 +16,12 @@ const SYMBOLIC_TOKENS = [
 // Resolve a custom property to the same rgb() string getComputedStyle reports
 // for a color, so an expectation never hard-codes a palette value.
 function colorOf(variable) {
+  return resolvedColor(`var(${variable})`);
+}
+
+function resolvedColor(value) {
   const probe = document.createElement("span");
-  probe.style.color = `var(${variable})`;
+  probe.style.color = value;
   document.body.appendChild(probe);
   const color = getComputedStyle(probe).color;
   probe.remove();
@@ -33,10 +37,47 @@ function colorOfToken(classNames) {
   return color;
 }
 
+function rgbaOf(color) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, 1, 1);
+  context.fillStyle = color;
+  context.fillRect(0, 0, 1, 1);
+  return Array.from(context.getImageData(0, 0, 1, 1).data, (channel) => channel / 255);
+}
+
+function contrastRatio(foreground, background) {
+  const luminanceOf = (channels) => {
+    const linear = channels.map((channel) =>
+      channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
+    );
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  };
+
+  const foregroundChannels = rgbaOf(foreground);
+  const backgroundChannels = rgbaOf(background);
+  const compositedForeground = foregroundChannels
+    .slice(0, 3)
+    .map(
+      (channel, index) =>
+        channel * foregroundChannels[3] + backgroundChannels[index] * (1 - foregroundChannels[3]),
+    );
+  const luminances = [luminanceOf(compositedForeground), luminanceOf(backgroundChannels)].sort(
+    (a, b) => b - a,
+  );
+  return (luminances[0] + 0.05) / (luminances[1] + 0.05);
+}
+
 describe("one-theme", () => {
   afterEach(async () => {
+    lumine.config.unset("one-theme.tabSizing");
+    lumine.config.unset("one-theme.tabCloseButton");
+    lumine.config.unset("one-theme.hideDockButtons");
     await lumine.packages.deactivatePackage("one-day-ui");
     await lumine.packages.deactivatePackage("one-day-syntax");
+    await lumine.packages.deactivatePackage("one-night-ui");
     await lumine.packages.deactivatePackage("one-night-syntax");
     await lumine.packages.deactivatePackage("one-theme");
   });
@@ -68,6 +109,191 @@ describe("one-theme", () => {
     await lumine.packages.deactivatePackage("one-theme");
     expect(root.hasAttribute("ui-tabsizing")).toBe(false);
     expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
+  });
+
+  it("limits minimum-sized tabs more tightly inside docks", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+    lumine.config.set("one-theme.tabSizing", "Minimum");
+
+    const dock = document.createElement("lumine-dock");
+    const tabBar = document.createElement("ul");
+    tabBar.className = "tab-bar";
+    const tab = document.createElement("li");
+    tab.className = "tab";
+    tab.style.fontSize = "10px";
+    tabBar.appendChild(tab);
+    dock.appendChild(tabBar);
+    document.body.appendChild(dock);
+
+    expect(getComputedStyle(tab).maxWidth).toBe("140px");
+    dock.remove();
+  });
+
+  it("takes semantic highlight foregrounds from the UI palette", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+
+    const fixture = document.createElement("div");
+    document.body.appendChild(fixture);
+    const highlights = [
+      ["info", "rgb(1, 2, 3)"],
+      ["warning", "rgb(4, 5, 6)"],
+      ["error", "rgb(7, 8, 9)"],
+      ["success", "rgb(10, 11, 12)"],
+    ];
+
+    for (const [kind, color] of highlights) {
+      fixture.style.setProperty(`--text-color-on-${kind}`, color);
+      const highlight = document.createElement("span");
+      highlight.className = `highlight-${kind}`;
+      fixture.appendChild(highlight);
+      expect(getComputedStyle(highlight).color).toBe(color);
+    }
+
+    fixture.remove();
+  });
+
+  it("keeps semantic highlight foregrounds readable in both variants", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-ui", "one-night-ui"]) {
+      await lumine.packages.activatePackage(themeName);
+      const fixture = document.createElement("div");
+      document.body.appendChild(fixture);
+
+      for (const kind of ["info", "warning", "error", "success"]) {
+        const highlight = document.createElement("span");
+        highlight.className = `highlight-${kind}`;
+        fixture.appendChild(highlight);
+        const style = getComputedStyle(highlight);
+        expect(contrastRatio(style.color, style.backgroundColor)).toBeGreaterThanOrEqual(4.5);
+      }
+
+      fixture.remove();
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
+  it("keeps accent surfaces, buttons, and inactive tabs readable in both variants", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-ui", "one-night-ui"]) {
+      await lumine.packages.activatePackage(themeName);
+
+      for (const [foreground, background] of [
+        ["--accent-text-color", "--accent-color"],
+        ["--accent-bg-text-color", "--accent-bg-color"],
+        ["--tooltip-text-color", "--tooltip-background-color"],
+      ]) {
+        expect(contrastRatio(colorOf(foreground), colorOf(background))).toBeGreaterThanOrEqual(4.5);
+      }
+
+      const primary = document.createElement("button");
+      primary.className = "btn btn-primary";
+      document.body.appendChild(primary);
+      const primaryColor = getComputedStyle(primary).color;
+      expect(
+        contrastRatio(
+          primaryColor,
+          resolvedColor("hsl(from var(--accent-bg-color) h s calc(l + 2))"),
+        ),
+      ).toBeGreaterThanOrEqual(4.5);
+      primary.remove();
+
+      for (const kind of ["info", "success", "warning", "error"]) {
+        const button = document.createElement("button");
+        button.className = `btn btn-${kind}`;
+        document.body.appendChild(button);
+        const foreground = getComputedStyle(button).color;
+        const background = `--background-color-${kind}`;
+        const hoverShift = themeName === "one-night-ui" && kind === "error" ? -3 : 5;
+
+        for (const expression of [
+          `hsl(from var(${background}) h s calc(l + 2))`,
+          `hsl(from var(${background}) h s calc(l ${hoverShift < 0 ? "-" : "+"} ${Math.abs(
+            hoverShift,
+          )}))`,
+        ]) {
+          expect(contrastRatio(foreground, resolvedColor(expression))).toBeGreaterThanOrEqual(4.5);
+        }
+        button.remove();
+      }
+
+      const tabBar = document.createElement("ul");
+      tabBar.className = "tab-bar";
+      const tab = document.createElement("li");
+      tab.className = "tab";
+      tabBar.appendChild(tab);
+      document.body.appendChild(tabBar);
+      const tabStyle = getComputedStyle(tab);
+      expect(contrastRatio(tabStyle.color, tabStyle.backgroundColor)).toBeGreaterThanOrEqual(4.5);
+      tabBar.remove();
+
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
+  it("uses the same readable selected-button foreground inside and outside groups", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-ui", "one-night-ui"]) {
+      await lumine.packages.activatePackage(themeName);
+
+      for (const variant of ["default", "primary", "info", "success", "warning", "error"]) {
+        const standalone = document.createElement("button");
+        standalone.className = `btn btn-${variant} selected`;
+        const group = document.createElement("div");
+        group.className = "btn-group";
+        const grouped = standalone.cloneNode();
+        group.appendChild(grouped);
+        document.body.append(standalone, group);
+
+        const standaloneStyle = getComputedStyle(standalone);
+        const groupedStyle = getComputedStyle(grouped);
+        expect(groupedStyle.color).toBe(standaloneStyle.color);
+        expect(
+          contrastRatio(standaloneStyle.color, standaloneStyle.backgroundColor),
+        ).toBeGreaterThanOrEqual(4.5);
+        expect(
+          contrastRatio(groupedStyle.color, groupedStyle.backgroundColor),
+        ).toBeGreaterThanOrEqual(4.5);
+
+        standalone.remove();
+        group.remove();
+      }
+
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
+  it("inherits a dropdown caret's color from its context", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+
+    const button = document.createElement("button");
+    button.style.color = "rgb(1, 2, 3)";
+    const caret = document.createElement("span");
+    caret.className = "caret";
+    button.appendChild(caret);
+    document.body.appendChild(button);
+
+    expect(getComputedStyle(caret).borderTopColor).toBe("rgb(1, 2, 3)");
+    button.remove();
+  });
+
+  it("defines complete and symmetric git-status colors", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-ui", "one-night-ui"]) {
+      await lumine.packages.activatePackage(themeName);
+      expect(colorOf("--text-color-conflicted")).toBe(colorOf("--text-color-removed"));
+      expect(rgbaOf(colorOf("--tab-inactive-status-conflicted"))[3]).toBeCloseTo(
+        rgbaOf(colorOf("--tab-inactive-status-added"))[3],
+        2,
+      );
+      await lumine.packages.deactivatePackage(themeName);
+    }
   });
 
   it("registers its light and dark themes as a pack", async () => {
@@ -150,6 +376,32 @@ describe("one-theme", () => {
     const nightAccent = colorOf("--hue-3");
     for (const classNames of SYMBOLIC_TOKENS) {
       expect(colorOfToken(classNames)).toBe(nightAccent);
+    }
+  });
+
+  it("keeps semantic string and comment colors aligned with rendered tokens", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+      expect(colorOfToken(["syntax--string"])).toBe(colorOf("--syntax-color-string"));
+      expect(colorOfToken(["syntax--comment"])).toBe(colorOf("--syntax-color-comment"));
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
+  it("derives readable illegal-token text from the syntax error color", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+      const token = document.createElement("span");
+      token.className = "syntax--invalid syntax--illegal";
+      document.body.appendChild(token);
+      const style = getComputedStyle(token);
+      expect(contrastRatio(style.color, style.backgroundColor)).toBeGreaterThanOrEqual(4.5);
+      token.remove();
+      await lumine.packages.deactivatePackage(themeName);
     }
   });
 

@@ -6,7 +6,7 @@ The One day and night UI and syntax themes.
 
 - **Four themes**: provides `one-day-ui`, `one-day-syntax`, `one-night-ui`, and `one-night-syntax` as independently selectable themes.
 - **CSS custom properties**: each theme defines its palette as CSS custom properties in a `variables.css`, the source of truth for the theme variable contract.
-- **Shared syntax rules**: both syntax themes load one scope-to-color stylesheet, so day and night differ only in their palettes.
+- **Shared syntax rules**: both syntax themes load the same scope-to-color stylesheets, so day and night differ only in their palettes.
 - **Mix and match**: any theme can be paired with a community counterpart, e.g. `one-night-ui` with a third-party syntax theme.
 - **Reusable foundation**: other bundled themes can load the shared UI or syntax styles first and keep only their overrides locally.
 

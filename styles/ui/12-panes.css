@@ -5,7 +5,7 @@ lumine-pane-container {
     border-bottom: 1px solid var(--base-border-color);
 
     .item-views {
-      /* prevent lumine-text-editor from leaking ouside might improve performance */
+      /* Prevent lumine-text-editor from leaking outside; this may improve performance. */
       overflow: hidden;
     }
   }

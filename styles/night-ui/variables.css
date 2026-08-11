@@ -40,7 +40,7 @@
   --overlay-border-color: hsl(220, 13%, 10.8%);
   --button-background-color: hsl(220, 13%, 24%);
   --button-background-color-hover: hsl(220, 13%, 26%);
-  --button-background-color-selected: #4d78cc;
+  --button-background-color-selected: var(--accent-bg-color);
   --button-border-color: hsl(220, 13%, 10.8%);
   --tab-bar-background-color: hsl(220, 13%, 15%);
   --tab-bar-border-color: hsl(220, 13%, 10.8%);
@@ -74,6 +74,7 @@
   --text-color-modified: hsl(36, 60%, 72%);
   --text-color-removed: hsl(9, 100%, 64%);
   --text-color-renamed: hsl(219, 79%, 66%);
+  --text-color-conflicted: var(--text-color-removed);
   --level-1-color: hsl(220, 13%, 24%);
   --level-2-color: hsl(220, 13%, 18%);
   --level-3-color: hsl(220, 13%, 15%);
@@ -81,7 +82,7 @@
   --level-3-color-active: hsl(220, 13%, 18%);
   --accent-color: #568af2;
   --accent-text-color: hsl(220, 100%, 10%);
-  --accent-bg-color: #4d78cc;
+  --accent-bg-color: #486fbe;
   --accent-bg-text-color: #fff;
   --accent-only-text-color: #759ef2;
   --badge-background-color: hsl(220, 13%, 28%);
@@ -93,19 +94,20 @@
   --input-selection-color-focus: #39548a;
   --overlay-backdrop-color: hsl(220, 13%, 3.6%);
   --overlay-backdrop-opacity: 0.75;
-  --progress-background-color: #568af2;
+  --progress-background-color: var(--accent-color);
   --scrollbar-color-editor: hsl(220, 13%, 34%);
   --scrollbar-background-color-editor: hsl(220, 13%, 18%);
-  --tab-text-color: hsla(220, 13%, 66%, 0.6);
+  --tab-text-color: hsla(220, 13%, 66%, 0.8);
   --tab-text-color-active: hsl(220, 13%, 86%);
   --tab-text-color-editor: hsl(220, 13%, 86%);
   --tab-background-color-editor: hsl(220, 13%, 18%);
   --tab-inactive-status-added: hsla(140, 44%, 62%, 0.55);
   --tab-inactive-status-modified: hsla(36, 60%, 72%, 0.55);
-  --tooltip-background-color: #4d78cc;
-  --tooltip-text-color: #fff;
-  --tooltip-text-key-color: #4d78cc;
-  --tooltip-background-key-color: #fff;
+  --tab-inactive-status-conflicted: hsla(9, 100%, 64%, 0.55);
+  --tooltip-background-color: var(--accent-bg-color);
+  --tooltip-text-color: var(--accent-bg-text-color);
+  --tooltip-text-key-color: var(--tooltip-background-color);
+  --tooltip-background-key-color: var(--tooltip-text-color);
   --ui-size: 1em;
   --ui-input-size: 1.15em;
   --ui-padding: 1.5em;
@@ -113,8 +115,8 @@
   --ui-padding-icon: 0.45454545em;
   --ui-line-height: 2em;
   --ui-tab-height: 2.5em;
-  --text-color-on-info: #fff;
-  --text-color-on-success: #fff;
-  --text-color-on-warning: #fff;
+  --text-color-on-info: var(--accent-text-color);
+  --text-color-on-success: var(--accent-text-color);
+  --text-color-on-warning: var(--accent-text-color);
   --text-color-on-error: #fff;
 }
