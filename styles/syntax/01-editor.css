@@ -45,10 +45,6 @@ lumine-text-editor {
       color: var(--syntax-gutter-text-color);
       -webkit-font-smoothing: antialiased;
 
-      &.cursor-line {
-        color: var(--syntax-gutter-text-color-selected);
-      }
-
       .icon-right {
         color: var(--syntax-text-color);
       }
