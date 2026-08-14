@@ -12,12 +12,11 @@ The One day and night UI and syntax themes.
 
 ## Installation
 
-To install `one-theme` search for _one-theme_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/one-theme`.
+To install `one-theme` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/one-theme`.
 
 ## Theme pack
 
-The package declares its four themes as the **One** pack. Use
-`theme-selector:toggle` to preview and select it.
+The package declares its four themes as the **One** pack. Use `theme-selector:toggle` to preview and select it.
 
 ## Derived themes
 
