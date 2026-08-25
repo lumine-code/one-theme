@@ -13,8 +13,9 @@ lumine-text-editor {
   color: var(--syntax-text-color);
 
   .line.cursor-line {
-    /* Semi-transparent, so search results still show through. */
-    background-color: var(--syntax-cursor-line-background-color);
+    /* Paint the cursor line as an overlay, leaving navigation, diff and other
+       line-decoration backgrounds intact underneath it. */
+    box-shadow: inset 0 0 0 100vmax var(--syntax-cursor-line-background-color);
     /* Ligatures joining across the caret are distracting while typing. */
     font-variant-ligatures: none;
   }

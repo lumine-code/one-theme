@@ -405,29 +405,44 @@ describe("one-theme", () => {
     }
   });
 
-  it("tints the cursor line from the palette in both variants", async () => {
+  it("overlays the cursor tint without replacing decoration backgrounds", async () => {
     await lumine.packages.activatePackage("one-theme");
+    const decorationStyles = lumine.styles.addStyleSheet(
+      "lumine-text-editor .navigation-marker { background: rgb(12, 34, 56); }",
+      { priority: 0 },
+    );
 
-    const cursorLineColor = async (themeName) => {
+    const cursorLineStyle = async (themeName) => {
       await lumine.packages.activatePackage(themeName);
       const editor = document.createElement("lumine-text-editor");
       const line = document.createElement("div");
-      line.className = "line cursor-line";
+      line.className = "line cursor-line navigation-marker";
       editor.appendChild(line);
       document.body.appendChild(editor);
-      const color = getComputedStyle(line).backgroundColor;
+      const style = getComputedStyle(line);
+      const result = {
+        backgroundColor: style.backgroundColor,
+        boxShadow: style.boxShadow,
+      };
       editor.remove();
       await lumine.packages.deactivatePackage(themeName);
-      return color;
+      return result;
     };
 
-    // Semi-transparent in both, so search-result markers still show through.
-    // A relative color computes to color(srgb r g b / a) rather than rgba().
-    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
-      const color = await cursorLineColor(themeName);
-      const alpha = /[,/]\s*([\d.]+)\s*\)$/.exec(color);
-      expect(alpha).not.toBeNull();
-      expect(Number(alpha[1])).toBeLessThan(0.2);
+    try {
+      // The shadow is semi-transparent in both, so line decorations and highlight
+      // layers remain visible underneath it. A relative color computes to
+      // color(srgb r g b / a) rather than rgba().
+      for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+        const { backgroundColor, boxShadow } = await cursorLineStyle(themeName);
+        const shadowColor = boxShadow.slice(0, boxShadow.indexOf(")") + 1);
+        const alpha = /[,/]\s*([\d.]+)\s*\)$/.exec(shadowColor);
+        expect(backgroundColor).toBe("rgb(12, 34, 56)");
+        expect(alpha).not.toBeNull();
+        expect(Number(alpha[1])).toBeLessThan(0.2);
+      }
+    } finally {
+      decorationStyles.dispose();
     }
   });
 
