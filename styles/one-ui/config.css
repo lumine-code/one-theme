@@ -1,5 +1,5 @@
 /* Theme config
-   These attributes are set on the root element by this package's main module
+   These attributes are set on lumine-workspace by this package's main module
    (lib/main.js) whenever the corresponding one-theme settings change. */
 
 /* Tabs ---------------------------------------------- */
@@ -30,7 +30,7 @@
 
 /* Maximum (full width) */
 
-[ui-tabsizing="maximum"] .tab-bar {
+lumine-workspace[ui-tabsizing="maximum"] .tab-bar {
   .tab,
   .tab.active {
     max-width: none;
@@ -39,7 +39,7 @@
 
 /* Minimum (show long paths) */
 
-[ui-tabsizing="minimum"] .tab-bar {
+lumine-workspace[ui-tabsizing="minimum"] .tab-bar {
   .tab,
   .tab.active {
     flex: 0 0 auto;
@@ -56,7 +56,7 @@
 
 /* Tabs: close button position  ------------------------------ */
 
-[ui-tab-close-button="left"] {
+lumine-workspace[ui-tab-close-button="left"] {
   .tab-bar .tab {
     .close-icon {
       right: auto;
@@ -67,7 +67,7 @@
 
 /* Hide docks toggle buttons ------------------------------ */
 
-[ui-dock-buttons="hidden"] {
+lumine-workspace[ui-dock-buttons="hidden"] {
   /* Hide docks when not open */
   .lumine-dock-inner:not(.lumine-dock-open) {
     display: none;

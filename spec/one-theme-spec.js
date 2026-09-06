@@ -82,33 +82,41 @@ describe("one-theme", () => {
     await lumine.packages.deactivatePackage("one-theme");
   });
 
-  it("applies its appearance settings as root attributes", async () => {
+  it("applies its appearance settings as workspace attributes", async () => {
     await lumine.packages.activatePackage("one-theme");
+    const workspace = lumine.views.getView(lumine.workspace);
 
     // Defaults.
-    expect(root.getAttribute("ui-tabsizing")).toBe("even");
-    expect(root.hasAttribute("ui-tab-close-button")).toBe(false);
-    expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
+    expect(workspace.getAttribute("ui-tabsizing")).toBe("even");
+    expect(workspace.hasAttribute("ui-tab-close-button")).toBe(false);
+    expect(workspace.hasAttribute("ui-dock-buttons")).toBe(false);
 
     // Changing a setting updates the matching attribute.
     lumine.config.set("one-theme.tabSizing", "Maximum");
-    expect(root.getAttribute("ui-tabsizing")).toBe("maximum");
+    expect(workspace.getAttribute("ui-tabsizing")).toBe("maximum");
 
     lumine.config.set("one-theme.tabCloseButton", "Left");
-    expect(root.getAttribute("ui-tab-close-button")).toBe("left");
+    expect(workspace.getAttribute("ui-tab-close-button")).toBe("left");
 
     lumine.config.set("one-theme.hideDockButtons", true);
-    expect(root.getAttribute("ui-dock-buttons")).toBe("hidden");
+    expect(workspace.getAttribute("ui-dock-buttons")).toBe("hidden");
+
+    expect(root.hasAttribute("ui-tabsizing")).toBe(false);
+    expect(root.hasAttribute("ui-tab-close-button")).toBe(false);
+    expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
   });
 
   it("removes the attributes when deactivated", async () => {
     await lumine.packages.activatePackage("one-theme");
+    const workspace = lumine.views.getView(lumine.workspace);
+    lumine.config.set("one-theme.tabCloseButton", "Left");
     lumine.config.set("one-theme.hideDockButtons", true);
-    expect(root.getAttribute("ui-dock-buttons")).toBe("hidden");
+    expect(workspace.getAttribute("ui-dock-buttons")).toBe("hidden");
 
     await lumine.packages.deactivatePackage("one-theme");
-    expect(root.hasAttribute("ui-tabsizing")).toBe(false);
-    expect(root.hasAttribute("ui-dock-buttons")).toBe(false);
+    expect(workspace.hasAttribute("ui-tabsizing")).toBe(false);
+    expect(workspace.hasAttribute("ui-tab-close-button")).toBe(false);
+    expect(workspace.hasAttribute("ui-dock-buttons")).toBe(false);
   });
 
   it("limits minimum-sized tabs more tightly inside docks", async () => {
@@ -124,7 +132,9 @@ describe("one-theme", () => {
     tab.style.fontSize = "10px";
     tabBar.appendChild(tab);
     dock.appendChild(tabBar);
-    document.body.appendChild(dock);
+    const workspace = lumine.views.getView(lumine.workspace);
+    jasmine.attachToDOM(workspace);
+    workspace.appendChild(dock);
 
     expect(getComputedStyle(tab).maxWidth).toBe("140px");
     dock.remove();
