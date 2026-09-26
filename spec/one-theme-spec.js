@@ -324,6 +324,18 @@ describe("one-theme", () => {
     expect(configPath).toContain(path.join("one-theme", "styles", "one-ui"));
   });
 
+  it("loads the shared UI cascade as one stylesheet", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    const sharedDir = path.join("one-theme", "styles", "ui") + path.sep;
+    const sharedPaths = lumine.packages
+      .getLoadedPackage("one-day-ui")
+      .getStylesheetPaths()
+      .filter((stylePath) => stylePath.includes(sharedDir));
+
+    expect(sharedPaths.map((stylePath) => path.basename(stylePath))).toEqual(["main.css"]);
+  });
+
   it("gives both syntax themes the same rule sheets", async () => {
     await lumine.packages.activatePackage("one-theme");
 

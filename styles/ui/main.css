@@ -1,0 +1,1818 @@
+/* 01-lumine.css */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+lumine-workspace {
+  background-color: var(--app-background-color);
+}
+
+/* Scrollbars ------------------------------------ */
+
+.scrollbars-visible-always {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-background-color);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 3px solid var(--scrollbar-background-color);
+    background: var(--scrollbar-color);
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-background-color);
+  }
+
+  lumine-text-editor {
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-background-color-editor);
+    }
+    ::-webkit-scrollbar-corner {
+      background: var(--scrollbar-background-color-editor);
+    }
+    ::-webkit-scrollbar-thumb {
+      border-color: var(--scrollbar-background-color-editor);
+      background: var(--scrollbar-color-editor);
+    }
+  }
+}
+
+/* Held-thumb rules must stay un-nested: Chromium never matches a
+   :hover/:active scrollbar-part rule whose selector comes from CSS nesting. */
+.scrollbars-visible-always ::-webkit-scrollbar-thumb:vertical:active {
+  border-radius: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.scrollbars-visible-always ::-webkit-scrollbar-thumb:horizontal:active {
+  border-radius: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+
+/* Dropdown caret */
+.caret {
+  border-top: 5px solid currentColor;
+  margin-top: -1px;
+}
+
+/* 02-badges.css */
+.badge {
+  padding: calc(var(--ui-padding) / 4) calc(var(--ui-padding) / 2.5);
+  min-width: calc(var(--ui-padding) * 1.25);
+  font-weight: normal;
+  color: var(--text-color-highlight);
+  border-radius: calc(var(--ui-size) * 2);
+  background-color: var(--badge-background-color);
+
+  /* Icon ---------------------- */
+  &.icon {
+    font-size: var(--ui-size);
+    padding: var(--ui-padding-icon) calc(var(--ui-padding-icon) * 1.5);
+  }
+}
+
+/* 03-buttons.css */
+/* Buttons ----------------------- */
+
+.btn {
+  --btn-padding: 0 calc(var(--ui-size) / 1.25);
+  height: initial;
+  padding: var(--btn-padding);
+  font-size: var(--ui-size);
+  line-height: var(--ui-line-height);
+}
+
+/* .btn-default() mixin, expanded separately for .btn and .btn.btn-default
+   to keep the per-selector specificity of the compiled Less output. */
+
+.btn {
+  color: var(--text-color);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--button-background-color);
+  background-image: linear-gradient(
+    hsl(from var(--button-background-color) h s calc(l + 2)),
+    var(--button-background-color)
+  );
+
+  &:hover {
+    color: var(--text-color-highlight);
+    background-image: linear-gradient(
+      hsl(from var(--button-background-color-hover) h s calc(l + 2)),
+      var(--button-background-color-hover)
+    );
+  }
+  &:active {
+    background: hsl(from var(--button-background-color) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &.selected {
+    color: var(--button-text-color-selected);
+    background: var(--button-background-color-selected);
+  }
+  &.selected:focus,
+  &.selected:hover {
+    color: var(--button-text-color-selected);
+    background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+}
+
+.btn.btn-default {
+  color: var(--text-color);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--button-background-color);
+  background-image: linear-gradient(
+    hsl(from var(--button-background-color) h s calc(l + 2)),
+    var(--button-background-color)
+  );
+
+  &:hover {
+    color: var(--text-color-highlight);
+    background-image: linear-gradient(
+      hsl(from var(--button-background-color-hover) h s calc(l + 2)),
+      var(--button-background-color-hover)
+    );
+  }
+  &:active {
+    background: hsl(from var(--button-background-color) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &.selected {
+    color: var(--button-text-color-selected);
+    background: var(--button-background-color-selected);
+  }
+  &.selected:focus,
+  &.selected:hover {
+    color: var(--button-text-color-selected);
+    background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+}
+
+/* .btn-variant() mixin, expanded per variant */
+
+.btn.btn-primary {
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--accent-bg-color);
+  background-image: linear-gradient(
+    hsl(from var(--accent-bg-color) h s calc(l + 2)),
+    var(--accent-bg-color)
+  );
+  color: var(--accent-bg-text-color);
+
+  &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--accent-bg-color) h s calc(l - 3)),
+      hsl(from var(--accent-bg-color) h s calc(l - 5))
+    );
+  }
+  &:active {
+    background: hsl(from var(--accent-bg-color) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &.selected {
+    background: hsl(from var(--accent-bg-color) h calc(s + 20) calc(l - 12));
+  }
+  &.selected:focus,
+  &.selected:hover {
+    background: hsl(from var(--accent-bg-color) h calc(s + 20) calc(l - 10));
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  :where(.theme-one-day-ui) & {
+    border-color: transparent; /* hide border on light backgrounds */
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--accent-bg-text-color);
+  }
+  &:focus {
+    border-color: transparent;
+    background-clip: padding-box;
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--accent-bg-color);
+  }
+
+  &.icon:before {
+    color: var(--accent-bg-text-color);
+  }
+}
+
+.btn.btn-info {
+  --btn-variant-background: var(--background-color-info);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--background-color-info);
+  background-image: linear-gradient(
+    hsl(from var(--background-color-info) h s calc(l + 2)),
+    var(--background-color-info)
+  );
+  color: var(--text-color-on-info);
+
+  &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-info) h s calc(l + 5)),
+      hsl(from var(--background-color-info) h s calc(l + 3))
+    );
+  }
+  &:active {
+    background: hsl(from var(--background-color-info) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  :where(.theme-one-day-ui) & {
+    border-color: transparent; /* hide border on light backgrounds */
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-on-info);
+  }
+  &:focus {
+    border-color: transparent;
+    background-clip: padding-box;
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--background-color-info);
+  }
+
+  &.icon:before {
+    color: var(--text-color-on-info);
+  }
+}
+
+.btn.btn-success {
+  --btn-variant-background: var(--background-color-success);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--background-color-success);
+  background-image: linear-gradient(
+    hsl(from var(--background-color-success) h s calc(l + 2)),
+    var(--background-color-success)
+  );
+  color: var(--text-color-on-success);
+
+  &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-success) h s calc(l + 5)),
+      hsl(from var(--background-color-success) h s calc(l + 3))
+    );
+  }
+  &:active {
+    background: hsl(from var(--background-color-success) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  :where(.theme-one-day-ui) & {
+    border-color: transparent; /* hide border on light backgrounds */
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-on-success);
+  }
+  &:focus {
+    border-color: transparent;
+    background-clip: padding-box;
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--background-color-success);
+  }
+
+  &.icon:before {
+    color: var(--text-color-on-success);
+  }
+}
+
+.btn.btn-warning {
+  --btn-variant-background: var(--background-color-warning);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--background-color-warning);
+  background-image: linear-gradient(
+    hsl(from var(--background-color-warning) h s calc(l + 2)),
+    var(--background-color-warning)
+  );
+  color: var(--text-color-on-warning);
+
+  &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-warning) h s calc(l + 5)),
+      hsl(from var(--background-color-warning) h s calc(l + 3))
+    );
+  }
+  &:active {
+    background: hsl(from var(--background-color-warning) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  :where(.theme-one-day-ui) & {
+    border-color: transparent; /* hide border on light backgrounds */
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-on-warning);
+  }
+  &:focus {
+    border-color: transparent;
+    background-clip: padding-box;
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--background-color-warning);
+  }
+
+  &.icon:before {
+    color: var(--text-color-on-warning);
+  }
+}
+
+.btn.btn-error {
+  --btn-variant-background: var(--background-color-error);
+  text-shadow: none;
+  border: 1px solid var(--button-border-color);
+  background-color: var(--background-color-error);
+  background-image: linear-gradient(
+    hsl(from var(--background-color-error) h s calc(l + 2)),
+    var(--background-color-error)
+  );
+  color: var(--text-color-on-error);
+
+  &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-error) h s calc(l + 5)),
+      hsl(from var(--background-color-error) h s calc(l + 3))
+    );
+  }
+
+  :where(.theme-one-night-ui) &:hover {
+    background-image: linear-gradient(
+      hsl(from var(--background-color-error) h s calc(l - 3)),
+      hsl(from var(--background-color-error) h s calc(l - 5))
+    );
+  }
+  &:active {
+    background: hsl(from var(--background-color-error) h s calc(l - 4));
+    box-shadow: none;
+  }
+  &:focus {
+    /* unfortunately :focus styles stay even after releasing mouse. */
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  :where(.theme-one-day-ui) & {
+    border-color: transparent; /* hide border on light backgrounds */
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-on-error);
+  }
+  &:focus {
+    border-color: transparent;
+    background-clip: padding-box;
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--background-color-error);
+  }
+
+  &.icon:before {
+    color: var(--text-color-on-error);
+  }
+}
+
+/* Selected semantic buttons use a substantially shifted background. Resolve
+   their foreground from that exact state color so standalone and grouped
+   buttons remain readable in both day and night variants. */
+.btn:is(.btn-info, .btn-success, .btn-warning, .btn-error).selected {
+  --btn-selected-background: hsl(from var(--btn-variant-background) h calc(s + 20) calc(l - 12));
+  color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
+  background: var(--btn-selected-background);
+
+  &:is(:focus, :hover) {
+    --btn-selected-background: hsl(from var(--btn-variant-background) h calc(s + 20) calc(l - 10));
+    color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
+    background: var(--btn-selected-background);
+  }
+
+  &.icon::before {
+    color: inherit;
+  }
+}
+
+/* Button Sizes ----------------------- */
+
+.btn.btn-xs,
+.btn-group-xs > .btn {
+  font-size: calc(var(--ui-size) * 0.8);
+  line-height: var(--ui-line-height);
+  padding: var(--btn-padding);
+}
+.btn.btn-sm,
+.btn-group-sm > .btn {
+  font-size: calc(var(--ui-size) * 0.9);
+  line-height: var(--ui-line-height);
+  padding: var(--btn-padding);
+}
+.btn.btn-lg,
+.btn-group-lg > .btn {
+  font-size: calc(var(--ui-size) * 1.5);
+  line-height: var(--ui-line-height);
+  padding: var(--btn-padding);
+}
+
+/* Button Group ----------------------- */
+
+.btn-group > .btn {
+  z-index: 0;
+  &:hover {
+    z-index: 0;
+  }
+  &.btn:focus {
+    z-index: 1;
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+
+  &:first-child {
+    border-left: 1px solid var(--button-border-color);
+  }
+  &:last-child,
+  &.selected:last-child {
+    border-right: 1px solid var(--button-border-color);
+  }
+
+  /* hide border on light backgrounds */
+  :where(.theme-one-day-ui) & {
+    &.btn-primary:first-child,
+    &.btn-info:first-child,
+    &.btn-success:first-child,
+    &.btn-warning:first-child,
+    &.btn-error:first-child {
+      border-left-color: transparent;
+    }
+
+    &.btn-primary:last-child,
+    &.btn-info:last-child,
+    &.btn-success:last-child,
+    &.btn-warning:last-child,
+    &.btn-error:last-child {
+      border-right-color: transparent;
+    }
+  }
+
+  &.selected,
+  &.selected:first-child,
+  &.selected:last-child {
+    border-color: var(--button-border-color-selected);
+  }
+
+  :where(.theme-one-day-ui) & {
+    &.selected + .btn {
+      border-left-color: var(--button-border-color-selected);
+    }
+    &.selected + .selected {
+      border-left-color: color-mix(
+        in srgb,
+        var(--button-border-color) 50%,
+        var(--button-border-color-selected)
+      );
+    }
+  }
+
+  &.selected:focus {
+    border-color: var(--button-background-color-selected);
+    box-shadow:
+      inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
+      0 0 0 1px var(--button-background-color-selected);
+  }
+}
+
+/* 04-docks.css */
+/* Docks ------------------------------ */
+
+/* Make handles not take up any space when dock is open */
+.lumine-dock-resize-handle {
+  position: absolute;
+  z-index: 11; /* same as toggle buttons */
+
+  &.left {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &.right {
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  &.bottom {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+/* Add borders */
+.lumine-dock-inner.lumine-dock-open.left {
+  border-right: 1px solid var(--base-border-color);
+}
+.lumine-dock-inner.lumine-dock-open.right {
+  border-left: 1px solid var(--base-border-color);
+}
+
+/* Make toggle buttons cover ^ border */
+.lumine-dock-toggle-button.left {
+  margin-left: -2px;
+}
+.lumine-dock-toggle-button.right {
+  margin-right: -2px;
+}
+.lumine-dock-inner:not(.lumine-dock-open) .lumine-dock-toggle-button.bottom {
+  margin-bottom: -1px;
+}
+
+/* 05-editor.css */
+/* Editors used as inputs.
+ *
+ * Core draws the resting box (static/lumine-ui/styles/inputs.css); the theme
+ * owns the colours and the focus ring. An editor is an input because it says
+ * so with `[input]` — `mini` implies it — never because of where its panel
+ * happens to sit. */
+
+/* Declared on the resting state, not inside `.is-focused`, so the ring eases
+   out on blur as well as in on focus. */
+lumine-text-editor:is([mini], [input]) {
+  transition: border-color 0.15s ease;
+}
+
+lumine-text-editor:is([mini], [input]).is-focused {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+/* Mini */
+/* Usually just single line inputs */
+
+lumine-text-editor[mini] {
+  .placeholder-text {
+    color: var(--text-color-subtle);
+  }
+
+  .selection .region {
+    background-color: var(--input-selection-color);
+  }
+
+  .cursor {
+    border-color: var(--accent-color);
+    border-width: 2px;
+  }
+
+  &.is-focused {
+    background-color: var(--input-background-color-focus);
+    .selection .region {
+      background-color: var(--input-selection-color-focus);
+    }
+  }
+}
+
+/* 06-inputs.css */
+/*
+ * Checkbox
+ * -------------------------
+ */
+
+.input-checkbox {
+  &:active {
+    background-color: var(--accent-color);
+  }
+  &:before,
+  &:after {
+    background-color: var(--accent-text-color);
+  }
+  &:checked {
+    background-color: var(--accent-color);
+  }
+
+  &:indeterminate {
+    background-color: var(--accent-color);
+  }
+}
+
+/*
+ * Radio
+ * -------------------------
+ */
+
+.input-radio {
+  &:before {
+    background-color: var(--accent-text-color);
+  }
+  &:active {
+    background-color: var(--accent-color);
+  }
+  &:checked {
+    background-color: var(--accent-color);
+  }
+}
+
+/*
+ * Range (Slider)
+ * -------------------------
+ */
+
+.input-range {
+  &::-webkit-slider-thumb {
+    background-color: var(--accent-color);
+  }
+}
+
+/*
+ * Toggle
+ * -------------------------
+ */
+
+.input-toggle {
+  &:checked {
+    background-color: var(--accent-color);
+  }
+  &:before {
+    background-color: var(--accent-text-color);
+  }
+}
+
+/* States ------------------------- */
+
+.input-checkbox,
+.input-text,
+.input-search,
+.input-number,
+.input-textarea,
+.input-select,
+.input-color {
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+  }
+}
+
+.input-text,
+.input-search,
+.input-number,
+.input-textarea {
+  &:invalid {
+    border-color: var(--text-color-error);
+    box-shadow: 0 0 0 1px var(--text-color-error);
+    background-color: color-mix(
+      in srgb,
+      var(--text-color-error) 10%,
+      var(--input-background-color)
+    );
+  }
+}
+
+/* 07-lists.css */
+.list-group,
+.list-tree {
+  li:not(.list-nested-item),
+  li.list-nested-item > .list-item {
+    font-weight: normal;
+    color: var(--text-color);
+  }
+
+  /* .generate-list-item-text-color() mixin, expanded per class */
+  li:not(.list-nested-item).text-subtle,
+  li.list-nested-item.text-subtle > .list-item {
+    font-weight: normal;
+    color: var(--text-color-subtle);
+  }
+  li:not(.list-nested-item).text-info,
+  li.list-nested-item.text-info > .list-item {
+    color: var(--text-color-info);
+  }
+  li:not(.list-nested-item).text-success,
+  li.list-nested-item.text-success > .list-item {
+    color: var(--text-color-success);
+  }
+  li:not(.list-nested-item).text-warning,
+  li.list-nested-item.text-warning > .list-item {
+    color: var(--text-color-warning);
+  }
+  li:not(.list-nested-item).text-error,
+  li.list-nested-item.text-error > .list-item {
+    color: var(--text-color-error);
+  }
+  li:not(.list-nested-item).text-selected,
+  li.list-nested-item.text-selected > .list-item {
+    font-weight: normal;
+    color: var(--text-color-highlight);
+  }
+
+  li:not(.list-nested-item).selected,
+  li.list-nested-item.selected > .list-item {
+    font-weight: normal;
+    color: var(--text-color-highlight);
+  }
+
+  .no-icon {
+    padding-left: calc(var(--ui-padding-icon) + var(--component-icon-size));
+  }
+}
+
+.list-tree.has-collapsable-children .list-nested-item > .list-item::before {
+  text-align: center;
+}
+
+.ui-sortable {
+  li {
+    line-height: 2.5;
+  }
+
+  /* For sortable lists in the settings view */
+  li.ui-sortable-placeholder {
+    visibility: visible !important;
+    background-color: hsl(from var(--pane-item-background-color) h s calc(l - 10));
+  }
+}
+
+li.ui-draggable-dragging,
+li.ui-sortable-helper {
+  line-height: var(--ui-line-height);
+  height: var(--ui-line-height);
+  border: 0;
+  border-radius: 0;
+  list-style: none;
+  padding: 0 var(--ui-padding);
+  background: var(--background-color-highlight);
+  box-shadow: 0 0 1px var(--base-border-color);
+}
+
+/* 08-nav.css */
+.nav-tabs {
+  border-bottom: 1px solid var(--base-border-color);
+  li {
+    a,
+    &.active a {
+      border: none;
+      margin-right: 0px;
+      margin-bottom: 1px;
+    }
+
+    a:hover,
+    &.active a,
+    &.active a:hover {
+      background-color: var(--background-color-highlight);
+      border: none;
+      color: var(--text-color-selected);
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    &.active a {
+      background-color: var(--tab-background-color-active);
+    }
+  }
+}
+
+/* 09-notifications.css */
+lumine-notifications {
+  font-size: calc(var(--ui-size) * 1.2);
+
+  lumine-notification {
+    width: 32em;
+    &.has-detail {
+      width: 32em;
+    }
+
+    &:first-child.has-close .message {
+      padding-right: 9em;
+    }
+    &:only-child.has-close .message,
+    &.has-close .message {
+      padding-right: 2.5em;
+    }
+    .item {
+      padding: calc(var(--ui-padding) / 2);
+    }
+
+    .detail,
+    .description {
+      font-size: 0.85em;
+    }
+
+    &.icon:before {
+      padding-top: 0.85em;
+    }
+    .close {
+      width: 2.5em;
+      height: 3em;
+      line-height: 3em;
+      font-size: inherit;
+    }
+    .close-all.btn {
+      top: 0.5em;
+      right: 2.5em;
+    }
+    .btn-copy-report {
+      line-height: 2em;
+      margin-left: 0.5em;
+    }
+  }
+}
+
+/* 10-modal.css */
+lumine-panel-container.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+lumine-panel.modal {
+  position: relative;
+  width: 100%;
+  max-width: min(92vw, calc(var(--ui-size) * 70));
+  margin: 0 auto;
+  left: initial;
+  color: var(--text-color);
+  background-color: transparent;
+  padding: calc(var(--ui-padding) / 2);
+  animation: modal-appear 0.18s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  &.from-top {
+    top: calc(var(--component-padding) * 8);
+  }
+
+  lumine-text-editor[mini] {
+    margin-bottom: calc(var(--ui-padding) * 0.75);
+    font-size: calc(var(--input-font-size) * 1.05);
+  }
+
+  .select-list ol.list-group,
+  &.select-list ol.list-group {
+    border-radius: calc(var(--component-border-radius) * 2);
+    background-color: hsl(from var(--overlay-background-color) h s calc(l + 2));
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    li {
+      padding: calc(var(--ui-padding) * 0.6) calc(var(--ui-padding) / 1.5);
+      border-bottom: 1px solid var(--overlay-border-color);
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+
+      /* Close the band a separator opens: the row above keeps its bottom
+         border, the separator draws the line, and this restores the rule on
+         the far side. */
+      &.select-list-separator[role="separator"] + li {
+        border-top: 1px solid var(--overlay-border-color);
+      }
+    }
+  }
+
+  & > * {
+    position: relative; /* fixes stacking order */
+  }
+
+  /* Container */
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-color: var(--overlay-background-color);
+    border-radius: calc(var(--component-border-radius) * 3);
+    box-shadow:
+      inset 0 0 0 1px var(--overlay-border-color),
+      0 4px 12px -4px hsla(0, 0%, 0%, 0.35),
+      0 20px 48px -12px hsla(0, 0%, 0%, 0.55);
+  }
+
+  /* Backdrop */
+  /* TODO: Add extra wrapper to translate individually or easier positioning */
+
+  &:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: var(--overlay-backdrop-color);
+    opacity: var(--overlay-backdrop-opacity);
+    backdrop-filter: blur(3px);
+    backface-visibility: hidden; /* fixes scrollbar on retina screens */
+    -webkit-animation: overlay-fade 0.24s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+}
+
+@-webkit-keyframes overlay-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: var(--overlay-backdrop-opacity);
+  }
+}
+
+@keyframes modal-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 11-panels.css */
+/* Panels */
+
+lumine-panel {
+  font-weight: normal;
+  color: var(--text-color);
+  position: relative;
+  border-bottom: 1px solid var(--base-border-color);
+
+  &.top {
+    border-right: 1px solid var(--base-border-color);
+  }
+  &.left {
+    border-right: 1px solid var(--base-border-color);
+  }
+  &.right {
+    border-left: 1px solid var(--base-border-color);
+  }
+  &.bottom {
+    border-right: 1px solid var(--base-border-color);
+  }
+  &.footer:last-child {
+    border-bottom: none;
+  }
+  &.tool-panel:empty {
+    border: none;
+  }
+}
+
+.panel {
+  &.bordered {
+    border: 1px solid var(--base-border-color);
+    border-radius: var(--component-border-radius);
+  }
+}
+
+.inset-panel {
+  position: relative;
+  background-color: var(--inset-panel-background-color);
+  border-radius: var(--component-border-radius);
+  &.bordered {
+    border: 1px solid var(--base-border-color);
+    border-radius: var(--component-border-radius);
+  }
+  & .panel-heading {
+    border-color: var(--inset-panel-border-color);
+  }
+}
+
+.panel-heading {
+  font-weight: normal;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--panel-heading-border-color);
+  background-color: var(--panel-heading-background-color);
+
+  .btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    /* .btn-default() expanded with each color lightened by 10% */
+    color: hsl(from var(--text-color) h s calc(l + 10));
+    text-shadow: none;
+    border: 1px solid var(--button-border-color);
+    background-color: hsl(from var(--button-background-color) h s calc(l + 10));
+    background-image: linear-gradient(
+      hsl(from var(--button-background-color) h s calc(l + 12)),
+      hsl(from var(--button-background-color) h s calc(l + 10))
+    );
+
+    &:hover {
+      color: var(--text-color-highlight);
+      background-image: linear-gradient(
+        hsl(from var(--button-background-color-hover) h s calc(l + 12)),
+        hsl(from var(--button-background-color-hover) h s calc(l + 10))
+      );
+    }
+    &:active {
+      background: hsl(from var(--button-background-color) h s calc(l + 6));
+      box-shadow: none;
+    }
+    &.selected {
+      background: hsl(from var(--button-background-color-selected) h s calc(l + 10));
+    }
+    &.selected:focus,
+    &.selected:hover {
+      background: hsl(from var(--button-background-color-selected) h s calc(l + 12));
+    }
+    &:focus {
+      /* unfortunately :focus styles stay even after releasing mouse. */
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 1px var(--accent-color);
+    }
+  }
+}
+
+/* 12-panes.css */
+lumine-pane-container {
+  lumine-pane {
+    position: relative;
+    border-right: 1px solid var(--base-border-color);
+    border-bottom: 1px solid var(--base-border-color);
+
+    .item-views {
+      /* Prevent lumine-text-editor from leaking outside; this may improve performance. */
+      overflow: hidden;
+    }
+  }
+}
+
+/* Hide right-most border */
+lumine-pane:only-child,
+lumine-pane-axis.pane-row > lumine-pane:last-child,
+lumine-pane-axis.pane-column:last-child > lumine-pane {
+  border-right: none;
+}
+
+/* 13-progress.css */
+/* Spinner ---------------------- */
+
+/* @spinner-duration: 1.2s — constant, inlined as literals (1.2s / 0.6s delay).
+   .loading-spinner(@size) mixin expanded per size class below. */
+
+.loading-spinner-tiny {
+  position: relative;
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 16px;
+  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 10; /* prevent sibling elements from getting their own layers */
+    top: 0;
+    left: 0;
+    border-radius: 1em;
+    width: inherit;
+    height: inherit;
+    border-radius: 1em;
+    border: 2px solid;
+    -webkit-animation: spinner-animation 1.2s infinite;
+    -webkit-animation-fill-mode: backwards;
+  }
+  &::before {
+    border-color: var(--accent-color) transparent transparent transparent;
+  }
+  &::after {
+    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  &.inline-block {
+    display: inline-block;
+  }
+
+  &::before,
+  &::after {
+    border-width: 1px;
+  }
+}
+.loading-spinner-small {
+  position: relative;
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 32px;
+  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 10; /* prevent sibling elements from getting their own layers */
+    top: 0;
+    left: 0;
+    border-radius: 1em;
+    width: inherit;
+    height: inherit;
+    border-radius: 1em;
+    border: 2px solid;
+    -webkit-animation: spinner-animation 1.2s infinite;
+    -webkit-animation-fill-mode: backwards;
+  }
+  &::before {
+    border-color: var(--accent-color) transparent transparent transparent;
+  }
+  &::after {
+    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  &.inline-block {
+    display: inline-block;
+  }
+}
+.loading-spinner-medium {
+  position: relative;
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 48px;
+  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 10; /* prevent sibling elements from getting their own layers */
+    top: 0;
+    left: 0;
+    border-radius: 1em;
+    width: inherit;
+    height: inherit;
+    border-radius: 1em;
+    border: 2px solid;
+    -webkit-animation: spinner-animation 1.2s infinite;
+    -webkit-animation-fill-mode: backwards;
+  }
+  &::before {
+    border-color: var(--accent-color) transparent transparent transparent;
+  }
+  &::after {
+    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  &.inline-block {
+    display: inline-block;
+  }
+}
+.loading-spinner-large {
+  position: relative;
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 64px;
+  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 10; /* prevent sibling elements from getting their own layers */
+    top: 0;
+    left: 0;
+    border-radius: 1em;
+    width: inherit;
+    height: inherit;
+    border-radius: 1em;
+    border: 2px solid;
+    -webkit-animation: spinner-animation 1.2s infinite;
+    -webkit-animation-fill-mode: backwards;
+  }
+  &::before {
+    border-color: var(--accent-color) transparent transparent transparent;
+  }
+  &::after {
+    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  &.inline-block {
+    display: inline-block;
+  }
+}
+
+@-webkit-keyframes spinner-animation {
+  0% {
+    transform: rotateZ(0deg);
+    -webkit-animation-timing-function: cubic-bezier(0, 0, 0.8, 0.2);
+  }
+  50% {
+    transform: rotateZ(180deg);
+    -webkit-animation-timing-function: cubic-bezier(0.2, 0.8, 1, 1);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* Progress Bar ---------------------- */
+
+/* @progress-height: 8px and
+   @progress-buffer-color: fade(@progress-background-color, 20%) inlined (2 uses each). */
+
+progress {
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: var(--component-border-radius);
+  background-color: var(--input-background-color);
+  box-shadow: inset 0 0 0 1px var(--input-border-color);
+
+  &::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  &::-webkit-progress-value {
+    border-radius: var(--component-border-radius);
+    background-color: var(--progress-background-color);
+  }
+
+  /* Is buffering (when no value is set) */
+  &:indeterminate {
+    background-image: linear-gradient(
+      -45deg,
+      transparent 33%,
+      rgb(from var(--progress-background-color) r g b / 20%) 33%,
+      rgb(from var(--progress-background-color) r g b / 20%) 66%,
+      transparent 66%
+    );
+    background-size:
+      25px 8px,
+      100% 100%,
+      100% 100%;
+
+    /* Plays animation for 1min (12runs) at normal speed,
+       then slows down frame-rate for 9mins (108runs) to limit CPU usage */
+    -webkit-animation:
+      progress-buffering 5s linear 12,
+      progress-buffering 5s 60s steps(10) 108;
+  }
+}
+
+@-webkit-keyframes progress-buffering {
+  100% {
+    background-position: -100px 0px;
+  }
+}
+
+/* 14-tabs.css */
+/* Tabs */
+
+/* File-local Less variables inlined:
+   @tab-border: 1px solid @tab-border-color (1 use)
+   @title-padding: 0.66em (1 use)
+   @icon-padding-top: 0.5em (2 uses) — 2.5 (total) - 1.5 (text) / 2
+   @icon-padding-right: 0.5em (2 uses) */
+
+.tab-bar {
+  position: relative;
+  height: var(--ui-tab-height);
+  box-shadow: inset 0 -1px 0 var(--tab-border-color);
+  background: var(--tab-bar-background-color);
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:empty {
+    display: none;
+  }
+
+  /* Tab ---------------------- */
+
+  .tab {
+    position: relative;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    height: inherit;
+    font-size: inherit;
+    line-height: var(--ui-tab-height);
+    color: var(--tab-text-color);
+    background-color: var(--tab-background-color);
+    box-shadow: inherit;
+    border-left: 1px solid var(--tab-border-color);
+    &.active {
+      color: var(--tab-text-color-active);
+      background-color: var(--tab-background-color-active);
+      box-shadow: none;
+    }
+    &:first-of-type {
+      border-left-color: transparent;
+    }
+    &:last-of-type {
+      /* use box-shadow to not take up any space */
+      box-shadow:
+        inset 0 -1px 0 var(--tab-border-color),
+        1px 0 0 var(--base-border-color);
+    }
+    &.active:last-of-type {
+      box-shadow: 1px 0 0 var(--base-border-color);
+    }
+
+    /* Title ---------------------- */
+
+    .title {
+      text-align: center;
+      margin: 0 0.66em;
+    }
+
+    /* Close icon ---------------------- */
+
+    .close-icon {
+      top: 0.5em;
+      right: 0.5em;
+      z-index: 2;
+      font-size: 1em;
+      width: 1.5em;
+      height: 1.5em;
+      line-height: 1.5;
+      text-align: center;
+      border-radius: var(--component-border-radius);
+      background-color: inherit;
+      overflow: hidden;
+      transform: scale(0);
+      transition: transform 0.08s;
+      &:hover {
+        color: var(--accent-text-color);
+        background-color: var(--accent-color);
+      }
+      &:active {
+        background-color: rgb(from var(--accent-color) r g b / 50%);
+      }
+      &::before {
+        z-index: 1;
+        font-size: 1.1em;
+        vertical-align: -0.05em; /* Adjust center for the 0.1em font-size increase */
+        width: auto;
+        height: auto;
+        pointer-events: none;
+      }
+    }
+    &:hover .close-icon {
+      transform: scale(1);
+      transition-duration: 0.16s;
+    }
+  }
+
+  /* Tabs in the docks ---------------------- */
+
+  lumine-dock & {
+    .tab.active {
+      background-color: var(--tool-panel-background-color);
+    }
+  }
+
+  /* Dragging ---------------------- */
+
+  .tab.is-dragging {
+    opacity: 0.5;
+
+    .close-icon,
+    &:before {
+      visibility: hidden;
+    }
+  }
+
+  .placeholder {
+    position: relative;
+    pointer-events: none;
+
+    /* bar */
+    &:before {
+      z-index: 1;
+      margin: 0;
+      width: 2px;
+      height: var(--ui-tab-height);
+      background-color: var(--accent-color);
+    }
+
+    /* arrow */
+    &:after {
+      z-index: 0;
+      top: calc(var(--ui-tab-height) / 2);
+      margin: -4px 0 0 -3px;
+      border-radius: 0;
+      border: 4px solid var(--accent-color);
+      transform: rotate(45deg);
+      background: transparent;
+    }
+
+    &:last-child {
+      &:before {
+        margin-left: -2px;
+      }
+      &:after {
+        transform: none;
+        margin-left: -10px;
+        border-color: transparent var(--accent-color) transparent transparent;
+      }
+    }
+  }
+
+  /* Overrides ---------------------- */
+
+  /* keep tabs same size when active */
+  .tab,
+  .tab.active {
+    padding-right: 0;
+    .title {
+      padding: 0;
+    }
+  }
+}
+
+/* Active/focused pane marker -------------- */
+
+lumine-pane-axis > lumine-pane.active,
+lumine-pane-container > lumine-pane.pane {
+  .tab.active:before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    top: 0;
+    left: -1px; /* cover left border */
+    bottom: 0;
+    width: 2px;
+    background: color-mix(in srgb, var(--text-color) 33%, var(--tab-background-color-editor));
+  }
+}
+.pane:focus-within {
+  .tab.active:before {
+    background: var(--accent-color);
+  }
+}
+
+/* hide marker in docks */
+lumine-dock .tab-bar .tab::before {
+  display: none;
+}
+
+/* Custom tabs -------------- */
+
+.tab-bar .tab.active {
+  &[data-type$="Editor"] {
+    color: var(--tab-text-color-editor);
+    background-color: var(--tab-background-color-editor); /* Match syntax background color */
+  }
+}
+
+/* 15-text.css */
+h1,
+h2,
+h3 {
+  line-height: 1em;
+  margin-bottom: 15px;
+}
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.2em;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: normal;
+}
+
+pre {
+  box-shadow: none;
+  color: var(--text-color);
+  background: var(--inset-panel-background-color);
+  border-radius: var(--component-border-radius);
+  border: none;
+  margin: 0;
+}
+
+code {
+  font-weight: normal;
+  color: var(--text-color-highlight);
+  background: var(--background-color-highlight);
+  border-radius: var(--component-border-radius);
+}
+
+.selected {
+  font-weight: normal;
+  color: var(--text-color-highlight);
+}
+
+.text-smaller {
+  font-size: 0.9em;
+}
+
+.text-subtle {
+  font-weight: normal;
+  color: var(--text-color-subtle);
+}
+.text-highlight {
+  font-weight: normal;
+  color: var(--text-color-highlight);
+}
+
+.text-error {
+  color: var(--text-color-error);
+}
+.text-info {
+  color: var(--text-color-info);
+  &:hover {
+    color: var(--text-color-info);
+  }
+}
+.text-warning {
+  color: var(--text-color-warning);
+  &:hover {
+    color: var(--text-color-warning);
+  }
+}
+.text-success {
+  color: var(--text-color-success);
+  &:hover {
+    color: var(--text-color-success);
+  }
+}
+
+.highlight {
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 700;
+  color: var(--text-color-highlight);
+  background-color: var(--background-color-highlight);
+}
+
+.highlight-info {
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 500;
+  color: var(--text-color-on-info);
+  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
+  background-color: var(--background-color-info);
+}
+.highlight-warning {
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 500;
+  color: var(--text-color-on-warning);
+  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
+  background-color: var(--background-color-warning);
+}
+.highlight-error {
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 500;
+  color: var(--text-color-on-error);
+  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
+  background-color: var(--background-color-error);
+}
+.highlight-success {
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-weight: 500;
+  color: var(--text-color-on-success);
+  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
+  background-color: var(--background-color-success);
+}
+
+.results-view .path-details.list-item {
+  color: hsl(from var(--text-color-highlight) h s calc(l - 18));
+}
+
+/* 16-tooltips.css */
+.tooltip {
+  white-space: nowrap;
+  font-size: calc(var(--ui-size) * 1.15);
+
+  &.in {
+    opacity: 1;
+    transition: opacity 0.12s ease-out;
+  }
+
+  .tooltip-inner {
+    line-height: 1;
+    padding: calc(var(--ui-padding) * 0.5) calc(var(--ui-padding) * 0.65);
+    border-radius: var(--component-border-radius);
+    background-color: var(--tooltip-background-color);
+    color: var(--tooltip-text-color);
+    white-space: nowrap;
+    max-width: none;
+  }
+
+  .keystroke {
+    font-size: max(1em, calc(var(--ui-size) * 0.85));
+    padding: 0.1em 0.4em;
+    margin: 0 calc(var(--ui-padding) * -0.35) 0 calc(var(--ui-padding) * 0.25);
+    border-radius: max(2px, calc(var(--component-border-radius) / 2));
+    color: var(--tooltip-text-key-color);
+    background: var(--tooltip-background-key-color);
+  }
+
+  &.top .tooltip-arrow {
+    border-top-color: var(--tooltip-background-color);
+  }
+  &.top-left .tooltip-arrow {
+    border-top-color: var(--tooltip-background-color);
+  }
+  &.top-right .tooltip-arrow {
+    border-top-color: var(--tooltip-background-color);
+  }
+  &.right .tooltip-arrow {
+    border-right-color: var(--tooltip-background-color);
+  }
+  &.left .tooltip-arrow {
+    border-left-color: var(--tooltip-background-color);
+  }
+  &.bottom .tooltip-arrow {
+    border-bottom-color: var(--tooltip-background-color);
+  }
+  &.bottom-left .tooltip-arrow {
+    border-bottom-color: var(--tooltip-background-color);
+  }
+  &.bottom-right .tooltip-arrow {
+    border-bottom-color: var(--tooltip-background-color);
+  }
+}
+
+/* 17-status-bar.css */
+.status-bar {
+  font-size: var(--ui-size);
+  height: var(--ui-tab-height); /* same as tabs */
+  line-height: var(--ui-tab-height);
+  background-color: var(--level-3-color);
+
+  .flexbox-repaint-hack {
+    padding: 0; /* override default */
+  }
+
+  /* underlines should only be used for external links */
+  a:hover,
+  a:focus {
+    text-decoration: none;
+    cursor: default;
+  }
+
+  /* Tiles butt against each other here: a tile's hover rectangle is its own
+     padding, so a gap between them would read as a break in the strip. */
+  .status-bar-left,
+  .status-bar-right {
+    gap: 0;
+  }
+
+  /* A tile is what the bar stamped `.status-bar-item` on. Never key this on
+     `.inline-block`: that is a layout utility packages also use for a row of
+     labels *inside* a tile, so a nested one would take the tile's padding and
+     paint its own hover rectangle inset within the tile's. */
+  .status-bar-item {
+    padding: 0 calc(var(--ui-padding) / 2);
+
+    &:hover {
+      text-decoration: none;
+      background-color: var(--level-3-color-hover);
+    }
+    &:active {
+      background-color: var(--level-3-color-active);
+    }
+  }
+
+  .icon::before {
+    margin-right: 0.25em;
+  }
+}
+
+/* 18-key-binding.css */
+.key-binding {
+  display: inline-block;
+  margin-left: var(--ui-padding-icon);
+  padding: 0 calc(var(--ui-padding) / 4);
+  line-height: 2;
+  font-family: inherit;
+  font-size: max(1em, calc(var(--ui-size) * 0.85));
+  letter-spacing: calc(var(--ui-size) / 10);
+  border-radius: var(--component-border-radius);
+  color: var(--accent-bg-text-color);
+  background-color: var(--accent-bg-color);
+}
+
+/* 19-sites.css */
+/* Site Colors */
+
+.ui-site-1 {
+  background-color: var(--ui-site-color-1);
+}
+.ui-site-2 {
+  background-color: var(--ui-site-color-2);
+}
+.ui-site-3 {
+  background-color: var(--ui-site-color-3);
+}
+.ui-site-4 {
+  background-color: var(--ui-site-color-4);
+}
+.ui-site-5 {
+  background-color: var(--ui-site-color-5);
+}
+
+/* 20-title-bar.css */
+/* A control tile is what the title bar stamped `.title-bar-item` on, and an
+   application-menu label is the other thing you can point at in the same strip.
+   The package supplies both boxes — flex centring, strip height, the layer a
+   label's highlight paints on — and the theme supplies the look, the same
+   division the status bar uses. Never key this on `.inline-block`: that is a
+   layout utility packages also use inside a tile.
+
+   A label paints through `::before` because its own box holds the submenu. That
+   is the only difference; the two take the same colour in the same state, so
+   pointing at a menu and pointing at a tile look alike. */
+.title-bar {
+  .control-tiles .title-bar-item {
+    color: var(--text-color-subtle);
+  }
+
+  .control-tiles .title-bar-item:hover {
+    color: var(--text-color);
+  }
+
+  .control-tiles .title-bar-item:hover,
+  .app-menu .menu-label:is(:hover, .open, .focused)::before {
+    background-color: var(--level-3-color-hover);
+  }
+
+  .control-tiles .title-bar-item:active,
+  .app-menu .menu-label:active::before {
+    background-color: var(--level-3-color-active);
+  }
+}
