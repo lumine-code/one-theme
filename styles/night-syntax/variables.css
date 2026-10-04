@@ -37,6 +37,7 @@
   --syntax-color-method: hsl(207, 82%, 66%);
   --syntax-color-class: hsl(39, 67%, 69%);
   --syntax-color-keyword: hsl(286, 60%, 67%);
+  --syntax-color-magic: var(--hue-6-2);
   --syntax-color-tag: hsl(355, 65%, 65%);
   --syntax-color-attribute: hsl(29, 54%, 61%);
   --syntax-color-import: hsl(286, 60%, 67%);

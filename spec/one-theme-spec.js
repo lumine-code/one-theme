@@ -412,6 +412,36 @@ describe("one-theme", () => {
     }
   });
 
+  it("distinguishes IPython magic commands and percent signs from Python directives", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    const magicClasses = [
+      "syntax--support",
+      "syntax--function",
+      "syntax--magic",
+      "syntax--ipython",
+    ];
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+      const magicColor = colorOf("--syntax-color-magic");
+      expect(colorOfToken(magicClasses)).toBe(magicColor);
+      expect(colorOfToken([...magicClasses, "syntax--punctuation", "syntax--definition"])).toBe(
+        magicColor,
+      );
+      for (const directiveClasses of [
+        ["syntax--keyword", "syntax--control", "syntax--conditional", "syntax--if"],
+        ["syntax--keyword", "syntax--control", "syntax--import"],
+        ["syntax--storage", "syntax--type", "syntax--function"],
+      ]) {
+        expect(colorOfToken([...directiveClasses, "syntax--python"])).not.toBe(magicColor);
+      }
+      expect(
+        colorOfToken(["syntax--support", "syntax--function", "syntax--magic", "syntax--python"]),
+      ).toBe(colorOfToken(["syntax--support", "syntax--function", "syntax--python"]));
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
   it("derives readable illegal-token text from the syntax error color", async () => {
     await lumine.packages.activatePackage("one-theme");
 

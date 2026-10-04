@@ -6,6 +6,10 @@
  * loads after these rules.
  */
 
+.syntax--support.syntax--function.syntax--magic.syntax--ipython {
+  color: var(--syntax-color-magic);
+}
+
 .syntax--source.syntax--css {
   .syntax--entity {
     /* function() */
