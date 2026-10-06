@@ -9,36 +9,40 @@
 /* Language syntax highlighting */
 
 .syntax--comment {
-  color: var(--mono-3);
+  color: var(--syntax-color-comment);
 
   .syntax--markup.syntax--link {
-    color: var(--mono-3);
+    color: var(--syntax-color-comment);
   }
 }
 
 .syntax--entity {
   &.syntax--name.syntax--type {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
   }
 
   &.syntax--other.syntax--inherited-class {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
   }
 }
 
 .syntax--keyword {
-  color: var(--hue-3);
+  color: var(--syntax-color-keyword);
 
   &.syntax--control {
-    color: var(--hue-3);
+    color: var(--syntax-color-keyword);
+
+    &.syntax--import {
+      color: var(--syntax-color-import);
+    }
   }
 
   &.syntax--operator {
-    color: var(--hue-3);
+    color: var(--syntax-color-keyword);
   }
 
   &.syntax--other.syntax--special-method {
-    color: var(--hue-2);
+    color: var(--syntax-color-method);
   }
 
   &.syntax--other.syntax--unit {
@@ -47,7 +51,7 @@
 }
 
 .syntax--storage {
-  color: var(--hue-3);
+  color: var(--syntax-color-keyword);
 
   &.syntax--type {
     &.syntax--annotation,
@@ -59,16 +63,16 @@
   &.syntax--modifier {
     &.syntax--package,
     &.syntax--import {
-      color: var(--mono-1);
+      color: var(--syntax-color-import);
     }
   }
 }
 
 .syntax--constant {
-  color: var(--hue-6);
+  color: var(--syntax-color-constant);
 
   &.syntax--variable {
-    color: var(--hue-6);
+    color: var(--syntax-color-constant);
   }
 
   &.syntax--character.syntax--escape {
@@ -76,7 +80,7 @@
   }
 
   &.syntax--numeric {
-    color: var(--hue-6);
+    color: var(--syntax-color-constant);
   }
 
   &.syntax--other.syntax--color {
@@ -89,16 +93,19 @@
 }
 
 /*
- * Style `property` (anywhere in a scope name) like `variable` to keep
- * continuity of appearance after some scope name changes in
- * JavaScript/TypeScript.
+ * Property references have their own public role. The palette aliases it to
+ * variables by default to preserve JavaScript/TypeScript scope continuity.
  */
 .syntax--property {
-  color: var(--hue-5);
+  color: var(--syntax-color-property);
+}
+
+.syntax--value {
+  color: var(--syntax-color-value);
 }
 
 .syntax--variable {
-  color: var(--hue-5);
+  color: var(--syntax-color-variable);
 
   &.syntax--interpolation {
     color: var(--hue-5-2);
@@ -110,7 +117,7 @@
 }
 
 .syntax--string {
-  color: var(--hue-4);
+  color: var(--syntax-color-string);
 
   > .syntax--source,
   .syntax--embedded {
@@ -133,7 +140,7 @@
 .syntax--punctuation {
   &.syntax--definition {
     &.syntax--comment {
-      color: var(--mono-3);
+      color: var(--syntax-color-comment);
     }
 
     &.syntax--method-parameters,
@@ -172,11 +179,11 @@
 .syntax--support {
   &.syntax--class,
   &.syntax--module {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
   }
 
   &.syntax--namespace {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
   }
 
   &.syntax--type {
@@ -185,7 +192,7 @@
 
   &.syntax--other {
     &.syntax--function {
-      color: var(--hue-2);
+      color: var(--syntax-color-function);
     }
   }
 
@@ -193,19 +200,19 @@
     color: var(--hue-1);
 
     &.syntax--any-method {
-      color: var(--hue-2);
+      color: var(--syntax-color-method);
     }
   }
 }
 
 .syntax--entity {
   &.syntax--name.syntax--function {
-    color: var(--hue-2);
+    color: var(--syntax-color-function);
   }
 
   &.syntax--name.syntax--class,
   &.syntax--name.syntax--type.syntax--class {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
   }
 
   &.syntax--name.syntax--section {
@@ -213,11 +220,11 @@
   }
 
   &.syntax--name.syntax--tag {
-    color: var(--hue-5);
+    color: var(--syntax-color-tag);
   }
 
   &.syntax--other.syntax--attribute-name {
-    color: var(--hue-6);
+    color: var(--syntax-color-attribute);
 
     &.syntax--id {
       color: var(--hue-2);
@@ -227,7 +234,7 @@
 
 .syntax--meta {
   &.syntax--class:not(.syntax--block) {
-    color: var(--hue-6-2);
+    color: var(--syntax-color-class);
 
     &.syntax--body {
       color: var(--mono-1);
@@ -241,7 +248,7 @@
 
   &.syntax--definition {
     &.syntax--variable {
-      color: var(--hue-5);
+      color: var(--syntax-color-variable);
     }
   }
 
@@ -335,6 +342,6 @@
    * we assign the color of a comment to this new scope.
    */
   &.syntax--horizontal-rule {
-    color: var(--mono-3);
+    color: var(--syntax-color-comment);
   }
 }

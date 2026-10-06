@@ -16,7 +16,7 @@
 
 /* if for return global let */
 .syntax--keyword {
-  color: var(--hue-3);
+  color: var(--syntax-color-keyword);
 
   /* int char float */
   &.syntax--type {
@@ -25,7 +25,7 @@
 
   /* and or new del */
   &.syntax--operator {
-    color: var(--hue-3);
+    color: var(--syntax-color-keyword);
   }
 
   /* super */
@@ -35,7 +35,11 @@
 
   /* this self */
   &.syntax--variable {
-    color: var(--hue-5);
+    color: var(--syntax-color-variable);
+  }
+
+  &.syntax--import {
+    color: var(--syntax-color-import);
   }
 
   /* = + && | << ? */
@@ -46,7 +50,7 @@
 
 /* identifier */
 .syntax--entity {
-  color: var(--mono-1);
+  color: var(--syntax-text-color);
 
   /* function(parameter) */
   &.syntax--parameter {
@@ -55,12 +59,12 @@
 
   /* self cls iota */
   &.syntax--support {
-    color: var(--hue-5);
+    color: var(--syntax-color-variable);
   }
 
   /* @entity.decorator */
   &.syntax--decorator:last-child {
-    color: var(--hue-2);
+    color: var(--syntax-color-function);
   }
 
   /* label: */
@@ -70,7 +74,35 @@
 
   /* function method */
   &.syntax--function {
-    color: var(--hue-2);
+    color: var(--syntax-color-function);
+
+    &.syntax--method {
+      color: var(--syntax-color-method);
+    }
+  }
+
+  &.syntax--method {
+    color: var(--syntax-color-method);
+  }
+
+  &.syntax--class {
+    color: var(--syntax-color-class);
+  }
+
+  &.syntax--variable {
+    color: var(--syntax-color-variable);
+  }
+
+  &.syntax--property {
+    color: var(--syntax-color-property);
+  }
+
+  &.syntax--value {
+    color: var(--syntax-color-value);
+  }
+
+  &.syntax--import {
+    color: var(--syntax-color-import);
   }
 
   /* add */
@@ -86,16 +118,20 @@
   /* String Class int rune list */
   &.syntax--type {
     color: var(--hue-1);
+
+    &.syntax--class {
+      color: var(--syntax-color-class);
+    }
   }
 
   /* div span */
   &.syntax--tag {
-    color: var(--hue-5);
+    color: var(--syntax-color-tag);
   }
 
   /* href src alt */
   &.syntax--attribute {
-    color: var(--hue-6);
+    color: var(--syntax-color-attribute);
   }
 }
 
@@ -122,11 +158,11 @@
 
 /* "string" */
 .syntax--string {
-  color: var(--hue-4);
+  color: var(--syntax-color-string);
 
   /* :immutable */
   &.syntax--immutable {
-    color: var(--hue-4);
+    color: var(--syntax-color-string);
   }
 
   /* {placeholder} %().2f */
@@ -162,7 +198,7 @@
 
 /* literal 4 1.3 true nil */
 .syntax--constant {
-  color: var(--hue-6);
+  color: var(--syntax-color-constant);
 
   /* &lt; 'a' */
   &.syntax--character {
@@ -289,22 +325,22 @@
 
 /* comment */
 .syntax--comment {
-  color: var(--mono-3);
+  color: var(--syntax-color-comment);
 
   /* @param TODO NOTE */
   &.syntax--caption {
-    color: hsl(from var(--mono-3) h s calc(l + 6));
+    color: hsl(from var(--syntax-color-comment) h s calc(l + 6));
     font-weight: bold;
   }
 
   /* variable function type */
   &.syntax--term {
-    color: hsl(from var(--mono-3) h s calc(l + 9));
+    color: hsl(from var(--syntax-color-comment) h s calc(l + 9));
   }
 
   /* { } / . */
   &.syntax--punctuation {
-    color: var(--mono-3);
+    color: var(--syntax-color-comment);
     font-weight: normal;
   }
 }

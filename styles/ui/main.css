@@ -4,7 +4,7 @@
 }
 
 html {
-  font-size: var(--font-size);
+  font-size: var(--ui-font-size);
 }
 
 lumine-workspace {
@@ -70,17 +70,17 @@ lumine-workspace {
 
 /* 02-badges.css */
 .badge {
-  padding: calc(var(--ui-padding) / 4) calc(var(--ui-padding) / 2.5);
-  min-width: calc(var(--ui-padding) * 1.25);
+  padding: calc(var(--ui-panel-padding) / 4) calc(var(--ui-panel-padding) / 2.5);
+  min-width: calc(var(--ui-panel-padding) * 1.25);
   font-weight: normal;
   color: var(--text-color-highlight);
-  border-radius: calc(var(--ui-size) * 2);
+  border-radius: calc(var(--ui-unit) * 2);
   background-color: var(--badge-background-color);
 
   /* Icon ---------------------- */
   &.icon {
-    font-size: var(--ui-size);
-    padding: var(--ui-padding-icon) calc(var(--ui-padding-icon) * 1.5);
+    font-size: var(--ui-unit);
+    padding: var(--ui-panel-icon-spacing) calc(var(--ui-panel-icon-spacing) * 1.5);
   }
 }
 
@@ -88,11 +88,11 @@ lumine-workspace {
 /* Buttons ----------------------- */
 
 .btn {
-  --btn-padding: 0 calc(var(--ui-size) / 1.25);
+  --btn-padding: 0 calc(var(--ui-unit) / 1.25);
   height: initial;
   padding: var(--btn-padding);
-  font-size: var(--ui-size);
-  line-height: var(--ui-line-height);
+  font-size: var(--ui-unit);
+  line-height: var(--ui-row-height);
 }
 
 /* .btn-default() mixin, expanded separately for .btn and .btn.btn-default
@@ -131,8 +131,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 }
 
@@ -169,8 +169,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 }
 
@@ -179,35 +179,35 @@ lumine-workspace {
 .btn.btn-primary {
   text-shadow: none;
   border: 1px solid var(--button-border-color);
-  background-color: var(--accent-bg-color);
+  background-color: var(--accent-background-color);
   background-image: linear-gradient(
-    hsl(from var(--accent-bg-color) h s calc(l + 2)),
-    var(--accent-bg-color)
+    hsl(from var(--accent-background-color) h s calc(l + 2)),
+    var(--accent-background-color)
   );
-  color: var(--accent-bg-text-color);
+  color: var(--accent-foreground-color);
 
   &:hover {
     background-image: linear-gradient(
-      hsl(from var(--accent-bg-color) h s calc(l - 3)),
-      hsl(from var(--accent-bg-color) h s calc(l - 5))
+      hsl(from var(--accent-background-color) h s calc(l - 3)),
+      hsl(from var(--accent-background-color) h s calc(l - 5))
     );
   }
   &:active {
-    background: hsl(from var(--accent-bg-color) h s calc(l - 4));
+    background: hsl(from var(--accent-background-color) h s calc(l - 4));
     box-shadow: none;
   }
   &.selected {
-    background: hsl(from var(--accent-bg-color) h calc(s + 20) calc(l - 12));
+    background: hsl(from var(--accent-background-color) h calc(s + 20) calc(l - 12));
   }
   &.selected:focus,
   &.selected:hover {
-    background: hsl(from var(--accent-bg-color) h calc(s + 20) calc(l - 10));
+    background: hsl(from var(--accent-background-color) h calc(s + 20) calc(l - 10));
   }
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   :where(.theme-one-day-ui) & {
@@ -216,18 +216,18 @@ lumine-workspace {
 
   &:hover,
   &:focus {
-    color: var(--accent-bg-text-color);
+    color: var(--accent-foreground-color);
   }
   &:focus {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow:
       inset 0 0 0 1px rgb(from var(--base-border-color) r g b / 50%),
-      0 0 0 1px var(--accent-bg-color);
+      0 0 0 1px var(--accent-background-color);
   }
 
   &.icon:before {
-    color: var(--accent-bg-text-color);
+    color: var(--accent-foreground-color);
   }
 }
 
@@ -255,8 +255,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   :where(.theme-one-day-ui) & {
@@ -304,8 +304,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   :where(.theme-one-day-ui) & {
@@ -353,8 +353,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   :where(.theme-one-day-ui) & {
@@ -409,8 +409,8 @@ lumine-workspace {
   &:focus {
     /* unfortunately :focus styles stay even after releasing mouse. */
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   :where(.theme-one-day-ui) & {
@@ -457,20 +457,20 @@ lumine-workspace {
 
 .btn.btn-xs,
 .btn-group-xs > .btn {
-  font-size: calc(var(--ui-size) * 0.8);
-  line-height: var(--ui-line-height);
+  font-size: calc(var(--ui-unit) * 0.8);
+  line-height: var(--ui-row-height);
   padding: var(--btn-padding);
 }
 .btn.btn-sm,
 .btn-group-sm > .btn {
-  font-size: calc(var(--ui-size) * 0.9);
-  line-height: var(--ui-line-height);
+  font-size: calc(var(--ui-unit) * 0.9);
+  line-height: var(--ui-row-height);
   padding: var(--btn-padding);
 }
 .btn.btn-lg,
 .btn-group-lg > .btn {
-  font-size: calc(var(--ui-size) * 1.5);
-  line-height: var(--ui-line-height);
+  font-size: calc(var(--ui-unit) * 1.5);
+  line-height: var(--ui-row-height);
   padding: var(--btn-padding);
 }
 
@@ -484,8 +484,8 @@ lumine-workspace {
   &.btn:focus {
     z-index: 1;
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 
   &:first-child {
@@ -602,8 +602,8 @@ lumine-text-editor:is([mini], [input]) {
 
 lumine-text-editor:is([mini], [input]).is-focused {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 1px var(--accent-color);
+  border-color: var(--accent-indicator-color);
+  box-shadow: 0 0 0 1px var(--accent-indicator-color);
 }
 
 /* Mini */
@@ -619,7 +619,7 @@ lumine-text-editor[mini] {
   }
 
   .cursor {
-    border-color: var(--accent-color);
+    border-color: var(--accent-indicator-color);
     border-width: 2px;
   }
 
@@ -639,18 +639,18 @@ lumine-text-editor[mini] {
 
 .input-checkbox {
   &:active {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
   &:before,
   &:after {
-    background-color: var(--accent-text-color);
+    background-color: var(--accent-indicator-text-color);
   }
   &:checked {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
 
   &:indeterminate {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
 }
 
@@ -661,13 +661,13 @@ lumine-text-editor[mini] {
 
 .input-radio {
   &:before {
-    background-color: var(--accent-text-color);
+    background-color: var(--accent-indicator-text-color);
   }
   &:active {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
   &:checked {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
 }
 
@@ -678,7 +678,7 @@ lumine-text-editor[mini] {
 
 .input-range {
   &::-webkit-slider-thumb {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
 }
 
@@ -689,10 +689,10 @@ lumine-text-editor[mini] {
 
 .input-toggle {
   &:checked {
-    background-color: var(--accent-color);
+    background-color: var(--accent-indicator-color);
   }
   &:before {
-    background-color: var(--accent-text-color);
+    background-color: var(--accent-indicator-text-color);
   }
 }
 
@@ -707,8 +707,8 @@ lumine-text-editor[mini] {
 .input-color {
   &:focus {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-indicator-color);
+    box-shadow: 0 0 0 1px var(--accent-indicator-color);
   }
 }
 
@@ -771,7 +771,7 @@ lumine-text-editor[mini] {
   }
 
   .no-icon {
-    padding-left: calc(var(--ui-padding-icon) + var(--component-icon-size));
+    padding-left: calc(var(--ui-panel-icon-spacing) + var(--ui-icon-size));
   }
 }
 
@@ -793,12 +793,12 @@ lumine-text-editor[mini] {
 
 li.ui-draggable-dragging,
 li.ui-sortable-helper {
-  line-height: var(--ui-line-height);
-  height: var(--ui-line-height);
+  line-height: var(--ui-row-height);
+  height: var(--ui-row-height);
   border: 0;
   border-radius: 0;
   list-style: none;
-  padding: 0 var(--ui-padding);
+  padding: 0 var(--ui-panel-padding);
   background: var(--background-color-highlight);
   box-shadow: 0 0 1px var(--base-border-color);
 }
@@ -832,7 +832,7 @@ li.ui-sortable-helper {
 
 /* 09-notifications.css */
 lumine-notifications {
-  font-size: calc(var(--ui-size) * 1.2);
+  font-size: calc(var(--ui-unit) * 1.2);
 
   lumine-notification {
     width: 32em;
@@ -848,7 +848,7 @@ lumine-notifications {
       padding-right: 2.5em;
     }
     .item {
-      padding: calc(var(--ui-padding) / 2);
+      padding: calc(var(--ui-panel-padding) / 2);
     }
 
     .detail,
@@ -887,26 +887,26 @@ lumine-panel-container.modal {
 lumine-panel.modal {
   position: relative;
   width: 100%;
-  max-width: min(92vw, calc(var(--ui-size) * 70));
+  max-width: min(92vw, calc(var(--ui-unit) * 70));
   margin: 0 auto;
   left: initial;
   color: var(--text-color);
   background-color: transparent;
-  padding: calc(var(--ui-padding) / 2);
+  padding: calc(var(--ui-panel-padding) / 2);
   animation: modal-appear 0.18s cubic-bezier(0.215, 0.61, 0.355, 1);
 
   &.from-top {
-    top: calc(var(--component-padding) * 8);
+    top: calc(var(--ui-spacing) * 8);
   }
 
   lumine-text-editor[mini] {
-    margin-bottom: calc(var(--ui-padding) * 0.75);
-    font-size: calc(var(--input-font-size) * 1.05);
+    margin-bottom: calc(var(--ui-panel-padding) * 0.75);
+    font-size: calc(var(--ui-input-font-size) * 1.05);
   }
 
   .select-list ol.list-group,
   &.select-list ol.list-group {
-    border-radius: calc(var(--component-border-radius) * 2);
+    border-radius: calc(var(--ui-border-radius) * 2);
     background-color: hsl(from var(--overlay-background-color) h s calc(l + 2));
 
     &::-webkit-scrollbar-corner {
@@ -914,7 +914,7 @@ lumine-panel.modal {
     }
 
     li {
-      padding: calc(var(--ui-padding) * 0.6) calc(var(--ui-padding) / 1.5);
+      padding: calc(var(--ui-panel-padding) * 0.6) calc(var(--ui-panel-padding) / 1.5);
       border-bottom: 1px solid var(--overlay-border-color);
 
       &:last-of-type {
@@ -944,7 +944,7 @@ lumine-panel.modal {
     bottom: 0;
     z-index: 0;
     background-color: var(--overlay-background-color);
-    border-radius: calc(var(--component-border-radius) * 3);
+    border-radius: calc(var(--ui-border-radius) * 3);
     box-shadow:
       inset 0 0 0 1px var(--overlay-border-color),
       0 4px 12px -4px hsla(0, 0%, 0%, 0.35),
@@ -1020,17 +1020,17 @@ lumine-panel {
 .panel {
   &.bordered {
     border: 1px solid var(--base-border-color);
-    border-radius: var(--component-border-radius);
+    border-radius: var(--ui-border-radius);
   }
 }
 
 .inset-panel {
   position: relative;
   background-color: var(--inset-panel-background-color);
-  border-radius: var(--component-border-radius);
+  border-radius: var(--ui-border-radius);
   &.bordered {
     border: 1px solid var(--base-border-color);
-    border-radius: var(--component-border-radius);
+    border-radius: var(--ui-border-radius);
   }
   & .panel-heading {
     border-color: var(--inset-panel-border-color);
@@ -1077,8 +1077,8 @@ lumine-panel {
     &:focus {
       /* unfortunately :focus styles stay even after releasing mouse. */
       outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 1px var(--accent-color);
+      border-color: var(--accent-indicator-color);
+      box-shadow: 0 0 0 1px var(--accent-indicator-color);
     }
   }
 }
@@ -1116,7 +1116,7 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
   width: 1em;
   height: 1em;
   font-size: 16px;
-  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+  background: radial-gradient(var(--accent-indicator-color) 0.1em, transparent 0.11em);
 
   &::before,
   &::after {
@@ -1134,10 +1134,11 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
     -webkit-animation-fill-mode: backwards;
   }
   &::before {
-    border-color: var(--accent-color) transparent transparent transparent;
+    border-color: var(--accent-indicator-color) transparent transparent transparent;
   }
   &::after {
-    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    border-color: transparent hsl(from var(--accent-indicator-color) h s calc(l + 15)) transparent
+      transparent;
     -webkit-animation-delay: 0.6s;
   }
 
@@ -1156,7 +1157,7 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
   width: 1em;
   height: 1em;
   font-size: 32px;
-  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+  background: radial-gradient(var(--accent-indicator-color) 0.1em, transparent 0.11em);
 
   &::before,
   &::after {
@@ -1174,10 +1175,11 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
     -webkit-animation-fill-mode: backwards;
   }
   &::before {
-    border-color: var(--accent-color) transparent transparent transparent;
+    border-color: var(--accent-indicator-color) transparent transparent transparent;
   }
   &::after {
-    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    border-color: transparent hsl(from var(--accent-indicator-color) h s calc(l + 15)) transparent
+      transparent;
     -webkit-animation-delay: 0.6s;
   }
 
@@ -1191,7 +1193,7 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
   width: 1em;
   height: 1em;
   font-size: 48px;
-  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+  background: radial-gradient(var(--accent-indicator-color) 0.1em, transparent 0.11em);
 
   &::before,
   &::after {
@@ -1209,10 +1211,11 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
     -webkit-animation-fill-mode: backwards;
   }
   &::before {
-    border-color: var(--accent-color) transparent transparent transparent;
+    border-color: var(--accent-indicator-color) transparent transparent transparent;
   }
   &::after {
-    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    border-color: transparent hsl(from var(--accent-indicator-color) h s calc(l + 15)) transparent
+      transparent;
     -webkit-animation-delay: 0.6s;
   }
 
@@ -1226,7 +1229,7 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
   width: 1em;
   height: 1em;
   font-size: 64px;
-  background: radial-gradient(var(--accent-color) 0.1em, transparent 0.11em);
+  background: radial-gradient(var(--accent-indicator-color) 0.1em, transparent 0.11em);
 
   &::before,
   &::after {
@@ -1244,10 +1247,11 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
     -webkit-animation-fill-mode: backwards;
   }
   &::before {
-    border-color: var(--accent-color) transparent transparent transparent;
+    border-color: var(--accent-indicator-color) transparent transparent transparent;
   }
   &::after {
-    border-color: transparent hsl(from var(--accent-color) h s calc(l + 15)) transparent transparent;
+    border-color: transparent hsl(from var(--accent-indicator-color) h s calc(l + 15)) transparent
+      transparent;
     -webkit-animation-delay: 0.6s;
   }
 
@@ -1278,7 +1282,7 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
 progress {
   -webkit-appearance: none;
   height: 8px;
-  border-radius: var(--component-border-radius);
+  border-radius: var(--ui-border-radius);
   background-color: var(--input-background-color);
   box-shadow: inset 0 0 0 1px var(--input-border-color);
 
@@ -1287,7 +1291,7 @@ progress {
   }
 
   &::-webkit-progress-value {
-    border-radius: var(--component-border-radius);
+    border-radius: var(--ui-border-radius);
     background-color: var(--progress-background-color);
   }
 
@@ -1395,17 +1399,17 @@ progress {
       height: 1.5em;
       line-height: 1.5;
       text-align: center;
-      border-radius: var(--component-border-radius);
+      border-radius: var(--ui-border-radius);
       background-color: inherit;
       overflow: hidden;
       transform: scale(0);
       transition: transform 0.08s;
       &:hover {
-        color: var(--accent-text-color);
-        background-color: var(--accent-color);
+        color: var(--accent-indicator-text-color);
+        background-color: var(--accent-indicator-color);
       }
       &:active {
-        background-color: rgb(from var(--accent-color) r g b / 50%);
+        background-color: rgb(from var(--accent-indicator-color) r g b / 50%);
       }
       &::before {
         z-index: 1;
@@ -1451,7 +1455,7 @@ progress {
       margin: 0;
       width: 2px;
       height: var(--ui-tab-height);
-      background-color: var(--accent-color);
+      background-color: var(--accent-indicator-color);
     }
 
     /* arrow */
@@ -1460,7 +1464,7 @@ progress {
       top: calc(var(--ui-tab-height) / 2);
       margin: -4px 0 0 -3px;
       border-radius: 0;
-      border: 4px solid var(--accent-color);
+      border: 4px solid var(--accent-indicator-color);
       transform: rotate(45deg);
       background: transparent;
     }
@@ -1472,7 +1476,7 @@ progress {
       &:after {
         transform: none;
         margin-left: -10px;
-        border-color: transparent var(--accent-color) transparent transparent;
+        border-color: transparent var(--accent-indicator-color) transparent transparent;
       }
     }
   }
@@ -1507,7 +1511,7 @@ lumine-pane-container > lumine-pane.pane {
 }
 .pane:focus-within {
   .tab.active:before {
-    background: var(--accent-color);
+    background: var(--accent-indicator-color);
   }
 }
 
@@ -1555,7 +1559,7 @@ pre {
   box-shadow: none;
   color: var(--text-color);
   background: var(--inset-panel-background-color);
-  border-radius: var(--component-border-radius);
+  border-radius: var(--ui-border-radius);
   border: none;
   margin: 0;
 }
@@ -1564,7 +1568,7 @@ code {
   font-weight: normal;
   color: var(--text-color-highlight);
   background: var(--background-color-highlight);
-  border-radius: var(--component-border-radius);
+  border-radius: var(--ui-border-radius);
 }
 
 .selected {
@@ -1655,7 +1659,7 @@ code {
 /* 16-tooltips.css */
 .tooltip {
   white-space: nowrap;
-  font-size: calc(var(--ui-size) * 1.15);
+  font-size: calc(var(--ui-unit) * 1.15);
 
   &.in {
     opacity: 1;
@@ -1664,8 +1668,8 @@ code {
 
   .tooltip-inner {
     line-height: 1;
-    padding: calc(var(--ui-padding) * 0.5) calc(var(--ui-padding) * 0.65);
-    border-radius: var(--component-border-radius);
+    padding: calc(var(--ui-panel-padding) * 0.5) calc(var(--ui-panel-padding) * 0.65);
+    border-radius: var(--ui-border-radius);
     background-color: var(--tooltip-background-color);
     color: var(--tooltip-text-color);
     white-space: nowrap;
@@ -1673,10 +1677,10 @@ code {
   }
 
   .keystroke {
-    font-size: max(1em, calc(var(--ui-size) * 0.85));
+    font-size: max(1em, calc(var(--ui-unit) * 0.85));
     padding: 0.1em 0.4em;
-    margin: 0 calc(var(--ui-padding) * -0.35) 0 calc(var(--ui-padding) * 0.25);
-    border-radius: max(2px, calc(var(--component-border-radius) / 2));
+    margin: 0 calc(var(--ui-panel-padding) * -0.35) 0 calc(var(--ui-panel-padding) * 0.25);
+    border-radius: max(2px, calc(var(--ui-border-radius) / 2));
     color: var(--tooltip-text-key-color);
     background: var(--tooltip-background-key-color);
   }
@@ -1709,7 +1713,7 @@ code {
 
 /* 17-status-bar.css */
 .status-bar {
-  font-size: var(--ui-size);
+  font-size: var(--ui-unit);
   height: var(--ui-tab-height); /* same as tabs */
   line-height: var(--ui-tab-height);
   background-color: var(--level-3-color);
@@ -1737,7 +1741,7 @@ code {
      labels *inside* a tile, so a nested one would take the tile's padding and
      paint its own hover rectangle inset within the tile's. */
   .status-bar-item {
-    padding: 0 calc(var(--ui-padding) / 2);
+    padding: 0 calc(var(--ui-panel-padding) / 2);
 
     &:hover {
       text-decoration: none;
@@ -1756,15 +1760,15 @@ code {
 /* 18-key-binding.css */
 .key-binding {
   display: inline-block;
-  margin-left: var(--ui-padding-icon);
-  padding: 0 calc(var(--ui-padding) / 4);
+  margin-left: var(--ui-panel-icon-spacing);
+  padding: 0 calc(var(--ui-panel-padding) / 4);
   line-height: 2;
   font-family: inherit;
-  font-size: max(1em, calc(var(--ui-size) * 0.85));
-  letter-spacing: calc(var(--ui-size) / 10);
-  border-radius: var(--component-border-radius);
-  color: var(--accent-bg-text-color);
-  background-color: var(--accent-bg-color);
+  font-size: max(1em, calc(var(--ui-unit) * 0.85));
+  letter-spacing: calc(var(--ui-unit) / 10);
+  border-radius: var(--ui-border-radius);
+  color: var(--accent-foreground-color);
+  background-color: var(--accent-background-color);
 }
 
 /* 19-sites.css */

@@ -192,8 +192,8 @@ describe("one-theme", () => {
       await lumine.packages.activatePackage(themeName);
 
       for (const [foreground, background] of [
-        ["--accent-text-color", "--accent-color"],
-        ["--accent-bg-text-color", "--accent-bg-color"],
+        ["--accent-indicator-text-color", "--accent-indicator-color"],
+        ["--accent-foreground-color", "--accent-background-color"],
         ["--tooltip-text-color", "--tooltip-background-color"],
       ]) {
         expect(contrastRatio(colorOf(foreground), colorOf(background))).toBeGreaterThanOrEqual(4.5);
@@ -206,7 +206,7 @@ describe("one-theme", () => {
       expect(
         contrastRatio(
           primaryColor,
-          resolvedColor("hsl(from var(--accent-bg-color) h s calc(l + 2))"),
+          resolvedColor("hsl(from var(--accent-background-color) h s calc(l + 2))"),
         ),
       ).toBeGreaterThanOrEqual(4.5);
       primary.remove();
@@ -409,6 +409,90 @@ describe("one-theme", () => {
       expect(colorOfToken(["syntax--string"])).toBe(colorOf("--syntax-color-string"));
       expect(colorOfToken(["syntax--comment"])).toBe(colorOf("--syntax-color-comment"));
       await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
+  it("applies public syntax role overrides to both scope vocabularies", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    const roles = [
+      ["keyword", ["keyword", "control"]],
+      ["function", ["entity", "function"]],
+      ["function", ["entity", "name", "function"]],
+      ["method", ["entity", "function", "method"]],
+      ["method", ["entity", "name", "function", "method"]],
+      ["class", ["entity", "type", "class"]],
+      ["class", ["entity", "name", "class"]],
+      ["variable", ["variable"]],
+      ["variable", ["entity", "variable"]],
+      ["property", ["property"]],
+      ["property", ["entity", "property"]],
+      ["value", ["value"]],
+      ["value", ["entity", "value"]],
+      ["constant", ["constant", "numeric"]],
+      ["tag", ["entity", "tag"]],
+      ["tag", ["entity", "name", "tag"]],
+      ["attribute", ["entity", "attribute"]],
+      ["attribute", ["entity", "other", "attribute-name"]],
+      ["import", ["keyword", "control", "import"]],
+      ["string", ["string"]],
+      ["comment", ["comment"]],
+    ];
+
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+      const fixture = document.createElement("div");
+      document.body.appendChild(fixture);
+      try {
+        for (const [role, scopes] of roles) {
+          fixture.style.setProperty(`--syntax-color-${role}`, "rgb(1, 2, 3)");
+          const token = document.createElement("span");
+          token.className = scopes.map((scope) => `syntax--${scope}`).join(" ");
+          fixture.appendChild(token);
+          expect(getComputedStyle(token).color)
+            .withContext(`${themeName}: ${scopes}`)
+            .toBe("rgb(1, 2, 3)");
+          token.remove();
+          fixture.style.removeProperty(`--syntax-color-${role}`);
+        }
+      } finally {
+        fixture.remove();
+        await lumine.packages.deactivatePackage(themeName);
+      }
+    }
+  });
+
+  it("follows the active syntax palette for editor tabs and scrollbar tracks", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-night-ui");
+    await lumine.packages.activatePackage("one-day-syntax");
+    const tabBar = document.createElement("ul");
+    tabBar.className = "tab-bar";
+    const tab = document.createElement("li");
+    tab.className = "tab active";
+    tab.dataset.type = "TextEditor";
+    tabBar.appendChild(tab);
+    document.body.appendChild(tabBar);
+    try {
+      expect(getComputedStyle(tab).backgroundColor).toBe(colorOf("--syntax-background-color"));
+      expect(colorOf("--scrollbar-background-color-editor")).toBe(
+        colorOf("--syntax-background-color"),
+      );
+    } finally {
+      tabBar.remove();
+    }
+  });
+
+  it("keeps semantic status text independent of accent overrides", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-night-ui");
+    const before = colorOf("--text-color-on-info");
+    root.style.setProperty("--accent-indicator-color", "#000000");
+    root.style.setProperty("--accent-indicator-text-color", "#ffffff");
+    try {
+      expect(colorOf("--text-color-on-info")).toBe(before);
+    } finally {
+      root.style.removeProperty("--accent-indicator-color");
+      root.style.removeProperty("--accent-indicator-text-color");
     }
   });
 

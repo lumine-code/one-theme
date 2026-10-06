@@ -31,7 +31,7 @@
   --syntax-color-renamed: hsl(208, 100%, 66%);
   --syntax-color-variable: hsl(5, 74%, 59%);
   --syntax-color-constant: hsl(35, 99%, 36%);
-  --syntax-color-property: hsl(230, 8%, 24%);
+  --syntax-color-property: var(--syntax-color-variable);
   --syntax-color-value: hsl(230, 8%, 24%);
   --syntax-color-function: hsl(221, 87%, 60%);
   --syntax-color-method: hsl(221, 87%, 60%);
