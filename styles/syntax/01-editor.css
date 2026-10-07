@@ -42,9 +42,16 @@ lumine-text-editor {
   }
 
   .gutter {
+    background-color: var(--syntax-gutter-background-color);
+
     .line-number {
       color: var(--syntax-gutter-text-color);
       -webkit-font-smoothing: antialiased;
+
+      &.active-line-number {
+        color: var(--syntax-gutter-text-color-selected);
+        background-color: var(--syntax-gutter-background-color-selected);
+      }
 
       .icon-right {
         color: var(--syntax-text-color);

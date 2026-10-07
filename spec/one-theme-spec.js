@@ -412,6 +412,69 @@ describe("one-theme", () => {
     }
   });
 
+  it("preserves selected and diagnostic button foreground roles in panel headings", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-night-ui");
+    const heading = document.createElement("div");
+    heading.className = "panel-heading";
+    document.body.appendChild(heading);
+    try {
+      for (const [className, variable] of [
+        ["btn selected", "button-text-color-selected"],
+        ["btn btn-primary", "accent-foreground-color"],
+        ["btn btn-info", "text-color-on-info"],
+        ["btn btn-success", "text-color-on-success"],
+        ["btn btn-warning", "text-color-on-warning"],
+        ["btn btn-error", "text-color-on-error"],
+      ]) {
+        heading.style.setProperty(`--${variable}`, "rgb(1, 2, 3)");
+        const button = document.createElement("button");
+        button.className = className;
+        button.textContent = "Action";
+        heading.appendChild(button);
+        expect(getComputedStyle(button).color).withContext(className).toBe("rgb(1, 2, 3)");
+        button.focus();
+        expect(getComputedStyle(button).color)
+          .withContext(`${className}:focus`)
+          .toBe("rgb(1, 2, 3)");
+        button.remove();
+        heading.style.removeProperty(`--${variable}`);
+      }
+    } finally {
+      heading.remove();
+    }
+  });
+
+  it("uses the public gutter surface and active-line color pairs", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+      const editor = await lumine.workspace.open();
+      editor.setText("first\nsecond");
+      const view = lumine.views.getView(editor);
+      jasmine.attachToDOM(lumine.views.getView(lumine.workspace));
+      const properties = {
+        "syntax-gutter-background-color": "rgb(11, 22, 33)",
+        "syntax-gutter-background-color-selected": "rgb(22, 33, 44)",
+        "syntax-gutter-text-color-selected": "rgb(33, 44, 55)",
+      };
+      for (const [name, value] of Object.entries(properties))
+        view.style.setProperty(`--${name}`, value);
+      try {
+        await waitForFrames(() => view.querySelector(".active-line-number"));
+        expect(getComputedStyle(view.querySelector(".gutter")).backgroundColor).toBe(
+          "rgb(11, 22, 33)",
+        );
+        const active = getComputedStyle(view.querySelector(".active-line-number"));
+        expect(active.backgroundColor).toBe("rgb(22, 33, 44)");
+        expect(active.color).toBe("rgb(33, 44, 55)");
+      } finally {
+        editor.destroy();
+        await lumine.packages.deactivatePackage(themeName);
+      }
+    }
+  });
+
   it("applies public syntax role overrides to both scope vocabularies", async () => {
     await lumine.packages.activatePackage("one-theme");
     const roles = [
