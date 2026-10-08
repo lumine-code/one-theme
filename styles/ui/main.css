@@ -77,6 +77,30 @@ lumine-workspace {
   border-radius: calc(var(--ui-unit) * 2);
   background-color: var(--badge-background-color);
 
+  /* Status badges are secondary labels, so tint the badge surface instead of
+     borrowing the solid diagnostic background used by buttons and highlights. */
+  &.badge-info {
+    --badge-tint-color: var(--background-color-info);
+  }
+  &.badge-success {
+    --badge-tint-color: var(--background-color-success);
+  }
+  &.badge-warning {
+    --badge-tint-color: var(--background-color-warning);
+  }
+  &.badge-error {
+    --badge-tint-color: var(--background-color-error);
+  }
+
+  &:is(.badge-info, .badge-success, .badge-warning, .badge-error) {
+    color: var(--text-color-highlight);
+    background-color: color-mix(
+      in srgb,
+      var(--badge-tint-color) 15%,
+      var(--badge-background-color)
+    );
+  }
+
   /* Icon ---------------------- */
   &.icon {
     font-size: var(--ui-unit);
