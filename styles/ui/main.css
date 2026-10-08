@@ -96,7 +96,7 @@ lumine-workspace {
     color: var(--text-color-highlight);
     background-color: color-mix(
       in srgb,
-      var(--badge-tint-color) 15%,
+      var(--badge-tint-color) 30%,
       var(--badge-background-color)
     );
   }
