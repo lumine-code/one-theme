@@ -2,6 +2,8 @@
 
 The One day and night UI and syntax themes.
 
+Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/one-dark-ui`, `packages/one-light-ui`, `packages/one-dark-syntax`, `packages/one-light-syntax`).
+
 ## Features
 
 - **Four themes**: provides `one-day-ui`, `one-day-syntax`, `one-night-ui`, and `one-night-syntax` as independently selectable themes.
