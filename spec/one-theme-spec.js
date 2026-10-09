@@ -119,6 +119,64 @@ describe("one-theme", () => {
     expect(workspace.hasAttribute("ui-dock-buttons")).toBe(false);
   });
 
+  it("clips its animated stripes without moving or replacing native progress", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+    const progress = document.createElement("progress");
+    progress.style.width = "203.5px";
+    progress.max = 40;
+    progress.textContent = "Loading";
+    document.body.appendChild(progress);
+    try {
+      const bounds = progress.getBoundingClientRect().toJSON();
+      expect(progress.position).toBe(-1);
+      expect(progress.children.length).toBe(0);
+      expect(getComputedStyle(progress).overflow).toBe("hidden");
+      expect(getComputedStyle(progress, "::before").content).toBe('""');
+      const stripe = getComputedStyle(progress, "::before");
+      expect(parseFloat(stripe.width)).toBeGreaterThan(bounds.width);
+      expect(parseFloat(stripe.height)).toBe(bounds.height);
+      const border = getComputedStyle(progress, "::after").boxShadow;
+      expect(getComputedStyle(progress).boxShadow).toBe("none");
+
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        expect(getComputedStyle(progress).willChange).toBe("transform");
+        const animation = progress.getAnimations({ subtree: true })[0];
+        expect(animation.effect.pseudoElement).toBe("::before");
+        animation.pause();
+        for (const time of [0, 312.5, 4999, 5000]) {
+          animation.currentTime = time;
+          const transform = new DOMMatrix(getComputedStyle(progress, "::before").transform);
+          expect(transform.m41).toBeCloseTo((-100 * (time % 5000)) / 5000, 2);
+          expect(transform.m41).toBeLessThanOrEqual(0);
+          expect(parseFloat(stripe.width) + transform.m41).toBeGreaterThanOrEqual(bounds.width);
+          expect(progress.getBoundingClientRect().toJSON()).toEqual(bounds);
+        }
+      } else {
+        expect(getComputedStyle(progress).willChange).toBe("auto");
+        expect(stripe.animationName).toBe("none");
+        expect(stripe.backgroundImage).not.toBe("none");
+      }
+
+      progress.value = 10;
+      expect(progress.position).toBe(0.25);
+      expect(getComputedStyle(progress, "::before").content).toBe("none");
+      expect(getComputedStyle(progress, "::after").content).toBe("none");
+      expect(progress.getAnimations({ subtree: true }).length).toBe(0);
+      expect(getComputedStyle(progress).boxShadow).toBe(border);
+      expect(getComputedStyle(progress).willChange).toBe("auto");
+      expect(progress.getBoundingClientRect().toJSON()).toEqual(bounds);
+
+      progress.removeAttribute("value");
+      expect(progress.position).toBe(-1);
+      expect(getComputedStyle(progress, "::before").content).toBe('""');
+      expect(progress.textContent).toBe("Loading");
+      expect(progress.getBoundingClientRect().toJSON()).toEqual(bounds);
+    } finally {
+      progress.remove();
+    }
+  });
+
   it("limits minimum-sized tabs more tightly inside docks", async () => {
     await lumine.packages.activatePackage("one-theme");
     await lumine.packages.activatePackage("one-day-ui");
