@@ -909,7 +909,7 @@ lumine-panel-container.modal {
 }
 
 lumine-panel.modal {
-  --modal-list-max-height: min(64vh, calc(var(--ui-row-height) * 22));
+  --modal-list-max-height: min(58vh, calc(var(--ui-row-height) * 20));
   --modal-query-font-size: calc(var(--ui-input-font-size) * 1.05);
   --modal-border-bottom-width: 1px;
   /* Match the golden ratio at full list height, including the query, its
