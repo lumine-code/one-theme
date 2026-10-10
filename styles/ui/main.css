@@ -909,9 +909,19 @@ lumine-panel-container.modal {
 }
 
 lumine-panel.modal {
+  --modal-list-max-height: min(64vh, calc(var(--ui-row-height) * 22));
+  --modal-query-font-size: calc(var(--ui-input-font-size) * 1.05);
+  --modal-border-bottom-width: 1px;
+  /* Match the golden ratio at full list height, including the query, its
+     collapsed margin and the panel padding. Aura inherits this layout. */
+  --modal-full-height: calc(
+    var(--modal-list-max-height) + var(--ui-panel-padding) + var(--modal-border-bottom-width) +
+      var(--modal-query-font-size) * 2 + 2px +
+      max(var(--ui-spacing), calc(var(--modal-query-font-size) * 1.125))
+  );
   position: relative;
   width: 100%;
-  max-width: min(92vw, calc(var(--ui-unit) * 70));
+  max-width: min(92vw, calc(var(--modal-full-height) * 1.618034));
   margin: 0 auto;
   left: initial;
   color: var(--text-color);
@@ -925,11 +935,12 @@ lumine-panel.modal {
 
   lumine-text-editor[mini] {
     margin-bottom: calc(var(--ui-panel-padding) * 0.75);
-    font-size: calc(var(--ui-input-font-size) * 1.05);
+    font-size: var(--modal-query-font-size);
   }
 
   .select-list ol.list-group,
   &.select-list ol.list-group {
+    max-height: var(--modal-list-max-height);
     border-radius: calc(var(--ui-border-radius) * 2);
     background-color: hsl(from var(--overlay-background-color) h s calc(l + 2));
 
