@@ -72,6 +72,10 @@ lumine-text-editor {
         border-bottom: 1px dotted rgb(from var(--syntax-color-removed) r g b / 50%);
         pointer-events: none;
       }
+
+      &.git-line-staged::after {
+        border-bottom-color: rgb(from var(--syntax-color-removed-staged) r g b / 50%);
+      }
     }
   }
 

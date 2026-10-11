@@ -243,6 +243,37 @@ describe("one-theme", () => {
     }
   });
 
+  it("keeps staged diff colors readable and distinct in both syntax variants", async () => {
+    await lumine.packages.activatePackage("one-theme");
+
+    for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
+      await lumine.packages.activatePackage(themeName);
+
+      for (const kind of ["added", "modified", "removed"]) {
+        const primary = colorOf(`--syntax-color-${kind}`);
+        const staged = colorOf(`--syntax-color-${kind}-staged`);
+        for (const background of [
+          "--syntax-gutter-background-color",
+          "--syntax-gutter-background-color-selected",
+        ]) {
+          expect(contrastRatio(staged, colorOf(background))).toBeGreaterThanOrEqual(4.5);
+        }
+        // Preserve a visible color difference while keeping staged text readable.
+        const primaryChannels = rgbaOf(primary).slice(0, 3);
+        const stagedChannels = rgbaOf(staged).slice(0, 3);
+        const distance = Math.sqrt(
+          primaryChannels.reduce(
+            (sum, channel, index) => sum + (channel - stagedChannels[index]) ** 2,
+            0,
+          ),
+        );
+        expect(distance).toBeGreaterThanOrEqual(0.15);
+      }
+
+      await lumine.packages.deactivatePackage(themeName);
+    }
+  });
+
   it("keeps accent surfaces, buttons, and inactive tabs readable in both variants", async () => {
     await lumine.packages.activatePackage("one-theme");
 

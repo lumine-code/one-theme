@@ -26,8 +26,11 @@
   --syntax-gutter-background-color: hsl(220, 13%, 18%);
   --syntax-gutter-background-color-selected: hsl(220, 13%, 26%);
   --syntax-color-added: hsl(150, 60%, 54%);
+  --syntax-color-added-staged: hsl(150, 35%, 62%);
   --syntax-color-modified: hsl(40, 60%, 70%);
+  --syntax-color-modified-staged: hsl(40, 30%, 64%);
   --syntax-color-removed: hsl(0, 70%, 60%);
+  --syntax-color-removed-staged: hsl(0, 35%, 73%);
   --syntax-color-renamed: hsl(208, 100%, 60%);
   --syntax-color-variable: hsl(355, 65%, 65%);
   --syntax-color-constant: hsl(29, 54%, 61%);
