@@ -349,8 +349,8 @@
 .syntax--invalid:not(.syntax--punctuation) {
   /* §illegal */
   &.syntax--illegal {
-    color: lch(from var(--syntax-color-removed) calc((49.44 - l) * infinity) 0 0) !important;
-    background-color: var(--syntax-color-removed) !important;
+    color: inherit !important;
+    background-color: color-mix(in srgb, var(--syntax-color-removed) 12%, transparent) !important;
   }
 
   /* obsolete() */
