@@ -621,6 +621,7 @@ lumine-workspace {
 /* Declared on the resting state, not inside `.is-focused`, so the ring eases
    out on blur as well as in on focus. */
 lumine-text-editor:is([mini], [input]) {
+  border-color: var(--button-border-color);
   transition: border-color 0.15s ease;
 }
 
