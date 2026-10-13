@@ -1,0 +1,22 @@
+{
+  "title": "one-theme",
+  "description": "The One theme in light and dark modes.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "42c6a81ebffb9d40857f48ef9bbf8d182b4b7317",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "One in light mode.",
+      "width": 1200,
+      "height": 760
+    },
+    {
+      "file": "demo-2.png",
+      "label": "One in dark mode.",
+      "width": 1200,
+      "height": 760
+    }
+  ]
+}

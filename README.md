@@ -12,6 +12,10 @@ Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/o
 - **Mix and match**: any theme can be paired with a community counterpart, e.g. `one-night-ui` with a third-party syntax theme.
 - **Reusable foundation**: other bundled themes can load the shared UI or syntax styles first and keep only their overrides locally.
 
+![One in light mode.](.github/demo.png)
+
+![One in dark mode.](.github/demo-2.png)
+
 ## Installation
 
 To install `one-theme` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/one-theme`.
