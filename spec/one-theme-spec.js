@@ -37,18 +37,22 @@ function colorOfToken(classNames) {
   return color;
 }
 
-function rgbaOf(color) {
+function rgbaOf(color, backdrop) {
   const canvas = document.createElement("canvas");
   canvas.width = 1;
   canvas.height = 1;
   const context = canvas.getContext("2d");
   context.clearRect(0, 0, 1, 1);
+  if (backdrop != null) {
+    context.fillStyle = backdrop;
+    context.fillRect(0, 0, 1, 1);
+  }
   context.fillStyle = color;
   context.fillRect(0, 0, 1, 1);
   return Array.from(context.getImageData(0, 0, 1, 1).data, (channel) => channel / 255);
 }
 
-function contrastRatio(foreground, background) {
+function contrastRatio(foreground, background, backdrop) {
   const luminanceOf = (channels) => {
     const linear = channels.map((channel) =>
       channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
@@ -57,7 +61,7 @@ function contrastRatio(foreground, background) {
   };
 
   const foregroundChannels = rgbaOf(foreground);
-  const backgroundChannels = rgbaOf(background);
+  const backgroundChannels = rgbaOf(background, backdrop);
   const compositedForeground = foregroundChannels
     .slice(0, 3)
     .map(
@@ -678,18 +682,36 @@ describe("one-theme", () => {
     }
   });
 
-  it("derives readable illegal-token text from the syntax error color", async () => {
+  it("keeps illegal tokens readable over the editor and preserves inherited syntax text", async () => {
     await lumine.packages.activatePackage("one-theme");
 
     for (const themeName of ["one-day-syntax", "one-night-syntax"]) {
       await lumine.packages.activatePackage(themeName);
+      const editor = document.createElement("lumine-text-editor");
       const token = document.createElement("span");
       token.className = "syntax--invalid syntax--illegal";
-      document.body.appendChild(token);
-      const style = getComputedStyle(token);
-      expect(contrastRatio(style.color, style.backgroundColor)).toBeGreaterThanOrEqual(4.5);
-      token.remove();
-      await lumine.packages.deactivatePackage(themeName);
+      editor.appendChild(token);
+      document.body.appendChild(editor);
+      try {
+        const style = getComputedStyle(token);
+        const editorStyle = getComputedStyle(editor);
+        expect(style.color).toBe(colorOf("--syntax-text-color"));
+        expect(rgbaOf(style.backgroundColor)[3]).toBeCloseTo(0.12, 2);
+        // The error tint is translucent: measure the painted result over the
+        // editor's syntax background rather than its opaque red components.
+        expect(
+          contrastRatio(style.color, style.backgroundColor, editorStyle.backgroundColor),
+        ).toBeGreaterThanOrEqual(4.5);
+        const parent = document.createElement("span");
+        parent.className = "syntax--keyword syntax--control";
+        editor.appendChild(parent);
+        parent.appendChild(token);
+        expect(getComputedStyle(token).color).toBe(getComputedStyle(parent).color);
+      } finally {
+        editor.getModel().destroy();
+        editor.remove();
+        await lumine.packages.deactivatePackage(themeName);
+      }
     }
   });
 
