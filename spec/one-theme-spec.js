@@ -260,7 +260,9 @@ describe("one-theme", () => {
           "--syntax-gutter-background-color",
           "--syntax-gutter-background-color-selected",
         ]) {
-          expect(contrastRatio(staged, colorOf(background))).toBeGreaterThanOrEqual(4.5);
+          expect(
+            contrastRatio(staged, colorOf(background), colorOf("--syntax-gutter-background-color")),
+          ).toBeGreaterThanOrEqual(4.5);
         }
         // Preserve a visible color difference while keeping staged text readable.
         const primaryChannels = rgbaOf(primary).slice(0, 3);
