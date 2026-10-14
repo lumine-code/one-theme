@@ -2,8 +2,8 @@
   "title": "one-theme",
   "description": "One in light mode.",
   "recordedOn": "2026-10-14",
-  "sourceRevision": "17ed9123d7b58d42535c76b62a9bb2d06b509b8a",
-  "themeSourceRevision": "17ed9123d7b58d42535c76b62a9bb2d06b509b8a",
+  "sourceRevision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
+  "themeSourceRevision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
   "mode": "normal",
   "fontSettings": "default",
   "scenario": "demo.js",
@@ -23,17 +23,17 @@
   "cornerRadius": 10,
   "sources": {
     "editor": {
-      "revision": "ca7198ebc05410bb29a14259434e77c94a714b24",
+      "revision": "8be8f86075ad93df038610d82b3ac6d99329957d",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "package": {
-      "revision": "17ed9123d7b58d42535c76b62a9bb2d06b509b8a",
+      "revision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "one-theme": {
-      "revision": "17ed9123d7b58d42535c76b62a9bb2d06b509b8a",
+      "revision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
@@ -60,14 +60,14 @@
       "label": "One in light mode.",
       "width": 1200,
       "height": 760,
-      "sha256": "1e1c61504eb8ddede97a1359ae41520915666aa987ff3494843c554f2b1bb345"
+      "sha256": "4e911495d3e82bdfbb5cbe7d928f91b8afd1915b0672dff2d4bd82cdbaeec2df"
     },
     {
       "file": "demo-2.png",
       "label": "One in dark mode.",
       "width": 1200,
       "height": 760,
-      "sha256": "4008e942742711b5da57482cdd580ee1f67016d73ffa76eb4f9992a38d260742"
+      "sha256": "c3c03b53e0f3908b091103e14c27d3296cd3e60febff74bf7e0972f686934374"
     }
   ]
 }
