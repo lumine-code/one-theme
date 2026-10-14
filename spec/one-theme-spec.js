@@ -181,6 +181,32 @@ describe("one-theme", () => {
     }
   });
 
+  it("reveals tab close buttons when pointer tracking recovers a missing native hover", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    await lumine.packages.activatePackage("one-day-ui");
+    const bar = document.createElement("ul");
+    bar.className = "tab-bar";
+    const tab = document.createElement("li");
+    tab.className = "tab";
+    tab.style.pointerEvents = "none";
+    const close = document.createElement("div");
+    close.className = "close-icon";
+    close.style.transition = "none";
+    tab.appendChild(close);
+    bar.appendChild(tab);
+    document.body.appendChild(bar);
+    try {
+      expect(tab.matches(":hover")).toBe(false);
+      expect(getComputedStyle(close).transform).toBe("matrix(0, 0, 0, 0, 0, 0)");
+      tab.classList.add("is-hovered");
+      expect(getComputedStyle(close).transform).toBe("matrix(1, 0, 0, 1, 0, 0)");
+      tab.classList.remove("is-hovered");
+      expect(getComputedStyle(close).transform).toBe("matrix(0, 0, 0, 0, 0, 0)");
+    } finally {
+      bar.remove();
+    }
+  });
+
   it("limits minimum-sized tabs more tightly inside docks", async () => {
     await lumine.packages.activatePackage("one-theme");
     await lumine.packages.activatePackage("one-day-ui");

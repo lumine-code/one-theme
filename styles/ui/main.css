@@ -1486,7 +1486,7 @@ progress {
         pointer-events: none;
       }
     }
-    &:hover .close-icon {
+    &:is(:hover, .is-hovered) .close-icon {
       transform: scale(1);
       transition-duration: 0.16s;
     }
