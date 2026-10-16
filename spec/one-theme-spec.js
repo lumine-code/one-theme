@@ -234,15 +234,10 @@ describe("one-theme", () => {
 
     const fixture = document.createElement("div");
     document.body.appendChild(fixture);
-    const highlights = [
-      ["info", "rgb(1, 2, 3)"],
-      ["warning", "rgb(4, 5, 6)"],
-      ["error", "rgb(7, 8, 9)"],
-      ["success", "rgb(10, 11, 12)"],
-    ];
+    const color = "rgb(1, 2, 3)";
+    fixture.style.setProperty("--text-color-highlight", color);
 
-    for (const [kind, color] of highlights) {
-      fixture.style.setProperty(`--text-color-on-${kind}`, color);
+    for (const kind of ["info", "warning", "error", "success"]) {
       const highlight = document.createElement("span");
       highlight.className = `highlight-${kind}`;
       fixture.appendChild(highlight);

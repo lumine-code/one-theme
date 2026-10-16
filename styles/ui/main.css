@@ -1698,33 +1698,45 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-on-info);
-  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
-  background-color: var(--background-color-info);
+  color: var(--text-color-highlight);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color-info) 30%,
+    var(--base-background-color)
+  );
 }
 .highlight-warning {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-on-warning);
-  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
-  background-color: var(--background-color-warning);
+  color: var(--text-color-highlight);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color-warning) 30%,
+    var(--base-background-color)
+  );
 }
 .highlight-error {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-on-error);
-  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
-  background-color: var(--background-color-error);
+  color: var(--text-color-highlight);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color-error) 30%,
+    var(--base-background-color)
+  );
 }
 .highlight-success {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-on-success);
-  text-shadow: 0 1px 0px hsla(0, 0%, 0%, 0.2);
-  background-color: var(--background-color-success);
+  color: var(--text-color-highlight);
+  background-color: color-mix(
+    in srgb,
+    var(--background-color-success) 30%,
+    var(--base-background-color)
+  );
 }
 
 .results-view .path-details.list-item {
