@@ -78,7 +78,7 @@ lumine-workspace {
   background-color: var(--badge-background-color);
 
   /* Status badges are secondary labels, so tint the badge surface instead of
-     borrowing the solid diagnostic background used by buttons and highlights. */
+     borrowing the solid diagnostic background used by buttons. */
   &.badge-info {
     --badge-tint-color: var(--background-color-info);
   }
