@@ -1148,6 +1148,15 @@ lumine-pane-axis.pane-column:last-child > lumine-pane {
 /* @spinner-duration: 1.2s — constant, inlined as literals (1.2s / 0.6s delay).
    .loading-spinner(@size) mixin expanded per size class below. */
 
+.loading-spinner-tiny,
+.loading-spinner-small,
+.loading-spinner-medium,
+.loading-spinner-large {
+  /* Rotating square bounds must not enlarge an ancestor's scrollable area.
+     The visible circular rings already fit inside the spinner's fixed size. */
+  overflow: clip;
+}
+
 .loading-spinner-tiny {
   position: relative;
   display: block;
