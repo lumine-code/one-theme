@@ -19,7 +19,8 @@
   "files": [
     "lib",
     "spec",
-    "styles"
+    "styles",
+    "THIRD_PARTY_NOTICES"
   ],
   "engines": {
     "lumine": "^1.0.0"
