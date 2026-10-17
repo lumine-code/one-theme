@@ -22,7 +22,11 @@ describe("loading spinners", () => {
           expect(bounds.width).toBe(pixels);
           expect(bounds.height).toBe(pixels);
           const animations = spinner.getAnimations({ subtree: true });
-          expect(animations.length).toBe(2);
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          expect(animations.length).toBe(reducedMotion ? 0 : 2);
+          expect(parseFloat(getComputedStyle(spinner, "::before").borderTopWidth)).toBeGreaterThan(
+            0,
+          );
           for (const animation of animations) animation.pause();
 
           for (let time = 0; time <= 1200; time += 75) {
