@@ -10,13 +10,13 @@
 
 :root {
   --text-color: hsl(230, 1%, 26%);
-  --text-color-subtle: hsl(230, 1%, 56%);
+  --text-color-subtle: hsl(230, 1%, 41%);
   --text-color-highlight: hsl(230, 1%, 14%);
   --text-color-selected: hsl(230, 1%, 2%);
-  --text-color-info: hsl(208, 100%, 54%);
-  --text-color-success: hsl(132, 60%, 44%);
-  --text-color-warning: hsl(37, 90%, 44%);
-  --text-color-error: hsl(0, 90%, 56%);
+  --text-color-info: hsl(208, 100%, 35%);
+  --text-color-success: hsl(132, 60%, 29%);
+  --text-color-warning: hsl(37, 90%, 29%);
+  --text-color-error: hsl(0, 80%, 43%);
   --background-color-info: hsl(208, 100%, 56%);
   --background-color-success: hsl(132, 52%, 48%);
   --background-color-warning: hsl(40, 60%, 48%);
@@ -51,7 +51,7 @@
   --ui-font-family: system-ui;
   --use-custom-controls: true;
   --text-color-faded: hsla(230, 1%, 26%, 0.3);
-  --text-color-hint: hsl(230, 1%, 56%);
+  --text-color-hint: var(--text-color-subtle);
   --level-1-color: hsl(0, 0%, 100%);
   --level-3-color: hsl(230, 1%, 92%);
   --level-3-color-hover: hsl(230, 1%, 86%);

@@ -10,7 +10,7 @@
 
 :root {
   --text-color: hsl(220, 13%, 66%);
-  --text-color-subtle: hsla(220, 13%, 66%, 0.6);
+  --text-color-subtle: hsl(220, 10%, 64%);
   --text-color-highlight: hsl(220, 13%, 86%);
   --text-color-selected: white;
   --text-color-info: hsl(219, 79%, 66%);
@@ -51,7 +51,7 @@
   --ui-font-family: system-ui;
   --use-custom-controls: true;
   --text-color-faded: hsla(220, 13%, 66%, 0.2);
-  --text-color-hint: hsl(220, 13%, 46%);
+  --text-color-hint: var(--text-color-subtle);
   --level-1-color: hsl(220, 13%, 24%);
   --level-3-color: hsl(220, 13%, 15%);
   --level-3-color-hover: hsl(220, 13%, 21%);
@@ -64,7 +64,7 @@
   --badge-background-color: hsl(220, 13%, 28%);
   --overlay-backdrop-color: hsl(220, 13%, 3.6%);
   --overlay-backdrop-opacity: 0.75;
-  --tab-text-color: hsla(220, 13%, 66%, 0.8);
+  --tab-text-color: var(--text-color-subtle);
   --tab-inactive-status-added: hsla(140, 44%, 62%, 0.55);
   --tab-inactive-status-modified: hsla(36, 60%, 72%, 0.55);
   --tab-inactive-status-conflicted: hsla(9, 100%, 64%, 0.55);
