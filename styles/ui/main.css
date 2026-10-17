@@ -1916,3 +1916,29 @@ code {
     background-color: var(--level-3-color-active);
   }
 }
+
+/* Keep the settled UI appearance when the system requests reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  lumine-panel.modal,
+  lumine-panel.modal::after,
+  :is(
+    .loading-spinner-tiny,
+    .loading-spinner-small,
+    .loading-spinner-medium,
+    .loading-spinner-large
+  )::before,
+  :is(
+    .loading-spinner-tiny,
+    .loading-spinner-small,
+    .loading-spinner-medium,
+    .loading-spinner-large
+  )::after {
+    animation: none;
+  }
+  lumine-text-editor:is([mini], [input]),
+  .tooltip.in,
+  .tab-bar .tab .close-icon,
+  .tab-bar .tab:is(:hover, .is-hovered) .close-icon {
+    transition: none;
+  }
+}
