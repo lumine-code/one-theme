@@ -910,6 +910,15 @@ lumine-panel-container.modal {
 }
 
 lumine-panel.modal {
+  --modal-shadow-near-color: hsla(0, 0%, 0%, 0.35);
+  --modal-shadow-far-color: hsla(0, 0%, 0%, 0.55);
+
+  &[keep-open] {
+    outline: none;
+    --modal-shadow-near-color: color-mix(in srgb, var(--accent-indicator-color) 55%, transparent);
+    --modal-shadow-far-color: color-mix(in srgb, var(--accent-indicator-color) 45%, transparent);
+  }
+
   --modal-list-max-height: min(58vh, calc(var(--ui-row-height) * 20));
   --modal-query-font-size: calc(var(--ui-input-font-size) * 1.05);
   --modal-border-bottom-width: 1px;
@@ -983,8 +992,8 @@ lumine-panel.modal {
     border-radius: calc(var(--ui-border-radius) * 3);
     box-shadow:
       inset 0 0 0 1px var(--overlay-border-color),
-      0 4px 12px -4px hsla(0, 0%, 0%, 0.35),
-      0 20px 48px -12px hsla(0, 0%, 0%, 0.55);
+      0 4px 12px -4px var(--modal-shadow-near-color),
+      0 20px 48px -12px var(--modal-shadow-far-color);
   }
 
   /* Backdrop */
