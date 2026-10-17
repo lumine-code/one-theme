@@ -17,6 +17,12 @@
   --text-color-success: hsl(132, 60%, 29%);
   --text-color-warning: hsl(37, 90%, 29%);
   --text-color-error: hsl(0, 80%, 43%);
+  /* Keep Git states distinct from the darker diagnostic text palette. */
+  --text-color-added: hsl(132, 60%, 44%);
+  --text-color-modified: hsl(37, 90%, 44%);
+  --text-color-removed: hsl(0, 90%, 56%);
+  --text-color-renamed: hsl(208, 100%, 54%);
+  --text-color-conflicted: var(--text-color-removed);
   --background-color-info: hsl(208, 100%, 56%);
   --background-color-success: hsl(132, 52%, 48%);
   --background-color-warning: hsl(40, 60%, 48%);
