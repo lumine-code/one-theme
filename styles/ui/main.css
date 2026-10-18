@@ -1003,6 +1003,7 @@ lumine-panel.modal {
       inset 0 0 0 1px var(--overlay-border-color),
       0 4px 12px -4px var(--modal-shadow-near-color),
       0 20px 48px -12px var(--modal-shadow-far-color);
+    transition: box-shadow 0.18s ease;
   }
 
   /* Backdrop */
@@ -1928,6 +1929,7 @@ code {
   )::after {
     animation: none;
   }
+  lumine-panel.modal::before,
   lumine-text-editor:is([mini], [input]),
   .tooltip.in,
   .tab-bar .tab .close-icon,

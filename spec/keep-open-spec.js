@@ -21,6 +21,44 @@ function resolvedShadow(panel, value) {
   }
 }
 
+async function toggleKeepOpen(model, panel, command) {
+  const previous = appearance(panel).shadow;
+  let transition;
+  const subscription = model.onDidChangeKeepOpen(() => {
+    transition = panel
+      .getAnimations({ subtree: true })
+      .find(
+        (animation) =>
+          animation.transitionProperty === "box-shadow" &&
+          animation.effect.pseudoElement === "::before",
+      );
+    transition?.pause();
+  });
+  try {
+    await model.runAction(command);
+  } finally {
+    subscription.dispose();
+  }
+
+  const card = getComputedStyle(panel, "::before");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    expect(transition).toBeUndefined();
+    expect(card.transitionDuration).toBe("0s");
+    return;
+  }
+  expect(transition).toBeDefined();
+  expect(card.transitionProperty).toBe("box-shadow");
+  if (!transition) return;
+  const duration = transition.effect.getTiming().duration;
+  expect(duration).toBeGreaterThan(0);
+  transition.currentTime = duration / 2;
+  const intermediate = appearance(panel).shadow;
+  expect(intermediate).not.toBe(previous);
+  transition.finish();
+  await transition.finished;
+  expect(intermediate).not.toBe(appearance(panel).shadow);
+}
+
 describe("one-theme keep-open modal shadow", () => {
   for (const theme of ["one-day-ui", "one-night-ui"]) {
     it(`tints and restores the existing shadow without changing borders or radii in ${theme}`, async () => {
@@ -53,7 +91,7 @@ describe("one-theme keep-open modal shadow", () => {
         expect(action.context).toBe("dialog");
         expect(action.keystrokes).toEqual(["f12"]);
 
-        await model.runAction(action.command);
+        await toggleKeepOpen(model, panel, action.command);
         const retained = appearance(panel);
         expect(model.isKeepOpen()).toBe(true);
         expect(host.isVisible()).toBe(true);
@@ -70,7 +108,7 @@ describe("one-theme keep-open modal shadow", () => {
           ),
         );
 
-        await model.runAction(action.command);
+        await toggleKeepOpen(model, panel, action.command);
         expect(model.isKeepOpen()).toBe(false);
         expect(panel.hasAttribute("keep-open")).toBe(false);
         expect(appearance(panel)).toEqual(normal);
