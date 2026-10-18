@@ -34,6 +34,7 @@
   --button-background-color: hsl(220, 13%, 24%);
   --button-background-color-hover: hsl(220, 13%, 26%);
   --button-background-color-selected: var(--accent-background-color);
+  --button-border-color: var(--input-border-color);
   --tab-bar-background-color: hsl(220, 13%, 15%);
   --scrollbar-color: hsl(220, 13%, 34%);
   --ui-site-color-1: hsl(208, 100%, 50%);
