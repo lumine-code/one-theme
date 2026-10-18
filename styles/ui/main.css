@@ -19,13 +19,17 @@ lumine-workspace {
     height: 10px;
   }
 
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+
   ::-webkit-scrollbar-track {
     background: var(--scrollbar-background-color);
   }
 
   ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    border: 3px solid var(--scrollbar-background-color);
+    border: 3px solid transparent;
     background: var(--scrollbar-color);
     background-clip: content-box;
   }
@@ -42,23 +46,36 @@ lumine-workspace {
       background: var(--scrollbar-background-color-editor);
     }
     ::-webkit-scrollbar-thumb {
-      border-color: var(--scrollbar-background-color-editor);
-      background: var(--scrollbar-color-editor);
+      background-color: var(--scrollbar-color-editor);
     }
   }
+}
+
+.scrollbars-visible-always ::-webkit-scrollbar-track:vertical {
+  box-shadow: inset 1px 0 0 color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+.scrollbars-visible-always ::-webkit-scrollbar-track:horizontal {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+.scrollbars-visible-always ::-webkit-scrollbar-corner {
+  box-shadow:
+    inset 1px 0 0 color-mix(in srgb, var(--text-color) 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--text-color) 10%, transparent);
 }
 
 /* Held-thumb rules must stay un-nested: Chromium never matches a
    :hover/:active scrollbar-part rule whose selector comes from CSS nesting. */
 .scrollbars-visible-always ::-webkit-scrollbar-thumb:vertical:active {
   border-radius: 0;
-  border-left-width: 0;
+  border-left-width: 1px;
   border-right-width: 0;
 }
 
 .scrollbars-visible-always ::-webkit-scrollbar-thumb:horizontal:active {
   border-radius: 0;
-  border-top-width: 0;
+  border-top-width: 1px;
   border-bottom-width: 0;
 }
 
