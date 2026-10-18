@@ -10,7 +10,7 @@
 
 :root {
   --text-color: hsl(220, 13%, 66%);
-  --text-color-subtle: hsl(220, 10%, 64%);
+  --text-color-subtle: hsla(220, 13%, 66%, 0.6);
   --text-color-highlight: hsl(220, 13%, 86%);
   --text-color-selected: white;
   --text-color-info: hsl(219, 79%, 66%);
@@ -58,7 +58,7 @@
   --level-3-color-active: hsl(220, 13%, 18%);
   --accent-indicator-color: #568af2;
   --accent-indicator-text-color: hsl(220, 100%, 10%);
-  --accent-background-color: #486fbe;
+  --accent-background-color: #4d78cc;
   --accent-foreground-color: #fff;
   --accent-link-color: #759ef2;
   --badge-background-color: hsl(220, 13%, 28%);

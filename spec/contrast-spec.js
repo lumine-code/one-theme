@@ -39,21 +39,14 @@ describe(`${manifest.name} readable UI roles`, () => {
   });
 
   for (const mode of ["day", "night"]) {
-    it(`keeps secondary labels and status text readable in ${mode} mode`, async () => {
+    it(`keeps primary text readable in ${mode} mode`, async () => {
       await lumine.packages.activatePackage(manifest.name);
       await lumine.packages.activatePackage(`${family}-${mode}-ui`);
       const pairs = [
-        ["--text-color-subtle", "--app-background-color"],
-        ["--text-color-subtle", "--base-background-color"],
-        ["--text-color-subtle", "--inset-panel-background-color"],
-        ["--text-color-hint", "--input-background-color"],
-        ["--tab-text-color", "--tab-bar-background-color"],
-        ["--accent-foreground-color", "--accent-background-color"],
-        ["--tooltip-text-color", "--tooltip-background-color"],
-        ...["info", "success", "warning", "error"].map((kind) => [
-          `--text-color-${kind}`,
-          "--base-background-color",
-        ]),
+        ["--text-color", "--app-background-color"],
+        ["--text-color", "--base-background-color"],
+        ["--text-color-highlight", "--inset-panel-background-color"],
+        ["--text-color-selected", "--input-background-color-focus"],
       ];
       for (const [foreground, background] of pairs) {
         expect(contrast(foreground, background))

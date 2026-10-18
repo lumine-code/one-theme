@@ -10,14 +10,14 @@
 
 :root {
   --text-color: hsl(230, 1%, 26%);
-  --text-color-subtle: hsl(230, 1%, 41%);
+  --text-color-subtle: hsl(230, 1%, 56%);
   --text-color-highlight: hsl(230, 1%, 14%);
   --text-color-selected: hsl(230, 1%, 2%);
-  --text-color-info: hsl(208, 100%, 35%);
-  --text-color-success: hsl(132, 60%, 29%);
-  --text-color-warning: hsl(37, 90%, 29%);
-  --text-color-error: hsl(0, 80%, 43%);
-  /* Keep Git states distinct from the darker diagnostic text palette. */
+  --text-color-info: hsl(208, 100%, 54%);
+  --text-color-success: hsl(132, 60%, 44%);
+  --text-color-warning: hsl(37, 90%, 44%);
+  --text-color-error: hsl(0, 90%, 56%);
+  /* Keep the original Git palette independent of diagnostic overrides. */
   --text-color-added: hsl(132, 60%, 44%);
   --text-color-modified: hsl(37, 90%, 44%);
   --text-color-removed: hsl(0, 90%, 56%);
@@ -33,6 +33,9 @@
   --base-background-color: hsl(230, 1%, 98%);
   --base-border-color: hsl(230, 1%, 86%);
   --input-background-color: hsl(0, 0%, 100%);
+  --input-background-color-focus: hsl(230, 100%, 96%);
+  --input-selection-color: #e2e6fc;
+  --input-selection-color-focus: #cbd2f9;
   --inset-panel-background-color: hsl(0, 0%, 100%);
   --inset-panel-border-color: hsla(230, 1%, 86%, 0.85);
   --panel-heading-background-color: hsl(230, 1%, 98%);
@@ -62,16 +65,16 @@
   --level-3-color: hsl(230, 1%, 92%);
   --level-3-color-hover: hsl(230, 1%, 86%);
   --level-3-color-active: hsl(230, 1%, 89%);
-  --accent-indicator-color: #5268df;
+  --accent-indicator-color: #556de8;
   --accent-indicator-text-color: #fff;
-  --accent-background-color: #4c64db;
+  --accent-background-color: #5871ef;
   --accent-foreground-color: #fff;
   --accent-link-color: #304ee2;
   --badge-background-color: hsl(230, 1%, 86%);
   --button-border-color-selected: var(--accent-indicator-color);
   --overlay-backdrop-color: hsl(230, 0.4%, 78.4%);
   --overlay-backdrop-opacity: 0.66;
-  --tab-text-color: hsl(230, 1%, 40%);
+  --tab-text-color: var(--text-color-subtle);
   --tab-inactive-status-added: hsla(132, 60%, 44%, 0.77);
   --tab-inactive-status-modified: hsla(37, 90%, 44%, 0.77);
   --tab-inactive-status-conflicted: hsla(0, 90%, 56%, 0.77);
