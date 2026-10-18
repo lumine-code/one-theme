@@ -1695,45 +1695,29 @@ code {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-highlight);
-  background-color: color-mix(
-    in srgb,
-    var(--background-color-info) 30%,
-    var(--base-background-color)
-  );
+  color: var(--text-color-on-info);
+  background-color: var(--background-color-info);
 }
 .highlight-warning {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-highlight);
-  background-color: color-mix(
-    in srgb,
-    var(--background-color-warning) 30%,
-    var(--base-background-color)
-  );
+  color: var(--text-color-on-warning);
+  background-color: var(--background-color-warning);
 }
 .highlight-error {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-highlight);
-  background-color: color-mix(
-    in srgb,
-    var(--background-color-error) 30%,
-    var(--base-background-color)
-  );
+  color: var(--text-color-on-error);
+  background-color: var(--background-color-error);
 }
 .highlight-success {
   padding: 1px 4px;
   border-radius: 2px;
   font-weight: 500;
-  color: var(--text-color-highlight);
-  background-color: color-mix(
-    in srgb,
-    var(--background-color-success) 30%,
-    var(--base-background-color)
-  );
+  color: var(--text-color-on-success);
+  background-color: var(--background-color-success);
 }
 
 .results-view .path-details.list-item {

@@ -235,13 +235,14 @@ describe("one-theme", () => {
     const fixture = document.createElement("div");
     document.body.appendChild(fixture);
     const color = "rgb(1, 2, 3)";
-    fixture.style.setProperty("--text-color-highlight", color);
-
     for (const kind of ["info", "warning", "error", "success"]) {
+      fixture.style.setProperty(`--text-color-on-${kind}`, color);
+      fixture.style.setProperty(`--background-color-${kind}`, "rgb(20, 40, 60)");
       const highlight = document.createElement("span");
       highlight.className = `highlight-${kind}`;
       fixture.appendChild(highlight);
       expect(getComputedStyle(highlight).color).toBe(color);
+      expect(getComputedStyle(highlight).backgroundColor).toBe("rgb(20, 40, 60)");
     }
 
     fixture.remove();
