@@ -55,6 +55,10 @@ lumine-workspace {
   box-shadow: inset 1px 0 0 color-mix(in srgb, var(--text-color) 10%, transparent);
 }
 
+.scrollbars-visible-always .tree-view-scroller::-webkit-scrollbar-track:vertical {
+  box-shadow: inset 1px 1px 0 color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
 .scrollbars-visible-always ::-webkit-scrollbar-track:horizontal {
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-color) 10%, transparent);
 }
