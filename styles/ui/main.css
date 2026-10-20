@@ -14,6 +14,12 @@ lumine-workspace {
 /* Scrollbars ------------------------------------ */
 
 .scrollbars-visible-always {
+  --scrollbar-left-border-width: 1px;
+
+  lumine-dock {
+    --scrollbar-left-border-width: 0px;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -52,11 +58,13 @@ lumine-workspace {
 }
 
 .scrollbars-visible-always ::-webkit-scrollbar-track:vertical {
-  box-shadow: inset 1px 0 0 color-mix(in srgb, var(--text-color) 6%, transparent);
+  box-shadow: inset var(--scrollbar-left-border-width) 0 0
+    color-mix(in srgb, var(--text-color) 6%, transparent);
 }
 
 .scrollbars-visible-always .tree-view-scroller::-webkit-scrollbar-track:vertical {
-  box-shadow: inset 1px 1px 0 color-mix(in srgb, var(--text-color) 6%, transparent);
+  box-shadow: inset var(--scrollbar-left-border-width) 1px 0
+    color-mix(in srgb, var(--text-color) 6%, transparent);
 }
 
 .scrollbars-visible-always ::-webkit-scrollbar-track:horizontal {
@@ -65,7 +73,8 @@ lumine-workspace {
 
 .scrollbars-visible-always ::-webkit-scrollbar-corner {
   box-shadow:
-    inset 1px 0 0 color-mix(in srgb, var(--text-color) 6%, transparent),
+    inset var(--scrollbar-left-border-width) 0 0
+      color-mix(in srgb, var(--text-color) 6%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--text-color) 6%, transparent);
 }
 
@@ -73,7 +82,7 @@ lumine-workspace {
    :hover/:active scrollbar-part rule whose selector comes from CSS nesting. */
 .scrollbars-visible-always ::-webkit-scrollbar-thumb:vertical:active {
   border-radius: 0;
-  border-left-width: 1px;
+  border-left-width: var(--scrollbar-left-border-width);
   border-right-width: 0;
 }
 
