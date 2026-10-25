@@ -1619,8 +1619,8 @@ lumine-pane-container > lumine-pane.pane {
   }
 }
 
-/* hide marker in docks */
-lumine-dock .tab-bar .tab::before {
+/* Docks mark only the selected tab whose pane has focus. */
+lumine-dock .pane:not(:focus-within) .tab-bar .tab::before {
   display: none;
 }
 
