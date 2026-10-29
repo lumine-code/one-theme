@@ -178,13 +178,12 @@ lumine-workspace {
     color: var(--button-text-color-selected);
     background: var(--button-background-color-selected);
   }
-  &.selected:focus,
+  &.selected:focus-visible,
   &.selected:hover {
     color: var(--button-text-color-selected);
     background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -216,13 +215,12 @@ lumine-workspace {
     color: var(--button-text-color-selected);
     background: var(--button-background-color-selected);
   }
-  &.selected:focus,
+  &.selected:focus-visible,
   &.selected:hover {
     color: var(--button-text-color-selected);
     background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -254,12 +252,11 @@ lumine-workspace {
   &.selected {
     background: hsl(from var(--accent-background-color) h calc(s + 20) calc(l - 12));
   }
-  &.selected:focus,
+  &.selected:focus-visible,
   &.selected:hover {
     background: hsl(from var(--accent-background-color) h calc(s + 20) calc(l - 10));
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -270,10 +267,10 @@ lumine-workspace {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: var(--accent-foreground-color);
   }
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -305,8 +302,7 @@ lumine-workspace {
     background: hsl(from var(--background-color-info) h s calc(l - 4));
     box-shadow: none;
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -317,10 +313,10 @@ lumine-workspace {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: var(--text-color-on-info);
   }
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -352,8 +348,7 @@ lumine-workspace {
     background: hsl(from var(--background-color-success) h s calc(l - 4));
     box-shadow: none;
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -364,10 +359,10 @@ lumine-workspace {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: var(--text-color-on-success);
   }
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -399,8 +394,7 @@ lumine-workspace {
     background: hsl(from var(--background-color-warning) h s calc(l - 4));
     box-shadow: none;
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -411,10 +405,10 @@ lumine-workspace {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: var(--text-color-on-warning);
   }
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -453,8 +447,7 @@ lumine-workspace {
     background: hsl(from var(--background-color-error) h s calc(l - 4));
     box-shadow: none;
   }
-  &:focus {
-    /* unfortunately :focus styles stay even after releasing mouse. */
+  &:focus-visible {
     outline: none;
     border-color: var(--accent-indicator-color);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -465,10 +458,10 @@ lumine-workspace {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: var(--text-color-on-error);
   }
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     background-clip: padding-box;
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
@@ -487,7 +480,7 @@ lumine-workspace {
   color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
   background: var(--btn-selected-background);
 
-  &:is(:focus, :hover) {
+  &:is(:focus-visible, :hover) {
     --btn-selected-background: hsl(from var(--btn-variant-background) h calc(s + 20) calc(l - 10));
     color: lch(from var(--btn-selected-background) calc((49.44 - l) * infinity) 0 0);
     background: var(--btn-selected-background);
@@ -526,7 +519,7 @@ lumine-workspace {
   &:hover {
     z-index: 0;
   }
-  &.btn:focus {
+  &.btn:focus-visible {
     z-index: 1;
     outline: none;
     border-color: var(--accent-indicator-color);
@@ -579,7 +572,7 @@ lumine-workspace {
     }
   }
 
-  &.selected:focus {
+  &.selected:focus-visible {
     border-color: var(--button-background-color-selected);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
   }
@@ -742,13 +735,21 @@ lumine-text-editor[mini] {
 
 /* States ------------------------- */
 
-.input-checkbox,
+.input-checkbox:focus-visible,
+.input-radio:focus-visible,
+.input-toggle:focus-visible,
+.input-range:focus-visible,
+.input-select:focus-visible,
+.input-color:focus-visible {
+  outline: none;
+  border-color: var(--accent-indicator-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 28%, transparent);
+}
+
 .input-text,
 .input-search,
 .input-number,
-.input-textarea,
-.input-select,
-.input-color {
+.input-textarea {
   &:focus {
     outline: none;
     border-color: var(--accent-indicator-color);
@@ -1136,13 +1137,12 @@ lumine-panel {
       color: var(--button-text-color-selected);
       background: var(--button-background-color-selected);
     }
-    &.selected:focus,
+    &.selected:focus-visible,
     &.selected:hover {
       color: var(--button-text-color-selected);
       background: hsl(from var(--button-background-color-selected) h s calc(l - 2));
     }
-    &:focus {
-      /* unfortunately :focus styles stay even after releasing mouse. */
+    &:focus-visible {
       outline: none;
       border-color: var(--accent-indicator-color);
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-indicator-color) 30%, transparent);
