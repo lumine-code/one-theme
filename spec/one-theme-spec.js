@@ -828,8 +828,12 @@ describe("one-theme", () => {
       expect(track.getBoundingClientRect().height).toBe(list.clientHeight);
       const listStyle = getComputedStyle(list);
       expect(list.offsetWidth - list.clientWidth).toBe(
-        parseFloat(listStyle.borderLeftWidth) + parseFloat(listStyle.borderRightWidth),
+        parseFloat(listStyle.borderLeftWidth) +
+          parseFloat(listStyle.borderRightWidth) +
+          lumine.scrollbars.getGeometry(list).verticalSize,
       );
+      expect(controller.geometry.layout).toBe("gutter");
+      expect(controller.layer.classList.contains("is-persistent")).toBeTrue();
     } finally {
       controller.dispose();
       modal.remove();
