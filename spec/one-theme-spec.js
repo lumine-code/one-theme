@@ -806,22 +806,34 @@ describe("one-theme", () => {
     selectList.className = "select-list";
     const list = document.createElement("ol");
     list.className = "list-group";
+    list.style.cssText = "width:200px;height:100px;max-height:none;overflow:auto";
+    for (let index = 0; index < 20; index++) {
+      const item = document.createElement("li");
+      item.textContent = `Entry ${index}`;
+      item.style.height = "20px";
+      list.appendChild(item);
+    }
     selectList.appendChild(list);
     modal.appendChild(selectList);
     document.body.appendChild(modal);
 
-    // Anything that stops the track short of the scrollbar's ends — a margin,
-    // or a radius large enough to round them off — uncovers `::-webkit-scrollbar`
-    // itself, and nothing paints that, so the list background shows through as a
-    // pale stub at each end instead of the track colour.
-    const trackStyle = getComputedStyle(list, "::-webkit-scrollbar-track");
-    const cornerStyle = getComputedStyle(list, "::-webkit-scrollbar-corner");
-    expect(trackStyle.marginTop).toBe("0px");
-    expect(trackStyle.marginBottom).toBe("0px");
-    expect(trackStyle.borderRadius).toBe("0px");
-    expect(cornerStyle.backgroundColor).toBe("rgba(0, 0, 0, 0)");
-
-    modal.remove();
+    const controller = lumine.scrollbars.attach(list);
+    try {
+      controller.write(controller.read());
+      const track = controller.vertical.element;
+      const trackStyle = getComputedStyle(track);
+      expect(trackStyle.marginTop).toBe("0px");
+      expect(trackStyle.marginBottom).toBe("0px");
+      expect(trackStyle.borderRadius).toBe("0px");
+      expect(track.getBoundingClientRect().height).toBe(list.clientHeight);
+      const listStyle = getComputedStyle(list);
+      expect(list.offsetWidth - list.clientWidth).toBe(
+        parseFloat(listStyle.borderLeftWidth) + parseFloat(listStyle.borderRightWidth),
+      );
+    } finally {
+      controller.dispose();
+      modal.remove();
+    }
   });
 
   // A tile is the element a bar stamps its own class on. `.inline-block` is a
