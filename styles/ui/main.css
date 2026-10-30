@@ -1556,6 +1556,10 @@ lumine-pane-container > lumine-pane.pane {
   .tab.active:before {
     background: var(--accent-indicator-color);
   }
+
+  > .tab-bar.icons-only .tab.active .title {
+    color: var(--accent-indicator-color);
+  }
 }
 
 /* Docks mark only the selected tab whose pane has focus. */
