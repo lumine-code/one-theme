@@ -207,6 +207,38 @@ describe("one-theme", () => {
     }
   });
 
+  it("gives shared dock close buttons the normal tab close surface and glyph size", async () => {
+    await lumine.packages.activatePackage("one-theme");
+    for (const mode of ["day", "night"]) {
+      await lumine.packages.activatePackage(`one-${mode}-ui`);
+      const fixture = document.createElement("div");
+      fixture.style.fontSize = "12px";
+      fixture.innerHTML =
+        '<ul class="tab-bar"><li class="tab"><span class="close-icon"></span></li></ul><button class="dock-tab-close" style="font: inherit"><span class="close-icon"></span></button>';
+      jasmine.attachToDOM(fixture);
+      try {
+        const normal = fixture.querySelector(".tab .close-icon");
+        const shared = fixture.querySelector(".dock-tab-close > .close-icon");
+        for (const property of ["width", "height", "fontSize", "lineHeight", "borderRadius"]) {
+          expect(getComputedStyle(shared)[property])
+            .withContext(`${mode} ${property}`)
+            .toBe(getComputedStyle(normal)[property]);
+        }
+        expect(getComputedStyle(shared).width).toBe("18px");
+        expect(getComputedStyle(shared, "::before").fontSize).toBe(
+          getComputedStyle(normal, "::before").fontSize,
+        );
+        expect(Number.parseFloat(getComputedStyle(shared, "::before").fontSize)).toBeCloseTo(
+          13.2,
+          1,
+        );
+      } finally {
+        fixture.remove();
+        await lumine.packages.deactivatePackage(`one-${mode}-ui`);
+      }
+    }
+  });
+
   it("limits minimum-sized tabs more tightly inside docks", async () => {
     await lumine.packages.activatePackage("one-theme");
     await lumine.packages.activatePackage("one-day-ui");
