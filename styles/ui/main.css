@@ -11,6 +11,18 @@ lumine-workspace {
   background-color: var(--app-background-color);
 }
 
+:root {
+  --scrollbar-border-color: color-mix(in srgb, var(--text-color) 7%, transparent);
+}
+
+.lumine-scrollbar.horizontal:not(.is-dragging) > .scrollbar-thumb:not(:hover) {
+  background-color: rgb(from var(--scrollbar-color) r g b / min(alpha, 0.4));
+}
+
+lumine-text-editor .lumine-scrollbar.horizontal:not(.is-dragging) > .scrollbar-thumb:not(:hover) {
+  background-color: rgb(from var(--scrollbar-color-editor) r g b / min(alpha, 0.4));
+}
+
 /* Dropdown caret */
 .caret {
   border-top: 5px solid currentColor;
