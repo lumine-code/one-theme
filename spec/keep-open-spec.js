@@ -76,6 +76,10 @@ describe("one-theme keep-open modal shadow", () => {
         await host.show();
         const model = host.getModel();
         const panel = host.getPanel().getElement();
+        expect(getComputedStyle(panel, "::after").backdropFilter).toBe("blur(3px)");
+        panel.style.setProperty("--overlay-backdrop-blur", "5px");
+        expect(getComputedStyle(panel, "::after").backdropFilter).toBe("blur(5px)");
+        panel.style.removeProperty("--overlay-backdrop-blur");
         const normal = appearance(panel);
         expect(normal.cardRadius).toBe("9px");
         expect(normal.listRadius).toBe("6px");
