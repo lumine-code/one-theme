@@ -13,6 +13,11 @@ lumine-workspace {
 
 :root {
   --scrollbar-border-color: color-mix(in srgb, var(--text-color) 7%, transparent);
+  --pane-active-indicator-color: color-mix(
+    in srgb,
+    var(--text-color) 33%,
+    var(--tab-background-color-editor)
+  );
 }
 
 .lumine-scrollbar.horizontal:not(.is-dragging) > .scrollbar-thumb:not(:hover) {
@@ -1560,7 +1565,7 @@ lumine-pane.active {
     left: -1px; /* cover left border */
     bottom: 0;
     width: 2px;
-    background: color-mix(in srgb, var(--text-color) 33%, var(--tab-background-color-editor));
+    background: var(--pane-active-indicator-color);
   }
 }
 .pane:is(:focus-within, :has(:focus)) {
