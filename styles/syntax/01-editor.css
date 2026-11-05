@@ -58,7 +58,7 @@ lumine-text-editor {
       }
     }
 
-    &:not(.git-diff-icon) .line-number.git-line-removed {
+    &:not(.git-chunk-icon) .line-number.git-line-removed {
       &.git-line-removed::before {
         bottom: -3px;
       }
