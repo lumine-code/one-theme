@@ -68,6 +68,16 @@ jasmine.describeWithDocumentFocus("One pane presentation focus markers", () => {
         expect(pane.getElement().parentElement).toBe(presentation.slot);
         expect(document.activeElement).toBe(input);
         assertMarker();
+        const wasBlurred = document.body.classList.contains("is-blurred");
+        document.body.classList.add("is-blurred");
+        try {
+          expect(document.activeElement).toBe(input);
+          expect(pane.getElement().classList.contains("active")).toBeTrue();
+          expect(getComputedStyle(tab, "::before").backgroundColor).toBe(neutral);
+        } finally {
+          document.body.classList.toggle("is-blurred", wasBlurred);
+        }
+        assertMarker();
         input.setSelectionRange(input.value.length, input.value.length);
         input.setRangeText(" document", input.selectionStart, input.selectionEnd, "end");
         expect(input.value).toBe("Editable document");

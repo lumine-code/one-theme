@@ -1571,7 +1571,7 @@ lumine-pane.active {
     background: var(--pane-active-indicator-color);
   }
 }
-.pane:is(:focus-within, :has(:focus)) {
+body:not(.is-blurred) .pane:is(.is-focused, :focus-within, :has(:focus)) {
   .tab.active:before {
     background: var(--accent-indicator-color);
   }
@@ -1581,8 +1581,9 @@ lumine-pane.active {
   }
 }
 
-/* Docks mark only the selected tab whose pane has focus. */
-lumine-dock .pane:not(:focus-within, :has(:focus)) .tab-bar .tab::before {
+/* Docks mark only the selected tab whose pane and window have focus. */
+body.is-blurred lumine-dock .pane .tab-bar .tab::before,
+lumine-dock .pane:not(.is-focused, :focus-within, :has(:focus)) .tab-bar .tab::before {
   display: none;
 }
 

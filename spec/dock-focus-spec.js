@@ -94,6 +94,27 @@ describe("One focused dock icon colors", () => {
         expect(document.activeElement).withContext(location).toBe(item.secondInput);
         expect(getComputedStyle(selected).color).withContext(location).toBe(accent);
 
+        const selectedTab = selected.closest(".tab");
+        expect(getComputedStyle(selectedTab, "::before").display)
+          .withContext(location)
+          .not.toBe("none");
+        const wasBlurred = document.body.classList.contains("is-blurred");
+        document.body.classList.add("is-blurred");
+        try {
+          expect(document.activeElement).withContext(location).toBe(item.secondInput);
+          expect(getComputedStyle(selected).color).withContext(location).toBe(neutralSelected);
+          expect(getComputedStyle(inactive).color).withContext(location).toBe(neutralInactive);
+          expect(getComputedStyle(selectedTab, "::before").display)
+            .withContext(location)
+            .toBe("none");
+        } finally {
+          document.body.classList.toggle("is-blurred", wasBlurred);
+        }
+        expect(getComputedStyle(selected).color).withContext(location).toBe(accent);
+        expect(getComputedStyle(selectedTab, "::before").display)
+          .withContext(location)
+          .not.toBe("none");
+
         centerItem.firstInput.focus();
         expect(pane.getActiveItem()).withContext(location).toBe(item);
         expect(getComputedStyle(selected).color).withContext(location).toBe(neutralSelected);
