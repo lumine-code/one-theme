@@ -165,8 +165,11 @@ lumine-text-editor .lumine-scrollbar.horizontal:not(.is-dragging) > .scrollbar-t
 /* .btn-variant() mixin, expanded per variant */
 
 .btn.btn-primary {
-  text-shadow: none;
   border: 1px solid var(--button-border-color);
+}
+
+:is(.btn.btn-primary, .accent-control) {
+  text-shadow: none;
   background-color: var(--accent-background-color);
   background-image: linear-gradient(
     hsl(from var(--accent-background-color) h s calc(l + 2)),
@@ -1808,15 +1811,20 @@ code {
   }
 }
 
-.status-bar .status-bar-item:hover,
+.status-bar .status-bar-item:not(.accent-control):hover,
 .tab-bar.icons-only .tab:is(:hover, .is-hovered):not(.is-dragging) .title {
   text-decoration: none;
   background-color: var(--level-3-color-hover);
 }
 
-.status-bar .status-bar-item:active,
+.status-bar .status-bar-item:not(.accent-control):active,
 .tab-bar.icons-only .tab:active:not(.is-dragging) .title {
   background-color: var(--level-3-color-active);
+}
+
+.status-bar .accent-control:focus-visible {
+  outline: 1px solid var(--accent-foreground-color);
+  outline-offset: -1px;
 }
 
 /* 18-key-binding.css */
