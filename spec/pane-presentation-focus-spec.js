@@ -57,7 +57,7 @@ jasmine.describeWithDocumentFocus("One pane presentation focus markers", () => {
         const assertMarker = () => {
           const marker = getComputedStyle(tab, "::before");
           expect(marker.content).toBe('""');
-          expect(marker.height).toBe("2px");
+          expect(marker.width).toBe("2px");
           expect(marker.backgroundColor).toBe(accent);
           expect(pane.getElement().classList.contains("active")).toBeTrue();
         };
