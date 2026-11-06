@@ -1563,8 +1563,8 @@ lumine-pane.active {
     z-index: 2;
     top: 0;
     left: -1px; /* cover left border */
-    bottom: 0;
-    width: 2px;
+    right: 0;
+    height: 2px;
     background: var(--pane-active-indicator-color);
   }
 }
