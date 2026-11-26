@@ -214,7 +214,7 @@ describe("one-theme", () => {
       const fixture = document.createElement("div");
       fixture.style.fontSize = "12px";
       fixture.innerHTML =
-        '<ul class="tab-bar"><li class="tab"><span class="close-icon"></span></li></ul><button class="dock-tab-close" style="font: inherit"><span class="close-icon"></span></button>';
+        '<ul class="tab-bar"><li class="tab"><span class="close-icon"></span></li></ul><button class="dock-tab-close icon-button icon-button-no-scale" type="button" aria-label="Close tab"><span class="close-icon icon-button-glyph"></span></button>';
       jasmine.attachToDOM(fixture);
       try {
         const normal = fixture.querySelector(".tab .close-icon");
@@ -231,6 +231,9 @@ describe("one-theme", () => {
         expect(Number.parseFloat(getComputedStyle(shared, "::before").fontSize)).toBeCloseTo(
           13.2,
           1,
+        );
+        expect(getComputedStyle(shared).transitionProperty).toBe(
+          getComputedStyle(normal).transitionProperty,
         );
       } finally {
         fixture.remove();

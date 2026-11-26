@@ -839,8 +839,8 @@ lumine-notifications {
       font-size: 0.85em;
     }
 
-    &.icon:before {
-      padding-top: 0.85em;
+    .notification-rail {
+      --notifications-icon-inset: 0.85em;
     }
     .close {
       width: 2.5em;
